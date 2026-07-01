@@ -80,6 +80,11 @@ if (( ${#packageList[@]} == 0 )); then
     return 0
 fi
 
+if ! command -v swaync &>/dev/null; then
+    echo "swaync"
+    packageList+=("swaync")
+fi
+
 echo "The following packages are missing and will be installed:"
 printf '  %s\n' "${packageList[@]}"
 echo ""

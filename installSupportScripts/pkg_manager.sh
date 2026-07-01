@@ -30,6 +30,7 @@ _resolve_pkg() {
             case "$logical" in
                 rsync)            echo "rsync" ;;
                 rofi)             echo "rofi" ;;
+                swaync)           echo "swaync" ;;
                 kconfig)          echo "kconfig" ;;
                 plasma-desktop)   echo "plasma-desktop" ;;
                 plasma-workspace) echo "plasma-workspace" ;;
@@ -41,6 +42,7 @@ _resolve_pkg() {
             case "$logical" in
                 rsync)            echo "rsync" ;;
                 rofi)             echo "rofi" ;;
+                swaync)           echo "swaync" ;;   # UNVERIFIED — check manually, may not be in Debian stable/Ubuntu
                 kconfig)          echo "libkf6config-bin" ;;
                 plasma-desktop)   echo "kde-plasma-desktop" ;;
                 plasma-workspace) echo "plasma-workspace" ;;
@@ -52,6 +54,7 @@ _resolve_pkg() {
             case "$logical" in
                 rsync)            echo "rsync" ;;
                 rofi)             echo "rofi" ;;
+                swaync)           echo "swaync" ;;
                 kconfig)          echo "kf6-kconfig" ;;
                 plasma-desktop)   echo "plasma-desktop" ;;
                 plasma-workspace) echo "plasma-workspace" ;;
@@ -63,6 +66,7 @@ _resolve_pkg() {
             case "$logical" in
                 rsync)            echo "rsync" ;;
                 rofi)             echo "rofi" ;;
+                swaync)           echo "swaync" ;;   # UNVERIFIED — check manually
                 kconfig)          echo "kconfig6" ;;   # UNVERIFIED — check manually
                 plasma-desktop)   echo "patterns-kde-kde_plasma" ;;
                 plasma-workspace) echo "plasma6-workspace" ;;

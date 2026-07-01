@@ -42,7 +42,7 @@ echo ""
 # ~/.config/matugen, ~/.config/rofi, ~/.config/waybar. Confirm this matches
 # what's actually inside those folders before relying on it.
 
-CONFIG_DIRS=("hypr" "matugen" "rofi" "waybar")
+CONFIG_DIRS=("hypr" "matugen" "rofi" "waybar" "swaync")
 
 echo "=== Syncing configs ==="
 mkdir -p "$CONFIG_HOME"
