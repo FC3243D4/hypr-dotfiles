@@ -29,6 +29,7 @@ _resolve_pkg() {
         pacman)
             case "$logical" in
                 rsync)            echo "rsync" ;;
+                rofi)             echo "rofi" ;;
                 kconfig)          echo "kconfig" ;;
                 plasma-desktop)   echo "plasma-desktop" ;;
                 plasma-workspace) echo "plasma-workspace" ;;
@@ -39,6 +40,7 @@ _resolve_pkg() {
         apt)
             case "$logical" in
                 rsync)            echo "rsync" ;;
+                rofi)             echo "rofi" ;;
                 kconfig)          echo "libkf6config-bin" ;;
                 plasma-desktop)   echo "kde-plasma-desktop" ;;
                 plasma-workspace) echo "plasma-workspace" ;;
@@ -49,6 +51,7 @@ _resolve_pkg() {
         dnf)
             case "$logical" in
                 rsync)            echo "rsync" ;;
+                rofi)             echo "rofi" ;;
                 kconfig)          echo "kf6-kconfig" ;;
                 plasma-desktop)   echo "plasma-desktop" ;;
                 plasma-workspace) echo "plasma-workspace" ;;
@@ -59,6 +62,7 @@ _resolve_pkg() {
         zypper)
             case "$logical" in
                 rsync)            echo "rsync" ;;
+                rofi)             echo "rofi" ;;
                 kconfig)          echo "kconfig6" ;;   # UNVERIFIED — check manually
                 plasma-desktop)   echo "patterns-kde-kde_plasma" ;;
                 plasma-workspace) echo "plasma6-workspace" ;;

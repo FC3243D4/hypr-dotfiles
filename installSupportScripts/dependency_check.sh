@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # dependency_check.sh
 # Checks for required dependencies and installs any that are missing.
-# Meant to be SOURCED from install-Linux.sh (not executed) so that
+# Meant to be SOURCED from install.sh (not executed) so that
 # UseXrandr / UseWayland are visible to the caller.
 #
 # Returns 0 on success, 1 on failure (caller should check $? and stop).
@@ -22,6 +22,10 @@ fi
 if ! waybar --version &> /dev/null; then
     echo "waybar"
     packageList+=("waybar")
+fi
+if ! command -v rofi &>/dev/null; then
+    echo "rofi"
+    packageList+=("rofi")
 fi
 if ! command -v openrgb &>/dev/null; then
     echo "openrgb is not installed. You will not have the wallpaper's dominant color applied to your devices. Please install openrgb if you want this feature."
