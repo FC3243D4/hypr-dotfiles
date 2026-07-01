@@ -65,11 +65,6 @@ if ! command -v dolphin &>/dev/null; then
     packageList+=("kde-applications")
 fi
 
-if ! command -v kwriteconfig6 &>/dev/null; then
-    echo "kwriteconfig6"
-    packageList+=("kconfig")
-fi
-
 if ! command -v plasma-apply-colorscheme &>/dev/null; then
     echo "plasma-apply-colorscheme"
     packageList+=("plasma-workspace")
@@ -80,11 +75,6 @@ if (( ${#packageList[@]} == 0 )); then
     return 0
 fi
 
-if ! command -v swaync &>/dev/null; then
-    echo "swaync"
-    packageList+=("swaync")
-fi
-
 echo "The following packages are missing and will be installed:"
 printf '  %s\n' "${packageList[@]}"
 echo ""
@@ -93,6 +83,13 @@ sync_repos
 if ! install_pkgs "${packageList[@]}"; then
     echo "Package installation failed. Please install the packages listed above manually and re-run this script."
     return 1
+fi
+
+if ! command -v kwriteconfig6 &>/dev/null; then
+    echo ""
+    echo "Warning: kwriteconfig6 still not found after installing KDE packages."
+    echo "This is unexpected (it's normally pulled in as a dependency of plasma-workspace)."
+    echo "Please check your distro's KConfig package manually — matugen's KDE color-scheme patcher needs it."
 fi
 
 echo "All missing packages installed successfully."

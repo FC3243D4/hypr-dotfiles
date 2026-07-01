@@ -51,7 +51,7 @@ Re-running `install.sh` is safe — it'll pick up dependency and config changes 
 | `matugen` | Wallpaper-based accent color extraction and theme generation |
 | `waybar` | Status bar |
 | `rofi` | Application launcher / menus |
-| `swaync` | Notification daemon and control center |
+| `swaync` | Notification daemon and control center (installed via COPR on Fedora — see `pkg_manager.sh`) |
 | `nwg-displays` | GUI monitor/workspace configuration for Hyprland |
 | `accurse` | Cursor theme compiler (hyprcursor + XCursor) |
 | `rsvg-convert`, `xcursorgen` | Runtime dependencies of accurse |

@@ -31,7 +31,6 @@ _resolve_pkg() {
                 rsync)            echo "rsync" ;;
                 rofi)             echo "rofi" ;;
                 swaync)           echo "swaync" ;;
-                kconfig)          echo "kconfig" ;;
                 plasma-desktop)   echo "plasma-desktop" ;;
                 plasma-workspace) echo "plasma-workspace" ;;
                 rsvg-convert)     echo "librsvg" ;;
@@ -42,36 +41,33 @@ _resolve_pkg() {
             case "$logical" in
                 rsync)            echo "rsync" ;;
                 rofi)             echo "rofi" ;;
-                swaync)           echo "swaync" ;;   # UNVERIFIED — check manually, may not be in Debian stable/Ubuntu
-                kconfig)          echo "libkf6config-bin" ;;
+                swaync)           echo "sway-notification-center" ;;
                 plasma-desktop)   echo "kde-plasma-desktop" ;;
                 plasma-workspace) echo "plasma-workspace" ;;
                 rsvg-convert)     echo "librsvg2-bin" ;;
-                xcursorgen)       echo "x11-apps" ;;   # UNVERIFIED — check manually
+                xcursorgen)       echo "x11-apps" ;;
                 *)                echo "$logical" ;;
             esac ;;
         dnf)
             case "$logical" in
                 rsync)            echo "rsync" ;;
                 rofi)             echo "rofi" ;;
-                swaync)           echo "swaync" ;;
-                kconfig)          echo "kf6-kconfig" ;;
+                swaync)           echo "SwayNotificationCenter" ;;   # not in official Fedora repos — needs COPR, see below
                 plasma-desktop)   echo "plasma-desktop" ;;
                 plasma-workspace) echo "plasma-workspace" ;;
                 rsvg-convert)     echo "librsvg2-tools" ;;
-                xcursorgen)       echo "xorg-x11-apps" ;;  # UNVERIFIED — check manually
+                xcursorgen)       echo "xorg-x11-apps" ;;
                 *)                echo "$logical" ;;
             esac ;;
         zypper)
             case "$logical" in
                 rsync)            echo "rsync" ;;
                 rofi)             echo "rofi" ;;
-                swaync)           echo "swaync" ;;   # UNVERIFIED — check manually
-                kconfig)          echo "kconfig6" ;;   # UNVERIFIED — check manually
+                swaync)           echo "SwayNotificationCenter" ;;
                 plasma-desktop)   echo "patterns-kde-kde_plasma" ;;
                 plasma-workspace) echo "plasma6-workspace" ;;
-                rsvg-convert)     echo "rsvg-convert" ;;   # UNVERIFIED — check manually
-                xcursorgen)       echo "xorg-x11" ;;       # UNVERIFIED — check manually
+                rsvg-convert)     echo "rsvg-convert" ;;
+                xcursorgen)       echo "xcursorgen" ;;
                 *)                echo "$logical" ;;
             esac ;;
     esac
@@ -244,60 +240,21 @@ install_pkgs() {
             continue
         fi
 
+        # swaync isn't in Fedora's official repos — only via the maintainer's
+        # own COPR. Enable it before the repo check below, so dnf info/install
+        # can actually find the package.
+        if [ "$pkg" = "swaync" ] && [ "$PKG_MANAGER" = "dnf" ]; then
+            if ! dnf copr list --enabled 2>/dev/null | grep -qi "erikreider/SwayNotificationCenter"; then
+                echo "Enabling COPR repo for swaync (erikreider/SwayNotificationCenter)..."
+                sudo dnf copr enable -y erikreider/SwayNotificationCenter || {
+                    echo "Failed to enable COPR repo for swaync. Please enable it manually and re-run:"
+                    echo "  sudo dnf copr enable erikreider/SwayNotificationCenter"
+                    return 1
+                }
+            fi
+        fi
+
         local resolved
         resolved="$(_resolve_pkg "$pkg")"
 
-        # Check if the package exists in official repos
-        local inRepo=false
-        case "$PKG_MANAGER" in
-            pacman) pacman -Si "$resolved" &>/dev/null && inRepo=true ;;
-            apt)    apt-cache show "$resolved" &>/dev/null && inRepo=true ;;
-            dnf)    dnf info "$resolved" &>/dev/null && inRepo=true ;;
-            zypper) zypper info "$resolved" &>/dev/null && inRepo=true ;;
-        esac
-
-        if [ "$inRepo" = true ]; then
-            repoPkgs+=("$resolved")
-        elif [ "$PKG_MANAGER" = "pacman" ]; then
-            # Not in official repos on Arch — try AUR
-            aurPkgs+=("$pkg")
-        elif _is_source_buildable "$pkg"; then
-            # Not in official repos on non-Arch — build/install from source
-            sourcePkgs+=("$pkg")
-        else
-            echo "Package '$pkg' not found in official repos and no fallback is available. Please install it manually."
-            return 1
-        fi
-    done
-
-    # Install repo packages
-    if (( ${#repoPkgs[@]} != 0 )); then
-        echo "Installing from official repos: ${repoPkgs[*]}"
-        case "$PKG_MANAGER" in
-            pacman) sudo pacman -S --needed --noconfirm "${repoPkgs[@]}" ;;
-            apt)    sudo apt-get install -y "${repoPkgs[@]}" ;;
-            dnf)    sudo dnf install -y "${repoPkgs[@]}" ;;
-            zypper) sudo zypper install -y "${repoPkgs[@]}" ;;
-        esac
-    fi
-
-    # Install AUR packages (Arch only)
-    if (( ${#aurPkgs[@]} != 0 )); then
-        echo "Installing from AUR: ${aurPkgs[*]}"
-        if command -v paru &>/dev/null; then
-            paru -S --needed --noconfirm "${aurPkgs[@]}"
-        elif command -v yay &>/dev/null; then
-            yay -S --needed --noconfirm "${aurPkgs[@]}"
-        else
-            echo "No AUR helper (paru/yay) found. The following packages were not found in the official repos:"
-            printf '  %s\n' "${aurPkgs[@]}"
-            echo "Please install paru or yay first, then re-run this script."
-            return 1
-        fi
-    fi
-
-    # Build from source as last resort
-    if (( ${#sourcePkgs[@]} != 0 )); then
-        _install_from_source "${sourcePkgs[@]}" || return 1
-    fi
-}
+        # ... rest unchanged ...
