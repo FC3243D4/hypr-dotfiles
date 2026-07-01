@@ -19,10 +19,6 @@
 "margin-right": 0,
 "margin-top": 0,
 
-"output":[
-	"DP-2"
-],
-
 "modules-left": [
 	"power-profiles-daemon",
 	"custom/separator#line",

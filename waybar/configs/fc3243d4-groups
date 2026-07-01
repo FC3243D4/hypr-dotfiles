@@ -19,10 +19,6 @@
 "margin-right": 0,
 "margin-top": 0,
 
-"output":[
-	"DP-2"
-],
-
 "modules-left": [
 	"group/hardware-cpu",
 	"group/hardware-gpu",
