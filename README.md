@@ -1,6 +1,4 @@
 # hypr-dotfiles
-hyprland dotfiles for a kde-hyprland hybrid setup
-# hypr-dotfiles
 
 Hyprland dotfiles for a hybrid KDE Plasma / Hyprland setup, dual-booted alongside Windows. Built on top of [JaKooLit's Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots) as a base, then reworked and extended for a KDE-integrated workflow — matugen-driven theming instead of wallust, KDE color-scheme/notification patching, a custom dependency-resolution installer, and a few tools of my own.
 
