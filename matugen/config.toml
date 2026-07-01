@@ -1,0 +1,34 @@
+[config]
+# Set to dark since you're using dark16 in wallust
+# Can be overridden per-template with mode = "Dark" / "Light"
+source_color_index = 0
+
+[templates.hyprland_conf]
+input_path  = '~/.config/matugen/templates/colors-hyprland.conf'
+output_path = '~/.config/hypr/matugen/colors-hyprland.conf'
+
+[templates.hyprland_lua]
+input_path  = '~/.config/matugen/templates/colors-hyprland.lua'
+output_path = '~/.config/hypr/matugen/colors-hyprland.lua'
+
+[templates.waybar]
+input_path  = '~/.config/matugen/templates/colors-waybar.css'
+output_path = '~/.config/waybar/matugen/colors-waybar.css'
+post_hook   = 'pkill -SIGUSR2 waybar'
+
+[templates.kitty]
+input_path  = '~/.config/matugen/templates/colors-kitty.conf'
+output_path = '~/.config/kitty/kitty-themes/01-Matugen.conf'
+post_hook   = 'pkill -USR1 kitty'
+
+[templates.rofi]
+input_path  = '~/.config/matugen/templates/colors-rofi.rasi'
+output_path = '~/.config/rofi/matugen/colors-rofi.rasi'
+
+[templates.quickshell]
+input_path  = '~/.config/matugen/templates/qml_color.json'
+output_path = '~/.config/quickshell/qml_color.json'
+
+[templates.source_color]
+input_path  = '~/.config/matugen/templates/source-color.txt'
+output_path = '~/.cache/matugen/source-color'

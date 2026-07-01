@@ -1,0 +1,21 @@
+@define-color foreground     {{colors.on_background.default.hex}};
+@define-color background     {{colors.background.default.hex}};
+@define-color background-alt rgba({{colors.surface_variant.default.red}}, {{colors.surface_variant.default.green}}, {{colors.surface_variant.default.blue}}, 0.25);
+@define-color cursor         {{colors.primary.default.hex}};
+
+@define-color color0  {{palettes.neutral._10.hex}};
+@define-color color1  {{colors.error.default.hex}};
+@define-color color2  {{colors.tertiary.default.hex}};
+@define-color color3  {{palettes.secondary._70.hex}};
+@define-color color4  {{colors.primary.default.hex}};
+@define-color color5  {{palettes.tertiary._60.hex}};
+@define-color color6  {{palettes.secondary._60.hex}};
+@define-color color7  {{palettes.neutral._80.hex}};
+@define-color color8  {{palettes.neutral._30.hex}};
+@define-color color9  {{palettes.error._70.hex}};
+@define-color color10 {{palettes.tertiary._80.hex}};
+@define-color color11 {{colors.secondary.default.hex}};
+@define-color color12 {{palettes.primary._70.hex}};
+@define-color color13 {{palettes.tertiary._80.hex}};
+@define-color color14 {{palettes.secondary._80.hex}};
+@define-color color15 {{palettes.neutral._95.hex}};

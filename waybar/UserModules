@@ -1,0 +1,62 @@
+//* ---- 💫 https://github.com/JaKooLit 💫 ---- *//
+/* Waybar Modules Extras */
+
+/* This is where you can add Extra Modules you wish. copy.sh will try to restore*/
+/* this file along with the unique configs and styles. */
+/* IMPORTANT, be mindful with , or ". else waybar will not start */
+
+{
+"custom/gpu#usage": {
+    "format": "{:>2}% 󰾲 ",
+    "exec": "~/.config/hypr/scripts/gpu-info.sh usage",
+    "interval": 1,
+    "on-click-right": "rocm-smi"
+},
+
+"custom/gpu#temp": {
+    "format": "{:>2}°C 󰾲",
+    "exec": "~/.config/hypr/scripts/gpu-info.sh temp",
+    "interval": 1
+},
+
+"custom/gpu#memory": {
+    "format": "{:>2}% ",
+    "exec": "~/.config/hypr/scripts/gpu-info.sh memory",
+    "interval": 1
+},
+
+"custom/gpu#frequency": {
+    "format": "{:>4}MHz 󰾆",
+    "exec": "~/.config/hypr/scripts/gpu-info.sh freq",
+    "interval": 1
+},
+
+"custom/weather#better": {
+    "exec": "waybar-weather",
+    "restart-interval": 60,
+    "return-type": "json",
+    "hide-empty-text": true,
+    "on-click": "pkill -USR1 waybar-weather"
+},
+
+"custom/keylocks#numlock": {
+    "exec": "/home/fc3243d4/.config/hypr/UserScripts/numlock_status.sh",
+    "interval": 0.5,
+    "format": "{}",
+},
+
+"custom/keylocks#capslock": {
+    "exec": "/home/fc3243d4/.config/hypr/UserScripts/capslock_status.sh",
+    "interval": 0.5,
+    "format": "{}",
+},
+
+"custom/hypridle_widget": {
+    "exec": "/home/fc3243d4/.config/hypr/scripts/Hypridle.sh status",
+    "return-type": "json",
+    "interval": 0.5,
+    "format": "{text}",
+    "on-click": "$HOME/.config/hypr/scripts/Hypridle.sh toggle",
+	"on-click-right": "hyprlock"
+},
+}

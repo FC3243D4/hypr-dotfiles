@@ -1,0 +1,46 @@
+/* matugen template - colors-rofi */
+
+* {
+active-background:   {{colors.primary.default.hex}};
+active-foreground:   {{colors.on_primary.default.hex}};
+normal-background:   {{colors.background.default.hex}};
+normal-foreground:   {{colors.on_background.default.hex}};
+urgent-background:   {{colors.error.default.hex}};
+urgent-foreground:   {{colors.on_error.default.hex}};
+
+alternate-active-background:   {{colors.secondary.default.hex}};
+alternate-active-foreground:   {{colors.on_secondary.default.hex}};
+alternate-normal-background:   {{colors.background.default.hex}};
+alternate-normal-foreground:   {{colors.on_background.default.hex}};
+alternate-urgent-background:   {{colors.background.default.hex}};
+alternate-urgent-foreground:   {{colors.on_background.default.hex}};
+
+selected-active-background:   {{colors.primary.default.hex}};
+selected-active-foreground:   {{colors.on_primary.default.hex}};
+selected-normal-background:   {{colors.primary.default.hex}};
+selected-normal-foreground:   {{colors.on_primary.default.hex}};
+selected-urgent-background:   {{colors.secondary.default.hex}};
+selected-urgent-foreground:   {{colors.on_secondary.default.hex}};
+
+background-color: {{colors.background.default.hex}};
+background:       rgba(0,0,0,0.7);
+foreground:       {{colors.on_background.default.hex}};
+border-color:     {{colors.primary.default.hex}};
+
+color0:  {{palettes.neutral._10.hex}};
+color1:  {{colors.error.default.hex}};
+color2:  {{colors.tertiary.default.hex}};
+color3:  {{palettes.secondary._70.hex}};
+color4:  {{colors.primary.default.hex}};
+color5:  {{palettes.tertiary._60.hex}};
+color6:  {{palettes.secondary._60.hex}};
+color7:  {{palettes.neutral._80.hex}};
+color8:  {{palettes.neutral._30.hex}};
+color9:  {{palettes.error._70.hex}};
+color10: {{palettes.tertiary._80.hex}};
+color11: {{colors.secondary.default.hex}};
+color12: {{palettes.primary._70.hex}};
+color13: {{palettes.tertiary._80.hex}};
+color14: {{palettes.secondary._80.hex}};
+color15: {{palettes.neutral._95.hex}};
+}
