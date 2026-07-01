@@ -5,6 +5,26 @@ if [ ! -f "${GAME_MODE_LOCATION}" ]; then
     echo "false" > "${GAME_MODE_LOCATION}"
 fi
 
+unit_exists() {
+    systemctl cat "$1" >/dev/null 2>&1
+}
+
+# Build the list of service units to stop/start, limited to whichever of
+# docker/ollama are actually installed on this machine.
+GAME_MODE_UNITS=""
+GAME_MODE_UNITS_DESC=""
+for u in docker.socket docker.service ollama.service; do
+    if unit_exists "$u"; then
+        GAME_MODE_UNITS="${GAME_MODE_UNITS}${GAME_MODE_UNITS:+ }$u"
+    fi
+done
+if unit_exists docker.service; then
+    GAME_MODE_UNITS_DESC="docker"
+fi
+if unit_exists ollama.service; then
+    GAME_MODE_UNITS_DESC="${GAME_MODE_UNITS_DESC}${GAME_MODE_UNITS_DESC:+, }ollama"
+fi
+
 enable_notif_inhibit() {
     if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
         swaync-client --dnd-on >/dev/null 2>&1
@@ -33,9 +53,11 @@ if [ "${CURRENT_STATE}" = "false" ]; then
             pkill hypridle
         fi
     fi
-    systemctl stop docker.socket docker ollama >/dev/null 2>&1
+    if [ -n "$GAME_MODE_UNITS" ]; then
+        systemctl stop $GAME_MODE_UNITS >/dev/null 2>&1
+    fi
     enable_notif_inhibit
-    notify-send -e -u low -i "$notif" "Gamemode: enabled" "docker off"
+    notify-send -e -u low -i "$notif" "Gamemode: enabled" "${GAME_MODE_UNITS_DESC:-nothing to stop} off"
 else
     echo "false" > "${GAME_MODE_LOCATION}"
     if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
@@ -44,7 +66,9 @@ else
             hypridle &
         fi
     fi
-    systemctl start docker.socket docker ollama >/dev/null 2>&1
+    if [ -n "$GAME_MODE_UNITS" ]; then
+        systemctl start $GAME_MODE_UNITS >/dev/null 2>&1
+    fi
     disable_notif_inhibit
-    notify-send -e -u low -i "$notif" "Gamemode: disabled" "docker on"
+    notify-send -e -u low -i "$notif" "Gamemode: disabled" "${GAME_MODE_UNITS_DESC:-nothing to start} on"
 fi
