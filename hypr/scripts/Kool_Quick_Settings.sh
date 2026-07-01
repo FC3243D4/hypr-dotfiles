@@ -51,9 +51,6 @@ Edit System Default Settings
 Choose Kitty Terminal Theme
 Configure Monitors (nwg-displays)
 Configure Workspace Rules (nwg-displays)
-GTK Settings (nwg-look)
-QT Apps Settings (qt6ct)
-QT Apps Settings (qt5ct)
 Choose Hyprland Animations
 Choose Monitor Profiles
 Choose Rofi Themes
@@ -90,15 +87,6 @@ main() {
         "Configure Monitors (nwg-displays)"|"Configure Workspace Rules (nwg-displays)")
             command -v nwg-displays &>/dev/null || { notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Install nwg-displays first"; exit 1; }
             nwg-displays; return ;;
-        "GTK Settings (nwg-look)")
-            command -v nwg-look &>/dev/null || { notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Install nwg-look first"; exit 1; }
-            nwg-look; return ;;
-        "QT Apps Settings (qt6ct)")
-            command -v qt6ct &>/dev/null || { notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Install qt6ct first"; exit 1; }
-            qt6ct; return ;;
-        "QT Apps Settings (qt5ct)")
-            command -v qt5ct &>/dev/null || { notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Install qt5ct first"; exit 1; }
-            qt5ct; return ;;
         "Choose Hyprland Animations") "$scriptsDir/Animations.sh";       return ;;
         "Choose Monitor Profiles")    "$scriptsDir/MonitorProfiles.sh";   return ;;
         "Choose Rofi Themes")         "$scriptsDir/RofiThemeSelector.sh"; return ;;
