@@ -56,8 +56,8 @@ if [ "${CURRENT_STATE}" = "false" ]; then
     if [ -n "$GAME_MODE_UNITS" ]; then
         systemctl stop $GAME_MODE_UNITS >/dev/null 2>&1
     fi
-    enable_notif_inhibit
     notify-send -e -u low -i "$notif" "Gamemode: enabled" "${GAME_MODE_UNITS_DESC:-nothing to stop} off"
+    sleep 10 && enable_notif_inhibit
 else
     echo "false" > "${GAME_MODE_LOCATION}"
     if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then

@@ -83,7 +83,6 @@
 	"mpris",
 	"group/notify",
     "tray",
-    "custom/light_dark",
     ],
     
 }]

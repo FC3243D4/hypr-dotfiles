@@ -14,7 +14,6 @@
         },
 	"modules": [
 		"custom/menu",
-		//"custom/light_dark",
 		"custom/hyprpicker",
 		"custom/file_manager",
 		"custom/updater",
@@ -107,7 +106,6 @@
         },
 	"modules": [
 		"custom/swaync"
-		//"custom/dot_update",
 	]
 },
 

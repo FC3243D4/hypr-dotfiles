@@ -37,9 +37,6 @@ hl.on("hyprland.start", function()
         -- Idle / lock
         "hypridle",
 
-        -- Resume Hyprsunset if state is "on" from previous session
-        "scripts/Hyprsunset.sh init",
-
         -- Disabled extras:
         -- "scripts/Polkit-NixOS.sh",   -- Gnome polkit for NixOS
         -- "scripts/PortalHyprland.sh", -- force-start xdg-desktop-portal-hyprland

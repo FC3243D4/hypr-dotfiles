@@ -56,7 +56,6 @@ Choose Monitor Profiles
 Choose Rofi Themes
 Search for Keybinds
 Toggle Game Mode
-Switch Dark-Light Theme
 MENU
 }
 
@@ -92,7 +91,6 @@ main() {
         "Choose Rofi Themes")         "$scriptsDir/RofiThemeSelector.sh"; return ;;
         "Search for Keybinds")        "$scriptsDir/KeyBinds.sh";          return ;;
         "Toggle Game Mode")           "$scriptsDir/GameMode.sh";          return ;;
-        "Switch Dark-Light Theme")    "$scriptsDir/DarkLight.sh";         return ;;
         *) return ;;
     esac
 

@@ -94,11 +94,9 @@ window#waybar.hidden {
 #custom-browser,
 #custom-cava_mviz,
 #custom-cycle_wall,
-#custom-dot_update,
 #custom-file_manager,
 #custom-keybinds,
 #custom-keyboard,
-#custom-light_dark,
 #custom-lock,
 #custom-hint,
 #custom-hypridle,
@@ -215,10 +213,6 @@ window#waybar.hidden {
 
 #custom-updater {
   	color: @red;
-}
-
-#custom-light_dark {
-  	color: @blue;
 }
 
 #custom-weather {

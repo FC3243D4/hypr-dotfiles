@@ -93,11 +93,9 @@ tooltip {
 #custom-browser,
 #custom-cava_mviz,
 #custom-cycle_wall,
-#custom-dot_update,
 #custom-file_manager,
 #custom-keybinds,
 #custom-keyboard,
-#custom-light_dark,
 #custom-lock,
 #custom-hint,
 #custom-hypridle,
@@ -200,7 +198,6 @@ tooltip {
     color: #9ca0b0;
 }
 
-#custom-light_dark,
 #temperature {
     color: #7287fd;
 }

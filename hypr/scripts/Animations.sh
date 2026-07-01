@@ -26,6 +26,3 @@ if [[ -n "$chosen_file" ]]; then
     cp "$full_path" "$UserConfigs/UserAnimations.lua"    
     notify-send -u low -i "$iDIR/ja.png" "$chosen_file" "Hyprland Animation Loaded"
 fi
-
-sleep 1
-"$SCRIPTSDIR/RefreshNoWaybar.sh"

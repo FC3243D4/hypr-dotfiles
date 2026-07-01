@@ -81,11 +81,9 @@ tooltip {
 #custom-browser,
 #custom-cava_mviz,
 #custom-cycle_wall,
-#custom-dot_update,
 #custom-file_manager,
 #custom-keybinds,
 #custom-keyboard,
-#custom-light_dark,
 #custom-lock,
 #custom-hint,
 #custom-hypridle,
@@ -127,7 +125,6 @@ tooltip {
 #backlight {
 	padding: 0px 2px 0px 6px;
 }
-#custom-light_dark,
 #custom-menu{
     color: @flamingo;
     padding: 0px 8px 0px 4px;
@@ -171,8 +168,7 @@ tooltip {
 #bluetooth,
 #custom-backlight,
 #custom-cycle_wall,
-#custom-keyboard,
-#custom-light_dark {
+#custom-keyboard {
     color: @lavender;
 }
 

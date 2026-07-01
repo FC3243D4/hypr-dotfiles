@@ -82,11 +82,9 @@ tooltip {
 #custom-browser,
 #custom-cava_mviz,
 #custom-cycle_wall,
-#custom-dot_update,
 #custom-file_manager,
 #custom-keybinds,
 #custom-keyboard,
-#custom-light_dark,
 #custom-lock,
 #custom-hint,
 #custom-hypridle,
@@ -129,7 +127,6 @@ tooltip {
     padding: 0px 0px 0px 6px;
     opacity:1.0;
 }
-#custom-light_dark,
 #custom-menu{
     color: @flamingo;
     padding: 0px 8px 0px 4px;
@@ -170,9 +167,6 @@ tooltip {
 #custom-backlight,
 #custom-cycle_wall,
 #custom-keyboard,
-#custom-light_dark {
-    color: @lavender;
-}
 
 #custom-cava_mviz {
 	color: @color2;
