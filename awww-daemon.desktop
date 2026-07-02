@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=awww-daemon
+Exec=awww-daemon --layer bottom
+OnlyShowIn=KDE;
+X-GNOME-Autostart-enabled=true

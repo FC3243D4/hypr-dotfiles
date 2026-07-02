@@ -217,5 +217,13 @@ elif [ -n "$WALLPAPER_CHANGER_DIR" ]; then
 fi
 
 echo ""
+
+# ─── KDE autostart entry for awww-daemon ───────────────────────────────────────
+# Clones (or updates) the .desktop file for awww-daemon on KDE into 
+# ~/.config/autostart so it launches on login.
+echo "=== Installing awww-daemon autostart entry for KDE ==="
+rsync -a "awww-daemon.desktop" "$CONFIG_HOME/autostart/"
+
+echo ""
 echo "Install complete."
 exit 0
