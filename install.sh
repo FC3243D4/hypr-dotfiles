@@ -38,9 +38,10 @@ echo ""
 # by a hidden .hypr-dotfiles-managed file dropped after a successful sync —
 # on later runs the presence of that marker skips the backup step.
 #
-# ASSUMPTION: hypr/, matugen/, rofi/, waybar/ map 1:1 to ~/.config/hypr,
-# ~/.config/matugen, ~/.config/rofi, ~/.config/waybar. Confirm this matches
-# what's actually inside those folders before relying on it.
+# ASSUMPTION: hypr/, matugen/, rofi/, waybar/, swaync/ map 1:1 to
+# ~/.config/hypr, ~/.config/matugen, ~/.config/rofi, ~/.config/waybar,
+# ~/.config/swaync. Confirm this matches what's actually inside those
+# folders before relying on it.
 
 CONFIG_DIRS=("hypr" "matugen" "rofi" "waybar" "swaync")
 
@@ -76,11 +77,12 @@ for dir in "${CONFIG_DIRS[@]}"; do
     echo "Synced $dest <- $src"
 done
 
+echo ""
+
 # ─── Generate monitor/workspace config (nwg-displays) ─────────────────────────
-# nwg-displays needs a live Hyprland (or sway/Niri) session to query outputs
-# over IPC — it can't run from a TTY before you've logged in at least once.
-# If this is a fresh install and you haven't logged into Hyprland yet, skip
-# this step and run it manually after your first login.
+# nwg-displays needs a live Hyprland session to query outputs over IPC — it
+# can't run from a TTY before you've logged in at least once, and it has no
+# KDE/Plasma backend (only sway, Hyprland, and Niri).
 
 echo "=== Generating monitor config ==="
 
@@ -94,6 +96,8 @@ else
     echo "After logging into Hyprland, run this manually:"
     echo "  nwg-displays -m $CONFIG_HOME/hypr/monitors.conf"
 fi
+
+echo ""
 
 # ─── Compile Breeze cursor theme (accurse) ─────────────────────────────────────
 # Clones accurse to get its bundled theme assets, patches the Breeze theme's
@@ -139,6 +143,8 @@ else
     rm -rf "$tmp"
 fi
 
+echo ""
+
 # ─── Wallpaper-changer ─────────────────────────────────────────────────────────
 # Clones (or updates) FC3243D4/Wallpaper-changer as a sibling of this repo,
 # then runs its own installer.
@@ -159,7 +165,7 @@ fi
 
 if [ -n "$WALLPAPER_CHANGER_DIR" ] && [ -f "$WALLPAPER_CHANGER_DIR/install-Linux.sh" ]; then
     chmod +x "$WALLPAPER_CHANGER_DIR/install-Linux.sh"
-    (cd "$WALLPAPER_CHANGER_DIR" && ./install-Linux.sh --install) || echo "Warning: Wallpaper-changer's install-Linux.sh exited with an error."
+    (cd "$WALLPAPER_CHANGER_DIR" && ./install-Linux.sh) || echo "Warning: Wallpaper-changer's install-Linux.sh exited with an error."
 elif [ -n "$WALLPAPER_CHANGER_DIR" ]; then
     echo "Error: install-Linux.sh not found in $WALLPAPER_CHANGER_DIR — repo layout may have changed."
 fi

@@ -14,7 +14,7 @@ Hyprland dotfiles for a hybrid KDE Plasma / Hyprland setup, dual-booted alongsid
 
 ## Credit
 
-The Hyprland configuration in this repo started from [JaKooLit/Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots) and has been substantially modified since — theming pipeline, KDE integration, and install tooling are all custom, but the base config structure and a lot of the original keybind/window-rule scaffolding trace back to that project. Go check it out if you want the unmodified, Arch-focused original.
+The Hyprland configuration in this repo started from [JaKooLit/Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots) and has been substantially modified since — theming pipeline, KDE integration, and install tooling are all custom, but the base config structure, a lot of the original keybind/window-rule scaffolding, and the base utility dependency list trace back to that project. Go check it out if you want the unmodified, Arch-focused original.
 
 ## Requirements
 
@@ -22,7 +22,7 @@ The Hyprland configuration in this repo started from [JaKooLit/Hyprland-Dots](ht
 - `git`
 - `sudo` access (the installer installs system packages)
 
-Everything else — `matugen`, `waybar`, `rofi`, `swaync`, KDE application suite, `nwg-displays`, `accurse`, and their runtime dependencies — is checked and installed automatically by `install.sh`. See [Dependencies](#dependencies) below for the full list and what each one is for.
+Everything else is checked and installed automatically by `install.sh`. See [Dependencies](#dependencies) below for the full list and what each one is for.
 
 ## Installation
 
@@ -35,7 +35,7 @@ chmod +x install.sh
 
 `install.sh` runs through the following steps, in order:
 
-1. **Dependency check** — detects your package manager (`pacman`, `apt`, `dnf`, or `zypper`) and installs anything missing: `rsync`, `matugen`, `waybar`, `rofi`, `swaync`, `nwg-displays`, `accurse` (+ its `rsvg-convert`/`xcursorgen` deps), and the KDE application suite/tooling. `openrgb` is checked but optional — you'll get a warning, not a failure, if it's absent.
+1. **Dependency check** — detects your package manager (`pacman`, `apt`, `dnf`, or `zypper`) and installs anything missing. `openrgb` is checked but optional — you'll get a warning, not a failure, if it's absent.
 2. **Config sync** — `rsync`'s `hypr/`, `matugen/`, `rofi/`, `waybar/`, and `swaync/` into `~/.config/`. This is additive (no `--delete`), so nothing you've added locally to those folders gets removed on a re-run. Anything already present at those paths that wasn't put there by this script gets backed up once, to `<name>.bak`, before the first sync.
 3. **Monitor config** — if you're in an active Hyprland session, launches `nwg-displays` so you can arrange your outputs and generate `~/.config/hypr/monitors.conf`. If you run the installer from KDE (or before your first Hyprland login), this step is skipped with instructions to run it manually later — `nwg-displays` only supports sway/Hyprland/Niri and can't run under Plasma.
 4. **Cursor theme** — clones [accurse](https://github.com/ATM-Jahid/accurse), patches its bundled Breeze theme (recolored, extended size set), compiles it, and installs the result to `~/.local/share/icons/AC-Breeze`.
@@ -45,22 +45,30 @@ Re-running `install.sh` is safe — it'll pick up dependency and config changes 
 
 ## Dependencies
 
+### Theming / desktop integration
+
 | Package | Purpose |
 |---|---|
 | `rsync` | Config syncing during install |
 | `matugen` | Wallpaper-based accent color extraction and theme generation |
 | `waybar` | Status bar |
 | `rofi` | Application launcher / menus |
-| `swaync` | Notification daemon and control center (installed via COPR on Fedora — see `pkg_manager.sh`) |
+| `swaync` | Notification daemon and control center (installed via COPR on Fedora) |
 | `nwg-displays` | GUI monitor/workspace configuration for Hyprland |
 | `accurse` | Cursor theme compiler (hyprcursor + XCursor) |
 | `rsvg-convert`, `xcursorgen` | Runtime dependencies of accurse |
-| KDE application suite | Full KDE app set for the hybrid session (Dolphin, Konsole, etc.) |
-| `kwriteconfig6` / `kreadconfig6` | KDE config read/write, used by matugen's KDE color-scheme patcher and by the gamemode script's notification handling |
+| KDE application suite | Full KDE app set for the hybrid session (Dolphin, Konsole, etc.) — also transitively provides `kwriteconfig6`/`kreadconfig6`, used by matugen's KDE color-scheme patcher |
 | `plasma-apply-colorscheme` | Applies generated KDE color schemes |
+| `hyprpolkitagent` | Polkit authentication agent for the Hyprland session (installed via COPR on Fedora; built from source on Debian/Ubuntu) |
 | `openrgb` (optional) | Syncs the wallpaper's dominant color to RGB peripherals |
 
-Package names are resolved per-distro in `installSupportScripts/pkg_manager.sh`. This is primarily developed and tested on **CachyOS (Arch-based)** — the Debian/Fedora/openSUSE mappings are provided for portability but are less thoroughly verified; a few entries are explicitly marked unverified in that file if you're installing on one of those.
+### General utilities
+
+Base set carried over from JaKooLit's Hyprland-Dots: `cliphist`, `curl`, `grim`, `gvfs`, `gvfs-mtp`, `inxi`, `jq`, `kitty`, `libspng`, `nano`, `network-manager-applet`, `pamixer`, `pavucontrol`, `playerctl`, `python-requests`, `python-pyquery`, `slurp`, `swappy`, `wget`, `wl-clipboard`, `wlogout`, `xdg-user-dirs`, `xdg-utils`, `yad`.
+
+`cliphist` is installed via `go install` on Debian/Ubuntu (not packaged there). `gvfs-mtp` pulls in extra companion packages on Debian/Ubuntu (`gvfs-backends`) and openSUSE (`gvfs-backend`, `mtpfs`, `mtp-tools`, `libmtp-runtime`) since MTP support is split across several packages on those distros.
+
+Package names are resolved per-distro in `installSupportScripts/pkg_manager.sh`. This is primarily developed and tested on **CachyOS (Arch-based)** — the Debian/Fedora/openSUSE mappings are provided for portability and are verified against upstream package listings, with one exception: `hyprpolkitagent`'s source-build fallback for Debian/Ubuntu (it's not packaged there) is untested and may need manual dependency installation if `build.sh` fails.
 
 ## Gamemode
 
