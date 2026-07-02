@@ -54,14 +54,31 @@ _VAR_DECL_RE = re.compile(r'local\s+(\w+)\s*=\s*"([^"]+)"')
 # Description inside options table
 _DESC_RE = re.compile(r'description\s*=\s*"(?P<desc>[^"]+)"')
 
-# Lua line comment
-_LUA_COMMENT_RE = re.compile(r'--.*$')
-
-
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def strip_lua_comment(line: str) -> str:
-    return _LUA_COMMENT_RE.sub('', line).strip()
+    """Strip a trailing Lua '--' comment, but ignore '--' that appears
+    inside a quoted string literal (e.g. exec_cmd("foo.sh --flag"))."""
+    in_string = False
+    quote_char = ''
+    i = 0
+    n = len(line)
+    while i < n:
+        c = line[i]
+        if in_string:
+            if c == '\\':          # skip escaped char inside string
+                i += 2
+                continue
+            if c == quote_char:
+                in_string = False
+        else:
+            if c == '"' or c == "'":
+                in_string = True
+                quote_char = c
+            elif c == '-' and i + 1 < n and line[i + 1] == '-':
+                return line[:i].strip()
+        i += 1
+    return line.strip()
 
 
 def resolve_combo(var: str | None, key_str: str, known_vars: dict) -> str:

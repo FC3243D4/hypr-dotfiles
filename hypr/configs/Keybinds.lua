@@ -66,7 +66,7 @@ hl.bind(mainMod .. " + ALT + B",        hl.dsp.exec_cmd(scriptsDir .. "/WaybarLa
 hl.bind(mainMod .. " + W",         hl.dsp.exec_cmd(scriptsDir .. "/WallpaperSelect.sh"),            { description = "select wallpaper" })
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(scriptsDir .. "/WallpaperEffects.sh"),           { description = "wallpaper effects" })
 hl.bind("CTRL + ALT + W",          hl.dsp.exec_cmd(scriptsDir .. "/WallpaperRandomAspectRatio.sh"), { description = "random wallpaper" })
-hl.bind(mainMod .. " + CTRL + O",  hl.dsp.exec_cmd("hyprctl setprop active opaque toggle"),         { description = "toggle active window opacity" })
+hl.bind(mainMod .. " + CTRL + O",  hl.dsp.window.set_prop({ prop = "opaque", value = "toggle" }),         { description = "toggle active window opacity" })
 hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd(scriptsDir .. "/KeyBinds.sh"),                   { description = "search keybinds" })
 hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd(scriptsDir .. "/Animations.sh"),                 { description = "animations menu" })
 hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd(scriptsDir .. "/ZshChangeTheme.sh"),             { description = "change oh-my-zsh theme" })
@@ -75,10 +75,18 @@ hl.bind("SHIFT + ALT + A",         hl.dsp.exec_cmd(scriptsDir .. "/Tak0-Per-Wind
 hl.bind(mainMod .. " + ALT + C",   hl.dsp.exec_cmd(scriptsDir .. "/RofiCalc.sh"),                   { description = "calculator" })
 
 -- Move current workspaces to monitors (left right up or down)
-hl.bind(mainMod .. " + CTRL + F9",  hl.dsp.exec_cmd("movecurrentworkspacetomonitor l"), { description = "move workspace to left monitor" })
-hl.bind(mainMod .. " + CTRL + F10", hl.dsp.exec_cmd("movecurrentworkspacetomonitor r"), { description = "move workspace to right monitor" })
-hl.bind(mainMod .. " + CTRL + F11", hl.dsp.exec_cmd("movecurrentworkspacetomonitor u"), { description = "move workspace to up monitor" })
-hl.bind(mainMod .. " + CTRL + F12", hl.dsp.exec_cmd("movecurrentworkspacetomonitor d"), { description = "move workspace to down monitor" })
+hl.bind(mainMod .. " + CTRL + F9",  function()
+    hl.dispatch(hl.dsp.workspace.move({ workspace = hl.get_active_workspace().id, monitor = "l" }))
+end, { description = "move workspace to left monitor" })
+hl.bind(mainMod .. " + CTRL + F10", function()
+    hl.dispatch(hl.dsp.workspace.move({ workspace = hl.get_active_workspace().id, monitor = "r" }))
+end, { description = "move workspace to right monitor" })
+hl.bind(mainMod .. " + CTRL + F11", function()
+    hl.dispatch(hl.dsp.workspace.move({ workspace = hl.get_active_workspace().id, monitor = "u" }))
+end, { description = "move workspace to up monitor" })
+hl.bind(mainMod .. " + CTRL + F12", function()
+    hl.dispatch(hl.dsp.workspace.move({ workspace = hl.get_active_workspace().id, monitor = "d" }))
+end, { description = "move workspace to down monitor" })
 
 
 ----------------
@@ -101,7 +109,7 @@ hl.bind(mainMod .. " + SHIFT + I", hl.dsp.layout("togglesplit"), { description =
 hl.bind(mainMod .. " + P",         hl.dsp.layout("pseudo"),      { description = "Toggle pseudo (Dwindle)" })
 
 -- Works on either layout (Master or Dwindle)
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("splitratio 0.3"), { description = "Set split ratio to 0.3" })
+hl.bind(mainMod .. " + M", hl.dsp.layout("splitratio 0.3"), { description = "Set split ratio to 0.3" })
 
 -- Cycle windows; if floating bring to top
 hl.bind("ALT + Tab", hl.dsp.window.cycle_next(), { description = "Cycle next window" })

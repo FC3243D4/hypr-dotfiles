@@ -34,7 +34,7 @@ hl.unbind("CTRL + ALT + W")
 hl.bind("CTRL + ALT + W ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random"), { description = "Random Wallpaper" })
 
 hl.unbind( mainMod .. " + ALT + R")
-hl.bind( mainMod .. " + ALT + R ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh"), { description = "Refresh Bar and Menus" })
+hl.bind( mainMod .. " + ALT + R ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh --full"), { description = "Refresh Bar, Menus and Apps" })
 
 hl.bind( mainMod .. " + CTRL + SHIFT + S ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random sfw"), { description = "Random SFW Wallpaper" })
 hl.bind( mainMod .. " + CTRL + SHIFT + N ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random nsfw"), { description = "Random NSFW Wallpaper" })
