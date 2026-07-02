@@ -38,3 +38,5 @@ hl.bind( mainMod .. " + ALT + R ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeR
 
 hl.bind( mainMod .. " + CTRL + SHIFT + S ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random sfw"), { description = "Random SFW Wallpaper" })
 hl.bind( mainMod .. " + CTRL + SHIFT + N ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random nsfw"), { description = "Random NSFW Wallpaper" })
+
+hl.bind( mainMod .. " + CTRL + SHIFT + T ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh --softrun"), { description = "Refresh Bar, Menus and Apps without restarting" })
