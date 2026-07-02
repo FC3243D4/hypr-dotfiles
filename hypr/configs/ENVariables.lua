@@ -67,7 +67,6 @@ hl.env("GSK_RENDERER", "ngl")
 ---- additional ENV's for nvidia. Caution, activate with care ----
 ------------------------------------------------------------------
 --hl.env("GBM_BACKEND", "nvidia-drm")
-
 --hl.env("__GL_GSYNC_ALLOWED", "1") #adaptive Vsync
 --hl.env("__NV_PRIME_RENDER_OFFLOAD", "1")
 --hl.env("__VK_LAYER_NV_optimus", "NVIDIA_only")

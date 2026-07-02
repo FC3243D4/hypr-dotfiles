@@ -79,6 +79,52 @@ done
 
 echo ""
 
+# ─── GPU detection / NVIDIA env toggle ─────────────────────────────────────────
+# Detects whether an NVIDIA GPU is present and uncomments/comments the NVIDIA
+# block in ENVariables.lua accordingly. Only touches the four lines in the
+# "NVIDIA" section (LIBVA_DRIVER_NAME, __GLX_VENDOR_LIBRARY_NAME, NVD_BACKEND,
+# GSK_RENDERER) — the "additional ENV's for nvidia, activate with care" block
+# further down is left untouched since those are explicitly opt-in.
+
+echo "=== Detecting GPU vendor ==="
+
+_set_hl_env_state() {
+    # $1 file, $2 hl.env variable name, $3 desired state ("true" = enabled/uncommented)
+    local file="$1" varname="$2" enabled="$3"
+    if [ "$enabled" = true ]; then
+        sed -i -E "s/^([[:space:]]*)--([[:space:]]*hl\.env\(\"$varname\".*)/\1\2/" "$file"
+    else
+        sed -i -E "/^[[:space:]]*--[[:space:]]*hl\.env\(\"$varname\"/! s/^([[:space:]]*)(hl\.env\(\"$varname\".*)/\1--\2/" "$file"
+    fi
+}
+
+envFile="$(find "$CONFIG_HOME/hypr" -name "ENVariables.lua" -print -quit 2>/dev/null)"
+
+if [ -z "$envFile" ]; then
+    echo "ENVariables.lua not found under $CONFIG_HOME/hypr — skipping GPU env toggle."
+else
+    hasNvidia=false
+    if lspci -k | grep -E "VGA|3D" -A3 | grep -qi nvidia; then
+        hasNvidia=true
+    fi
+
+    nvidiaVars=("LIBVA_DRIVER_NAME" "__GLX_VENDOR_LIBRARY_NAME" "NVD_BACKEND" "GSK_RENDERER")
+
+    if [ "$hasNvidia" = true ]; then
+        echo "NVIDIA GPU detected — enabling NVIDIA env block in $envFile"
+        for v in "${nvidiaVars[@]}"; do
+            _set_hl_env_state "$envFile" "$v" true
+        done
+    else
+        echo "No NVIDIA GPU detected — disabling NVIDIA env block in $envFile"
+        for v in "${nvidiaVars[@]}"; do
+            _set_hl_env_state "$envFile" "$v" false
+        done
+    fi
+fi
+
+echo ""
+
 # ─── Generate monitor/workspace config (nwg-displays) ─────────────────────────
 # nwg-displays needs a live Hyprland session to query outputs over IPC — it
 # can't run from a TTY before you've logged in at least once, and it has no

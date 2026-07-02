@@ -73,6 +73,7 @@ _resolve_pkg() {
                 xdg-user-dirs)          echo "xdg-user-dirs" ;;
                 xdg-utils)              echo "xdg-utils" ;;
                 yad)                    echo "yad" ;;
+                pciutils)               echo "pciutils" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         apt)
@@ -115,6 +116,7 @@ _resolve_pkg() {
                 xdg-user-dirs)          echo "xdg-user-dirs" ;;
                 xdg-utils)              echo "xdg-utils" ;;
                 yad)                    echo "yad" ;;
+                pciutils)               echo "pciutils" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         dnf)
@@ -157,6 +159,7 @@ _resolve_pkg() {
                 xdg-user-dirs)          echo "xdg-user-dirs" ;;
                 xdg-utils)              echo "xdg-utils" ;;
                 yad)                    echo "yad" ;;
+                pciutils)               echo "pciutils" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         zypper)
@@ -199,6 +202,7 @@ _resolve_pkg() {
                 xdg-user-dirs)          echo "xdg-user-dirs" ;;
                 xdg-utils)              echo "xdg-utils" ;;
                 yad)                    echo "yad" ;;
+                pciutils)               echo "pciutils" ;;
                 *)                      echo "$logical" ;;
             esac ;;
     esac

@@ -10,201 +10,98 @@ source "$SUPPORT/pkg_manager.sh" || return 1
 
 packageList=()
 
+# Each entry is "check_command|package_name". check_command is eval'd; if it
+# fails, package_name is printed and added to packageList.
+_check_dep() {
+    local check="$1" pkgname="$2"
+    if ! eval "$check" &>/dev/null; then
+        echo "$pkgname"
+        packageList+=("$pkgname")
+    fi
+}
+
+_check_deps() {
+    local entry check pkgname
+    for entry in "$@"; do
+        check="${entry%%|*}"
+        pkgname="${entry#*|}"
+        _check_dep "$check" "$pkgname"
+    done
+}
+
 echo "Checking dependencies..."
-if ! command -v rsync &>/dev/null; then
-    echo "rsync"
-    packageList+=("rsync")
-fi
-if ! matugen --version &> /dev/null; then
-    echo "matugen"
-    packageList+=("matugen")
-fi
-if ! waybar --version &> /dev/null; then
-    echo "waybar"
-    packageList+=("waybar")
-fi
-if ! command -v rofi &>/dev/null; then
-    echo "rofi"
-    packageList+=("rofi")
-fi
+
+coreDeps=(
+    "command -v rsync|rsync"
+    "matugen --version|matugen"
+    "waybar --version|waybar"
+    "command -v rofi|rofi"
+)
+_check_deps "${coreDeps[@]}"
+
 if ! command -v openrgb &>/dev/null; then
     echo "openrgb is not installed. You will not have the wallpaper's dominant color applied to your devices. Please install openrgb if you want this feature."
     echo ""
 fi
 
+# --- General utilities (JaKooLit base dependency list + extras) ---
+generalDeps=(
+    "command -v cliphist|cliphist"
+    "command -v curl|curl"
+    "command -v grim|grim"
+    "command -v gvfsd|gvfs"
+    "command -v gvfsd-mtp|gvfs-mtp"
+    "command -v hyprpolkitagent|hyprpolkitagent"
+    "command -v inxi|inxi"
+    "command -v jq|jq"
+    "command -v kitty|kitty"
+    "command -v nano|nano"
+    "command -v nm-applet|network-manager-applet"
+    "command -v pamixer|pamixer"
+    "command -v pavucontrol|pavucontrol"
+    "command -v playerctl|playerctl"
+    "python3 -c 'import requests'|python-requests"
+    "python3 -c 'import pyquery'|python-pyquery"
+    "command -v slurp|slurp"
+    "command -v swappy|swappy"
+    "command -v wget|wget"
+    "command -v wl-copy|wl-clipboard"
+    "command -v wlogout|wlogout"
+    "command -v xdg-user-dirs-update|xdg-user-dirs"
+    "command -v xdg-open|xdg-utils"
+    "command -v yad|yad"
+    "command -v topgrade|topgrade"
+    "command -v lspci|pciutils"
+    "pkg-config --exists spng|libspng"
+)
+_check_deps "${generalDeps[@]}"
+
 # --- Display management (nwg-displays) ---
-if ! command -v nwg-displays &>/dev/null; then
-    echo "nwg-displays"
-    packageList+=("nwg-displays")
-fi
+displayDeps=(
+    "command -v nwg-displays|nwg-displays"
+)
+_check_deps "${displayDeps[@]}"
 
 # --- Cursor theme compiler (accurse) ---
-if ! command -v accurse &>/dev/null; then
-    echo "accurse"
-    packageList+=("accurse")
-fi
-if ! command -v rsvg-convert &>/dev/null; then
-    echo "rsvg-convert"
-    packageList+=("rsvg-convert")
-fi
-if ! command -v xcursorgen &>/dev/null; then
-    echo "xcursorgen"
-    packageList+=("xcursorgen")
-fi
+cursorDeps=(
+    "command -v accurse|accurse"
+    "command -v rsvg-convert|rsvg-convert"
+    "command -v xcursorgen|xcursorgen"
+)
+_check_deps "${cursorDeps[@]}"
 
 # --- KDE section ---
 echo "Checking KDE dependencies..."
-
-if ! command -v plasmashell &>/dev/null; then
-    echo "plasmashell (KDE Plasma)"
-    packageList+=("plasma-desktop")
-fi
-
-if ! command -v dolphin &>/dev/null; then
-    echo "kde-applications"
-    packageList+=("kde-applications")
-fi
-
-if ! command -v plasma-apply-colorscheme &>/dev/null; then
-    echo "plasma-apply-colorscheme"
-    packageList+=("plasma-workspace")
-fi
+kdeDeps=(
+    "command -v plasmashell|plasma-desktop"
+    "command -v dolphin|kde-applications"
+    "command -v plasma-apply-colorscheme|plasma-workspace"
+)
+_check_deps "${kdeDeps[@]}"
 
 if (( ${#packageList[@]} == 0 )); then
     echo "All dependencies are already installed."
     return 0
-fi
-
-if ! command -v cliphist &>/dev/null; then
-    echo "cliphist"
-    packageList+=("cliphist")
-fi
-
-if ! command -v curl &>/dev/null; then
-    echo "curl"
-    packageList+=("curl")
-fi
-
-if ! command -v grim &>/dev/null; then
-    echo "grim"
-    packageList+=("grim")
-fi
-
-if ! command -v gvfsd &>/dev/null; then
-    echo "gvfs"
-    packageList+=("gvfs")
-fi
-
-if ! command -v gvfsd-mtp &>/dev/null; then
-    echo "gvfs-mtp"
-    packageList+=("gvfs-mtp")
-fi
-
-if ! command -v hyprpolkitagent &>/dev/null; then
-    echo "hyprpolkitagent"
-    packageList+=("hyprpolkitagent")
-fi
-
-if ! command -v inxi &>/dev/null; then
-    echo "inxi"
-    packageList+=("inxi")
-fi
-
-if ! command -v jq &>/dev/null; then
-    echo "jq"
-    packageList+=("jq")
-fi
-
-if ! command -v kitty &>/dev/null; then
-    echo "kitty"
-    packageList+=("kitty")
-fi
-
-if ! command -v nano &>/dev/null; then
-    echo "nano"
-    packageList+=("nano")
-fi
-
-if ! command -v nm-applet &>/dev/null; then
-    echo "network-manager-applet"
-    packageList+=("network-manager-applet")
-fi
-
-if ! command -v pamixer &>/dev/null; then
-    echo "pamixer"
-    packageList+=("pamixer")
-fi
-
-if ! command -v pavucontrol &>/dev/null; then
-    echo "pavucontrol"
-    packageList+=("pavucontrol")
-fi
-
-if ! command -v playerctl &>/dev/null; then
-    echo "playerctl"
-    packageList+=("playerctl")
-fi
-
-if ! python3 -c "import requests" &>/dev/null; then
-    echo "python-requests"
-    packageList+=("python-requests")
-fi
-
-if ! python3 -c "import pyquery" &>/dev/null; then
-    echo "python-pyquery"
-    packageList+=("python-pyquery")
-fi
-
-if ! command -v slurp &>/dev/null; then
-    echo "slurp"
-    packageList+=("slurp")
-fi
-
-if ! command -v swappy &>/dev/null; then
-    echo "swappy"
-    packageList+=("swappy")
-fi
-
-if ! command -v wget &>/dev/null; then
-    echo "wget"
-    packageList+=("wget")
-fi
-
-if ! command -v wl-copy &>/dev/null; then
-    echo "wl-clipboard"
-    packageList+=("wl-clipboard")
-fi
-
-if ! command -v wlogout &>/dev/null; then
-    echo "wlogout"
-    packageList+=("wlogout")
-fi
-
-if ! command -v xdg-user-dirs-update &>/dev/null; then
-    echo "xdg-user-dirs"
-    packageList+=("xdg-user-dirs")
-fi
-
-if ! command -v xdg-open &>/dev/null; then
-    echo "xdg-utils"
-    packageList+=("xdg-utils")
-fi
-
-if ! command -v yad &>/dev/null; then
-    echo "yad"
-    packageList+=("yad")
-fi
-
-if ! command -v topgrade &>/dev/null; then
-    echo "topgrade"
-    packageList+=("topgrade")
-fi
-
-# libspng has no standalone CLI binary to check for — it's a linked library,
-# not a standalone tool. Checked via pkg-config instead.
-if ! pkg-config --exists spng &>/dev/null; then
-    echo "libspng"
-    packageList+=("libspng")
 fi
 
 echo "The following packages are missing and will be installed:"
