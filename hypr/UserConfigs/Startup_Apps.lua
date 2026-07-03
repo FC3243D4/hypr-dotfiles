@@ -19,14 +19,6 @@ hl.on("hyprland.start", function()
         "awww-daemon",
         "sh -c 'sleep 2 && $HOME/.config/WallpaperChanger/WallpaperApplicator.sh random'", --select random wallpaper on startup, delay to ensure symlink update is done
 
-        --"localsend",
-
-        --sensor panel
-        --"conky -c $HOME/.config/conky/panel.conf",
-        
-        --virtual audio channel for soundboard
-        "$HOME/virtual-audio-soundboard.sh",
-
         --kded6 watcher
         "$HOME/.config/hypr/scripts/kded6-fix.sh",
     }
