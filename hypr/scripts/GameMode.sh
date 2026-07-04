@@ -1,5 +1,6 @@
 #!/bin/sh
 GAME_MODE_LOCATION="${HOME}/.config/hypr/scripts/gamemode_status"
+notif="$HOME/.local/share/icons/breeze-dark-accent/apps/scalable/gaming.svg"
 mkdir -p "${HOME}/.config/hypr/scripts"
 if [ ! -f "${GAME_MODE_LOCATION}" ]; then
     echo "false" > "${GAME_MODE_LOCATION}"
