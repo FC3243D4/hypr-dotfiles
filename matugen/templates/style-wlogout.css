@@ -1,0 +1,85 @@
+/* wlogout style - matugen template */
+/* This file is a matugen template. Add a [templates.wlogout] entry in your
+   matugen config.toml pointing input_path here and output_path to
+   ~/.config/wlogout/style.css so it regenerates on every wallpaper change,
+   the same way you do it for waybar/vscode/discord. */
+
+window {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 16pt;
+    color: {{colors.on_surface.default.hex}};
+    background-color: alpha({{colors.surface.default.hex}}, 0.8);
+}
+
+button {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 0;
+    transition: background-image 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+button:focus,
+button:active {
+    background-size: 25%;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+button:hover {
+    background-color: transparent;
+    background-size: 25%;
+    color: {{colors.primary.default.hex}};
+}
+
+button span {
+    font-size: 1em;
+    color: inherit;
+}
+
+#lock {
+    background-image: image(url("./icons/lock-standard.png"));
+}
+#lock:hover {
+    background-image: image(url("./icons/lock-hovered.png"));
+}
+
+#logout {
+    background-image: image(url("./icons/logout-standard.png"));
+}
+#logout:hover {
+    background-image: image(url("./icons/logout-hovered.png"));
+}
+
+#suspend {
+    background-image: image(url("./icons/sleep-standard.png"));
+}
+#suspend:hover {
+    background-image: image(url("./icons/sleep-hovered.png"));
+}
+
+#shutdown {
+    background-image: image(url("./icons/power-standard.png"));
+}
+#shutdown:hover {
+    background-image: image(url("./icons/power-hovered.png"));
+}
+
+#reboot {
+    background-image: image(url("./icons/restart-standard.png"));
+}
+#reboot:hover {
+    background-image: image(url("./icons/restart-hovered.png"));
+}
+
+#hibernate {
+    background-image: image(url("./icons/hibernate-standard.png"));
+}
+#hibernate:hover {
+    background-image: image(url("./icons/hibernate-hovered.png"));
+}
