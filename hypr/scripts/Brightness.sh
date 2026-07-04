@@ -18,7 +18,7 @@ get_icon_path() {
     if (( level > 100 )); then
         level=100
     fi
-    echo "$iDIR/brightness-${level}.png"
+    echo "$iDIR/brightness-${level}.svg"
 }
 
 # Send notification

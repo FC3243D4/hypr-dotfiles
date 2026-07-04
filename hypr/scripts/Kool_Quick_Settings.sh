@@ -27,7 +27,7 @@ configs="$HOME/.config/hypr/configs"
 UserConfigs="$HOME/.config/hypr/UserConfigs"
 rofi_theme="$HOME/.config/rofi/config-edit.rasi"
 msg=' ⁉️ Choose what to do ⁉️'
-iDIR="$HOME/.config/swaync/images"
+iDIR="$HOME/.config/swaync/icons"
 scriptsDir="$HOME/.config/hypr/scripts"
 
 menu() {
@@ -84,7 +84,7 @@ main() {
         "Choose Kitty Terminal Theme")
             "$scriptsDir/Kitty_themes.sh"; return ;;
         "Configure Monitors (nwg-displays)"|"Configure Workspace Rules (nwg-displays)")
-            command -v nwg-displays &>/dev/null || { notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Install nwg-displays first"; exit 1; }
+            command -v nwg-displays &>/dev/null || { notify-send -i "$iDIR/error.svg" "E-R-R-O-R" "Install nwg-displays first"; exit 1; }
             nwg-displays; return ;;
         "Choose Hyprland Animations") "$scriptsDir/Animations.sh";       return ;;
         "Choose Monitor Profiles")    "$scriptsDir/MonitorProfiles.sh";   return ;;

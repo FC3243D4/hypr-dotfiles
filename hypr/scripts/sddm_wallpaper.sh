@@ -22,8 +22,7 @@ rofi_wallust="$HOME/.config/rofi/wallust/colors-rofi.rasi"
 sddm_theme_conf="$sddm_simple/theme.conf"
 
 # Directory for swaync
-iDIR="$HOME/.config/swaync/images"
-iDIRi="$HOME/.config/swaync/icons"
+iDIR="$HOME/.config/swaync/icons"
 
 # Parse arguments
 mode="effects" # default
@@ -91,5 +90,5 @@ if [ -e \"$sddm_simple/Backgrounds/default.png\" ]; then
   sudo cp -f \"$wallpaper_path\" \"$sddm_simple/Backgrounds/default.png\"
 fi
 
-notify-send -i \"$iDIR/ja.png\" \"SDDM\" \"Background SET\"
+notify-send -i \"$iDIR/ok.svg\" \"SDDM\" \"Background SET\"
 "

@@ -12,7 +12,7 @@
 
 MAP_FILE="$HOME/.cache/kb_layout_per_window"
 CFG_FILE="$HOME/.config/hypr/configs/SystemSettings.lua"
-ICON="$HOME/.config/swaync/images/ja.png"
+ICON="$HOME/.config/swaync/icons/ok.svg"
 SCRIPT_NAME="$(basename "$0")"
 
 # Ensure map file exists

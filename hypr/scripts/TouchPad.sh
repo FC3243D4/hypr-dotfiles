@@ -5,7 +5,7 @@
 # Use `hyprctl devices` to find your touchpad's exact name.
 # source https://github.com/hyprwm/Hyprland/discussions/4283?sort=new#discussioncomment-8648109
 
-notif="$HOME/.config/swaync/images/ja.png"
+notif="$HOME/.config/swaync/icons/ok.svg"
 STATUS_FILE="$XDG_RUNTIME_DIR/touchpad.status"
 LAPTOPS_LUA="$HOME/.config/hypr/UserConfigs/Laptops.lua"
 

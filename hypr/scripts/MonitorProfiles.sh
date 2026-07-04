@@ -8,7 +8,7 @@ if pidof rofi > /dev/null; then
 fi
 
 # Variables
-iDIR="$HOME/.config/swaync/images"
+iDIR="$HOME/.config/swaync/icons"
 SCRIPTSDIR="$HOME/.config/hypr/scripts"
 monitor_dir="$HOME/.config/hypr/Monitor_Profiles"
 target="$HOME/.config/hypr/UserConfigs/monitors.lua"
@@ -38,7 +38,7 @@ if [[ -n "$chosen_file" ]]; then
     fi
 
     cp "$full_path" "$target"
-    notify-send -u low -i "$iDIR/ja.png" "$chosen_file" "Monitor Profile Loaded"
+    notify-send -u low -i "$iDIR/ok.svg" "$chosen_file" "Monitor Profile Loaded"
 fi
 
 sleep 1
