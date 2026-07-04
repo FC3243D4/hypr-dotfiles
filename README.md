@@ -8,7 +8,9 @@ Hyprland dotfiles for a hybrid KDE Plasma / Hyprland setup, dual-booted alongsid
 - **Waybar** config (`waybar/`)
 - **Rofi** config (`rofi/`)
 - **SwayNotificationCenter** config (`swaync/`)
+- **wlogout** config (`wlogout/`)
 - **matugen** config and templates (`matugen/`) — generates the accent-color theming from your wallpaper and pushes it out to Waybar, Hyprland, Kitty, Rofi, GTK, KDE color schemes, and a few per-app patchers
+- **Icon patchers** — recolor a set of [Tabler Icons](https://tabler.io/icons) (MIT licensed) to match the current accent color and push them out per-app (VS Code, Ferdium service recipes, browsers, Discord, etc.) — see [Icons](#icons) below
 - `install.sh` — dependency check + install, config sync, GPU-aware env toggling, monitor setup, cursor theme build, and companion tool installation
 - `installSupportScripts/` — package-manager abstraction (`pkg_manager.sh`) and dependency checking (`dependency_check.sh`) used by `install.sh`
 
@@ -18,7 +20,7 @@ The Hyprland configuration in this repo started from [JaKooLit/Hyprland-Dots](ht
 
 ## Requirements
 
-- A KDE Plasma / Hyprland hybrid setup (dual `.desktop` session, or a distro that ships both)
+- A KDE Plasma / Hyprland hybrid setup
 - `git`
 - `sudo` access (the installer installs system packages)
 
@@ -36,7 +38,7 @@ chmod +x install.sh
 `install.sh` runs through the following steps, in order:
 
 1. **Dependency check** — detects your package manager (`pacman`, `apt`, `dnf`, or `zypper`) and installs anything missing. `openrgb` is checked but optional — you'll get a warning, not a failure, if it's absent.
-2. **Config sync** — `rsync`'s `hypr/`, `matugen/`, `rofi/`, `waybar/`, and `swaync/` into `~/.config/`. This is additive (no `--delete`), so nothing you've added locally to those folders gets removed on a re-run. Anything already present at those paths that wasn't put there by this script gets backed up once, to `<name>.bak`, before the first sync.
+2. **Config sync** — `rsync`'s `hypr/`, `matugen/`, `rofi/`, `waybar/`, `swaync/`, and `wlogout/` into `~/.config/`. This is additive (no `--delete`), so nothing you've added locally to those folders gets removed on a re-run. Anything already present at those paths that wasn't put there by this script gets backed up once, to `<name>.bak`, before the first sync.
 3. **GPU env toggle** — detects whether an NVIDIA GPU is present via `lspci` and comments/uncomments the NVIDIA block in `~/.config/hypr/ENVariables.lua` accordingly. Idempotent — safe to re-run on the same or different hardware.
 4. **Monitor config** — if you're in an active Hyprland session, launches `nwg-displays` so you can arrange your outputs and generate `~/.config/hypr/monitors.conf`. If you run the installer from KDE (or before your first Hyprland login), this step is skipped with instructions to run it manually later — `nwg-displays` only supports sway/Hyprland/Niri and can't run under Plasma.
 5. **Cursor theme** — clones [accurse](https://github.com/ATM-Jahid/accurse), patches its bundled Breeze theme (recolored, extended size set), compiles it, and installs the result to `~/.local/share/icons/AC-Breeze`.
@@ -51,6 +53,12 @@ Wallpapers are set and managed via [awww](https://codeberg.org/LGFae/awww), driv
 The repo includes a `.desktop` file to autostart the awww daemon under a **KDE Plasma** session, since Plasma doesn't pick up Hyprland's own `exec-once` autostart mechanism.
 
 > **Heads up:** enabling this autostart on KDE hides all icons on the desktop. awww's rendering surface occupies the same desktop layer Plasma's own Folder View uses to display desktop icons, so the two conflict — you get the awww wallpaper, but Plasma's desktop icon layer no longer shows through. If you rely on desktop icons under your KDE session, you'll want to either skip enabling that `.desktop` autostart entry there, or accept the tradeoff and access files via Dolphin/the app launcher instead. This doesn't affect the Hyprland session, where there's no desktop icon layer to conflict with in the first place.
+
+## Icons
+
+`iconPatcher.sh` and the per-app patcher scripts (`vscodePatcher.sh`, `discordPatcher.sh`, `ferdiumIconPatcher.sh`, browser patchers, etc.) recolor a shared set of monochrome SVG icons to match the matugen-derived accent color, then push the result out to each app's icon lookup path. Icons are recolored via their `currentColor` stroke/fill (or, for a handful of flat-hex legacy icons, a direct hex substitution), then dropped into place per app — a local `file://` icon override for Ferdium's recipes, the app's own resource directory for VS Code, and so on.
+
+The icons themselves are from [Tabler Icons](https://tabler.io/icons), used under the [MIT License](https://github.com/tabler/tabler-icons/blob/main/LICENSE). No modifications to the icon shapes themselves beyond recoloring.
 
 ## Dependencies
 
