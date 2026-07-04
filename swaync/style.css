@@ -331,3 +331,8 @@
     font-size: x-large;
     color: @text-color
 }
+
+.notification .notification-content overlay,
+.notification .notification-content overlay image {
+    border-radius: 0;
+}
