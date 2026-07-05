@@ -23,7 +23,6 @@ hl.on("hyprland.start", function()
         "swaync",
         -- "ags",
         "blueman-applet",
-        "waybar",
         "qs -c overview",  -- Quickshell Overview
 
         -- Clipboard manager

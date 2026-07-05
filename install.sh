@@ -125,6 +125,50 @@ fi
 
 echo ""
 
+# ─── Waybar systemd service ────────────────────────────────────────────────────
+# Installs a systemd user unit so waybar-git restarts automatically on crash,
+# instead of relying on exec-once (which won't respawn a dead process). Any
+# exec-once line launching waybar in the synced hypr configs is commented out
+# so systemd is the sole launcher and we don't end up with duplicate instances.
+
+echo "=== Installing waybar systemd service ==="
+
+SYSTEMD_USER_DIR="$CONFIG_HOME/systemd/user"
+mkdir -p "$SYSTEMD_USER_DIR"
+
+waybarBin="$(command -v waybar)"
+
+if [ -z "$waybarBin" ]; then
+    echo "waybar binary not found on PATH — skipping systemd service install."
+else
+    cat > "$SYSTEMD_USER_DIR/waybar.service" <<EOF
+[Unit]
+Description=Waybar
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=$waybarBin
+ExecReload=/bin/kill -SIGUSR2 \$MAINPID
+Restart=on-failure
+RestartSec=1
+StartLimitBurst=5
+StartLimitIntervalSec=30
+ConditionEnvironment=XDG_CURRENT_DESKTOP=Hyprland
+
+[Install]
+WantedBy=graphical-session.target
+EOF
+    echo "Wrote $SYSTEMD_USER_DIR/waybar.service"
+
+    systemctl --user daemon-reload
+    systemctl --user enable --now waybar.service
+    echo "waybar.service enabled and started."
+fi
+
+echo ""
+
 # ─── Generate monitor/workspace config (nwg-displays) ─────────────────────────
 # nwg-displays needs a live Hyprland session to query outputs over IPC — it
 # can't run from a TTY before you've logged in at least once, and it has no
