@@ -36,3 +36,12 @@ output_path = '~/.cache/matugen/source-color'
 [templates.wlogout]
 input_path = '~/.config/matugen/templates/style-wlogout.css'
 output_path = '~/.config/wlogout/style.css'
+
+[templates.swaync]
+input_path = '~/.config/matugen/templates/swaync.css'
+output_path = '~/.config/swaync/style.css'
+
+[config.reload_apps.swaync]
+enable = true
+command = "swaync-client"
+arg = "-rs"
