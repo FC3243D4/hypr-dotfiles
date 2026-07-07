@@ -14,7 +14,6 @@ output_path = '~/.config/hypr/matugen/colors-hyprland.lua'
 [templates.waybar]
 input_path  = '~/.config/matugen/templates/colors-waybar.css'
 output_path = '~/.config/waybar/matugen/colors-waybar.css'
-post_hook   = 'pkill -SIGUSR2 waybar'
 
 [templates.kitty]
 input_path  = '~/.config/matugen/templates/colors-kitty.conf'
@@ -40,8 +39,4 @@ output_path = '~/.config/wlogout/style.css'
 [templates.swaync]
 input_path = '~/.config/matugen/templates/swaync.css'
 output_path = '~/.config/swaync/style.css'
-
-[config.reload_apps.swaync]
-enable = true
-command = "swaync-client"
-arg = "-rs"
+post_hook   = 'swaync-client -rs'
