@@ -9,7 +9,7 @@
 @define-color workspacesbackground2 @color12;
 @define-color bordercolor @color13;
 @define-color textcolor1 @foreground;
-@define-color textcolor2 @foreground;
+@define-color textcolor2 @color4;
 @define-color textcolor3 @foreground;
 @define-color iconcolor @foreground;
 
@@ -40,14 +40,14 @@ window#waybar {
     border-radius: 5px 5px 5px 5px;
     border: 0px;
     font-style: normal;
-    color: @textcolor1;
+    color: @textcolor2;
 }
 
 #workspaces button {
     padding: 0px 6px;
     margin: 3px 2px;
     border-radius: 3px 3px 3px 3px;
-    color: @textcolor1;
+    color: @textcolor2;
     background-color: @workspacesbackground1;
     transition: all 0.1s linear;
 }
@@ -263,13 +263,13 @@ window#waybar.empty #window {
 }
 
 #clock {
-    /* background-color: @backgrounddark; */
-    background-color: @color8 ;
-    color: @textcolor1;
+    background-color: @color8;
+    color: @textcolor2;
     border-radius: 3px 5px 3px 5px;
     padding: 1px 10px 0px 10px;
     margin: 3px 0px 3px 0px;
-    border: 0px solid @bordercolor;   
+    border: 0px solid @bordercolor;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 #backlight {
@@ -358,7 +358,7 @@ window#waybar.empty #window {
 
 #tray {
     background-color: @backgroundlight;
-    /* color: @textcolor2; */
+    color: @textcolor2;
     border-radius: 5px 5px 5px 5px;
     padding: 3px 10px 3px 10px;
     margin: 3px 15px 3px 0px;
@@ -419,4 +419,15 @@ window#waybar.empty #window {
     border-radius: 5px 5px 5px 5px;
     padding: 0px 10px 0px 10px;
     margin: 3px 2px 3px 0px;
+}
+
+#hardware-cpu #power-profiles-daemon,
+#hardware-cpu #temperature,
+#hardware-cpu #cpu,
+#hardware-cpu #frequency,
+#hardware-gpu #custom-gpu,
+#hardware-memory #memory,
+#hardware-memory #disk,
+#hardware-memory #massExt4 {
+    color: @textcolor2;
 }
