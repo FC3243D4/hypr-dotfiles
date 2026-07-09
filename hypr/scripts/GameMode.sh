@@ -12,8 +12,15 @@ if [ ! -f "${GAME_MODE_LOCATION}" ]; then
     echo "false" > "${GAME_MODE_LOCATION}"
 fi
 
-unit_exists() {
-    systemctl --user cat "$1" >/dev/null 2>&1 || systemctl cat "$1" >/dev/null 2>&1
+# Prints "user" or "system" on stdout if the unit exists in that scope, empty (and exit 1) otherwise.
+unit_scope() {
+    if systemctl --user cat "$1" >/dev/null 2>&1; then
+        echo "user"
+    elif systemctl cat "$1" >/dev/null 2>&1; then
+        echo "system"
+    else
+        return 1
+    fi
 }
 
 # Add new services here as "label:unit1,unit2" — units are comma-separated,
@@ -24,7 +31,8 @@ GAME_MODE_SERVICES=(
     "waybar:waybar.service"
 )
 
-GAME_MODE_UNITS=""
+GAME_MODE_UNITS=""        # system-scope units
+GAME_MODE_USER_UNITS=""   # user-scope units
 GAME_MODE_UNITS_DESC=""
 
 for entry in "${GAME_MODE_SERVICES[@]}"; do
@@ -34,10 +42,17 @@ for entry in "${GAME_MODE_SERVICES[@]}"; do
 
     IFS=',' read -ra unit_list <<< "$units"
     for u in "${unit_list[@]}"; do
-        if unit_exists "$u"; then
-            GAME_MODE_UNITS="${GAME_MODE_UNITS}${GAME_MODE_UNITS:+ }$u"
-            found=true
-        fi
+        scope=$(unit_scope "$u")
+        case "$scope" in
+            user)
+                GAME_MODE_USER_UNITS="${GAME_MODE_USER_UNITS}${GAME_MODE_USER_UNITS:+ }$u"
+                found=true
+                ;;
+            system)
+                GAME_MODE_UNITS="${GAME_MODE_UNITS}${GAME_MODE_UNITS:+ }$u"
+                found=true
+                ;;
+        esac
     done
 
     if [ "$found" = true ]; then
@@ -79,6 +94,9 @@ if [ "${CURRENT_STATE}" = "false" ]; then
     if [ -n "$GAME_MODE_UNITS" ]; then
         systemctl stop $GAME_MODE_UNITS >/dev/null 2>&1
     fi
+    if [ -n "$GAME_MODE_USER_UNITS" ]; then
+        systemctl --user stop $GAME_MODE_USER_UNITS >/dev/null 2>&1
+    fi
 
     notify-send -e -u low -i "$notif" "Gamemode: enabled" "${GAME_MODE_UNITS_DESC:-nothing to stop} off"
     sleep 10 && enable_notif_inhibit
@@ -94,6 +112,9 @@ else
 
     if [ -n "$GAME_MODE_UNITS" ]; then
         systemctl start $GAME_MODE_UNITS >/dev/null 2>&1
+    fi
+    if [ -n "$GAME_MODE_USER_UNITS" ]; then
+        systemctl --user start $GAME_MODE_USER_UNITS >/dev/null 2>&1
     fi
 
     disable_notif_inhibit
