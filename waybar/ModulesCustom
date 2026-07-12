@@ -177,7 +177,9 @@
 	"exec": "checkupdates | wc -l",
 	"exec-if": "[[ $(checkupdates | wc -l) ]]",
 	"interval": 3600, // (Arch Linux will try to check 1 hrs interval only
-	"on-click": "$HOME/.config/hypr/UserScripts/better-updater.sh",
+	"signal": 42
+	//"on-click": "$HOME/.config/hypr/scripts/Distro_update.sh",
+	"on-click": "$HOME/.config/hypr/UserScripts/better-updater.sh && pkill -SIGRTMIN+42 waybar;",
 	"tooltip": true,
 	"tooltip-format": "Left Click\nUpdate System with topgrade",
 },
