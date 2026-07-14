@@ -263,10 +263,19 @@ fi
 echo ""
 
 # ─── KDE autostart entry for awww-daemon ───────────────────────────────────────
-# Clones (or updates) the .desktop file for awww-daemon on KDE into 
-# ~/.config/autostart so it launches on login.
+# Creates the .desktop file for awww-daemon on KDE into  ~/.config/autostart so 
+# it launches on login.
 echo "=== Installing awww-daemon autostart entry for KDE ==="
 rsync -a "awww-daemon.desktop" "$CONFIG_HOME/autostart/"
+
+cat > "$CONFIG_HOME/autostart/awww-daemon.desktop" <<EOF
+[Desktop Entry]
+Type=Application
+Name=awww-daemon
+Exec=awww-daemon --layer bottom
+OnlyShowIn=KDE;
+X-GNOME-Autostart-enabled=true
+EOF
 
 echo ""
 echo "Install complete."
