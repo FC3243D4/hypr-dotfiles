@@ -130,6 +130,8 @@ echo ""
 # instead of relying on exec-once (which won't respawn a dead process). Any
 # exec-once line launching waybar in the synced hypr configs is commented out
 # so systemd is the sole launcher and we don't end up with duplicate instances.
+# It also creates kill-waybar-kde.desktop inside ~/.config/autostart to kill
+# the process when logging into KDE
 
 echo "=== Installing waybar systemd service ==="
 
@@ -161,6 +163,16 @@ ConditionEnvironment=XDG_CURRENT_DESKTOP=Hyprland
 WantedBy=graphical-session.target
 EOF
     echo "Wrote $SYSTEMD_USER_DIR/waybar.service"
+
+        cat > "$CONFIG_HOME/autostart/kill-waybar-kde.desktop" <<EOF
+[Desktop Entry]
+Type=Application
+Name=Stop Waybar on KDE
+Exec=systemctl --user stop waybar.service
+OnlyShowIn=KDE;
+X-KDE-autostart-phase=1
+EOF
+    echo "Wrote $CONFIG_HOME/autostart/kill-waybar-kde.desktop"
 
     systemctl --user daemon-reload
     systemctl --user enable --now waybar.service
