@@ -11,3 +11,6 @@ files = "dolphin" -- File Manager
 
 -- Default Search Engine for ROFI Search (SUPER S)
 Search_Engine = "https://www.startpage.com/do/dsearch?q={}"
+
+-- Primary display
+hl.env("PRIMARY_DISPLAY", "x")
