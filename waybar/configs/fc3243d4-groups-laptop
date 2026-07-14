@@ -23,6 +23,7 @@
 	"group/hardware-cpu",
 	"group/hardware-gpu",
     "group/hardware-memory",
+	"battery",
 ],
     
 "modules-center": [
