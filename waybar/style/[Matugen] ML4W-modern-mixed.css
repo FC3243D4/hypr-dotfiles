@@ -282,7 +282,7 @@ window#waybar.empty #window {
 
 #pulseaudio.muted {
     background-color: @backgrounddark;
-    color: @textcolor1;
+    color: @textcolor2;
 }
 
 #network {
