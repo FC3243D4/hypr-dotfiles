@@ -255,7 +255,7 @@ fi
 
 if [ -n "$WALLPAPER_CHANGER_DIR" ] && [ -f "$WALLPAPER_CHANGER_DIR/install-Linux.sh" ]; then
     chmod +x "$WALLPAPER_CHANGER_DIR/install-Linux.sh"
-    (cd "$WALLPAPER_CHANGER_DIR" && ./install-Linux.sh) || echo "Warning: Wallpaper-changer's install-Linux.sh exited with an error."
+    (cd "$WALLPAPER_CHANGER_DIR" && ./install-Linux.sh --install) || echo "Warning: Wallpaper-changer's install-Linux.sh exited with an error."
 elif [ -n "$WALLPAPER_CHANGER_DIR" ]; then
     echo "Error: install-Linux.sh not found in $WALLPAPER_CHANGER_DIR — repo layout may have changed."
 fi
