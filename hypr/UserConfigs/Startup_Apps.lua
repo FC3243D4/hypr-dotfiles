@@ -10,7 +10,6 @@ hl.on("hyprland.start", function()
         "hyprpm reload -n",
         
         "ags",
-        "xrandr --output DP-2 --primary",
 
         -- for dolphin apps menu
         "$HOME/.config/hypr/scripts/login-kde-apps.sh",
@@ -21,6 +20,9 @@ hl.on("hyprland.start", function()
 
         --kded6 watcher
         "$HOME/.config/hypr/scripts/kded6-fix.sh",
+
+        --setting primary display
+        --"xrandr --output X --primary",
     }
     
     for _, cmd in ipairs(cmds) do
