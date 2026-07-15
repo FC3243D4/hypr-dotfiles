@@ -10,7 +10,7 @@ Hyprland dotfiles for a hybrid KDE Plasma / Hyprland setup, dual-booted alongsid
 - **SwayNotificationCenter** config (`swaync/`)
 - **wlogout** config (`wlogout/`)
 - **matugen** config and templates (`matugen/`) — generates the accent-color theming from your wallpaper and pushes it out to Waybar, Hyprland, Kitty, Rofi, GTK, KDE color schemes, and a few per-app patchers
-- **Icon patchers** — recolor a set of [Tabler Icons](https://tabler.io/icons) (MIT licensed) to match the current accent color and push them out per-app (VS Code, Ferdium service recipes, browsers, Discord, etc.) — see [Icons](#icons) below
+- **Icon patchers** — recolor the icon set (a mix of Tabler Icons and custom icons) shipped in the [Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) repo to match the current accent color and push them out per-app (VS Code, Ferdium service recipes, browsers, Discord, etc.) — see [Icons](#icons) below
 - `install.sh` — dependency check + install, config sync, GPU-aware env toggling, monitor setup, cursor theme build, and companion tool installation
 - `installSupportScripts/` — package-manager abstraction (`pkg_manager.sh`) and dependency checking (`dependency_check.sh`) used by `install.sh`
 
@@ -58,7 +58,7 @@ The repo includes a `.desktop` file to autostart the awww daemon under a **KDE P
 
 `iconPatcher.sh` and the per-app patcher scripts (`vscodePatcher.sh`, `discordPatcher.sh`, `ferdiumIconPatcher.sh`, browser patchers, etc.) recolor a shared set of monochrome SVG icons to match the matugen-derived accent color, then push the result out to each app's icon lookup path. Icons are recolored via their `currentColor` stroke/fill (or, for a handful of flat-hex legacy icons, a direct hex substitution), then dropped into place per app — a local `file://` icon override for Ferdium's recipes, the app's own resource directory for VS Code, and so on.
 
-The icons themselves are from [Tabler Icons](https://tabler.io/icons), used under the [MIT License](https://github.com/tabler/tabler-icons/blob/main/LICENSE). No modifications to the icon shapes themselves beyond recoloring.
+The icon set itself lives in the [Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) repo (installed alongside this one — see step 6 above), not in this repo. It's a mix of [Tabler Icons](https://tabler.io/icons) (MIT licensed) for general/category icons and custom icons for specific app/game overrides. See that repo for the icon files and license details.
 
 ## Dependencies
 
