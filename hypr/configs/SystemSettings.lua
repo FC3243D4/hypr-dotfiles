@@ -24,7 +24,7 @@ hl.config({
     general = {
         resize_on_border        = true,
         extend_border_grab_area = 10,
-        layout                  = "master",
+        layout                  = os.getenv("DEFAULT_LAYOUT"),
     },
 
     input = {

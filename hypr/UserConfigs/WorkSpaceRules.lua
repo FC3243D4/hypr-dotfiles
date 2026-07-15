@@ -26,7 +26,7 @@
 
 --persistance
 -- persist all 20 workspaces
-for i = 1, 20 do
+for i = 1, os.getenv("PERSISTANT_WORKSPACES") do
     hl.workspace_rule({
         workspace = tostring(i),
         persistent = true,
