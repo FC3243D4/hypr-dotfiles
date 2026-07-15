@@ -125,6 +125,94 @@ fi
 
 echo ""
 
+# ─── Hyprland user preferences (primary display, workspaces, layout) ──────────
+# Detects the primary display and asks for a couple of layout preferences,
+# writing them into 01-UserDefaults.lua via hl.env(...). Moved here (out of
+# Wallpaper-changer's own install-Linux.sh) since none of this is
+# wallpaper-specific — it's general dotfiles configuration.
+
+echo "=== Configuring Hyprland user preferences ==="
+
+USERDEFAULTS_LUA="$CONFIG_HOME/hypr/UserConfigs/01-UserDefaults.lua"
+STARTUPAPPS_LUA="$CONFIG_HOME/hypr/UserConfigs/Startup_Apps.lua"
+
+_ensure_hl_env() {
+    # $1 file, $2 hl.env variable name, $3 value
+    local file="$1" varname="$2" value="$3"
+    if grep -qE "^[[:space:]]*hl\.env\(\"$varname\"" "$file"; then
+        sed -i -E "s|^([[:space:]]*)hl\.env\(\"$varname\", *\"[^\"]*\"\)|\1hl.env(\"$varname\", \"$value\")|" "$file"
+        echo "$varname updated to $value in $file."
+    else
+        {
+            echo ""
+            echo "hl.env(\"$varname\", \"$value\")"
+        } >> "$file"
+        echo "$varname set to $value in $file (was missing, appended)."
+    fi
+}
+
+if [ ! -f "$USERDEFAULTS_LUA" ]; then
+    echo "$USERDEFAULTS_LUA not found — skipping Hyprland preference setup."
+else
+    # Primary display
+    if ! command -v xrandr >/dev/null 2>&1; then
+        echo "xrandr not found — skipping primary display detection."
+    else
+        primary_display=$(xrandr --query 2>/dev/null | awk '
+            / connected/ {
+                for (i = 1; i <= NF; i++) {
+                    if ($i ~ /^[0-9]+x[0-9]+\+0\+0$/) {
+                        print $1
+                        exit
+                    }
+                }
+            }
+        ')
+
+        if [ -z "$primary_display" ]; then
+            echo "Could not detect a display at position 0,0 — skipping primary display setup."
+            echo "You may need to set this manually in $USERDEFAULTS_LUA."
+        else
+            xrandr --output "$primary_display" --primary 2>/dev/null
+            _ensure_hl_env "$USERDEFAULTS_LUA" "PRIMARY_DISPLAY" "$primary_display"
+
+            if [ -f "$STARTUPAPPS_LUA" ]; then
+                if grep -qE '^\s*"xrandr --output \$PRIMARY_DISPLAY --primary",' "$STARTUPAPPS_LUA" 2>/dev/null; then
+                    echo "Startup_Apps.lua already references \$PRIMARY_DISPLAY — leaving it as-is."
+                else
+                    sed -i 's|--"xrandr --output X --primary",|"xrandr --output $PRIMARY_DISPLAY --primary",|' "$STARTUPAPPS_LUA"
+                    echo "Startup_Apps.lua updated to use \$PRIMARY_DISPLAY."
+                fi
+            else
+                echo "$STARTUPAPPS_LUA not found — skipping."
+            fi
+        fi
+    fi
+
+    # Persistent workspaces
+    read -p "How many persistent workspaces do you want? [default: 5] " workspaceCount
+    [ -z "$workspaceCount" ] && workspaceCount=5
+    until [[ "$workspaceCount" =~ ^[0-9]+$ ]] && [ "$workspaceCount" -gt 0 ]; do
+        read -p "Please enter a positive whole number: " workspaceCount
+    done
+    _ensure_hl_env "$USERDEFAULTS_LUA" "PERSISTENT_WORKSPACES" "$workspaceCount"
+
+    # Default layout
+    layoutOptions=("master" "dwindle" "scrolling")
+    echo "Choose your default Hyprland layout:"
+    select defaultLayout in "${layoutOptions[@]}"; do
+        if [ -n "$defaultLayout" ]; then
+            echo "You chose: $defaultLayout"
+            break
+        else
+            echo "Invalid choice, try again."
+        fi
+    done
+    _ensure_hl_env "$USERDEFAULTS_LUA" "DEFAULT_LAYOUT" "$defaultLayout"
+fi
+
+echo ""
+
 # ─── Waybar systemd service ────────────────────────────────────────────────────
 # Installs a systemd user unit so waybar-git restarts automatically on crash,
 # instead of relying on exec-once (which won't respawn a dead process). Any
