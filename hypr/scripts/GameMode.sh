@@ -98,6 +98,8 @@ if [ "${CURRENT_STATE}" = "false" ]; then
         systemctl --user stop $GAME_MODE_USER_UNITS >/dev/null 2>&1
     fi
 
+    awww kill
+
     notify-send -e -u low -i "$notif" "Gamemode: enabled" "${GAME_MODE_UNITS_DESC:-nothing to stop} off"
     sleep 10 && enable_notif_inhibit
 else
@@ -108,6 +110,9 @@ else
         if ! pgrep -x "hypridle" >/dev/null; then
             hypridle &
         fi
+        awww-daemon &
+    elif [ "$XDG_CURRENT_DESKTOP" = "KDE" ]; then
+        awww-daemon --layer bottom &
     fi
 
     if [ -n "$GAME_MODE_UNITS" ]; then
@@ -116,6 +121,8 @@ else
     if [ -n "$GAME_MODE_USER_UNITS" ]; then
         systemctl --user start $GAME_MODE_USER_UNITS >/dev/null 2>&1
     fi
+
+    $HOME/.config/WallpaperChanger/WallpaperApplicator.sh random
 
     disable_notif_inhibit
     notify-send -e -u low -i "$notif" "Gamemode: disabled" "${GAME_MODE_UNITS_DESC:-nothing to start} on"
