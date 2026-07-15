@@ -1,13 +1,13 @@
---https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+--[[ https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
--- NOTE: THIS IS NOT BEING SOURCED by hyprland
--- It is only here as a guide if you want to do it manually
--- The file you should edit is ~/.config/hypr/workspaces.conf
--- Since that is the work space rules being sourced by hyprland
--- use nwg-displays to handle your workspace rules.
+NOTE: THIS IS NOT BEING SOURCED by hyprland
+It is only here as a guide if you want to do it manually
+The file you should edit is ~/.config/hypr/workspaces.conf
+Since that is the work space rules being sourced by hyprland
+use nwg-displays to handle your workspace rules.
 
--- You can set workspace rules to achieve workspace-specific behaviors. 
--- For instance, you can define a workspace where all windows are drawn without borders or gaps.
+You can set workspace rules to achieve workspace-specific behaviors. --]]
+
 
 
 -- Assigning workspace to a certain monitor. Below are just examples
@@ -32,3 +32,9 @@ for i = 1, os.getenv("PERSISTANT_WORKSPACES") do
         persistent = true,
     })
 end
+
+--specific workspace layout override
+--add here your override for the layout of specific workspace, for example
+--hl.workspace_rule({ workspace = "3", layout = "scrolling" })
+--hl.workspace_rule({ workspace = "2", layout = "dwindle" })
+--hl.workspace_rule({ workspace = "1", layout = "master" })
