@@ -90,6 +90,24 @@ cursorDeps=(
 )
 _check_deps "${cursorDeps[@]}"
 
+# --- hyprpm plugin build toolchain (needed to compile the dynamic-cursors
+# Hyprland plugin, and any other hyprpm-managed plugin) ---
+hyprpmBuildDeps=(
+    "command -v cmake|cmake"
+    "command -v meson|meson"
+    "command -v ninja|ninja"
+    "command -v cpio|cpio"
+    "pkg-config --version|pkgconf"
+)
+_check_deps "${hyprpmBuildDeps[@]}"
+
+if ! command -v hyprpm &>/dev/null; then
+    echo "hyprpm not found — it ships with Hyprland itself, so this usually means"
+    echo "Hyprland isn't installed yet, or your build of it omitted hyprpm."
+    echo "The dynamic-cursors plugin install step in install.sh will be skipped."
+    echo ""
+fi
+
 # --- KDE section ---
 echo "Checking KDE dependencies..."
 kdeDeps=(

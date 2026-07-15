@@ -335,6 +335,56 @@ fi
 
 echo ""
 
+# ─── Hyprland dynamic-cursors plugin (hyprpm) ─────────────────────────────────
+# Adds and enables VirtCode/hypr-dynamic-cursors via Hyprland's own plugin
+# manager. hyprpm ships with Hyprland itself (not a separate package), but it
+# compiles plugins against headers matching your exact installed Hyprland
+# version, so this step is skipped (rather than guessed around) if hyprpm
+# isn't there or the build fails — a stale/mismatched header set is a common
+# cause and generally means Hyprland itself needs updating first.
+#
+# NOTE: enabling the plugin here only loads it into Hyprland; it doesn't add
+# any `plugin { dynamic-cursors { ... } }` config block. Add that yourself in
+# your Hyprland config if you want to customize it — see the plugin's README
+# at https://github.com/VirtCode/hypr-dynamic-cursors for available options.
+
+echo "=== Installing dynamic-cursors Hyprland plugin (hyprpm) ==="
+
+DYNAMIC_CURSORS_REPO="https://github.com/VirtCode/hypr-dynamic-cursors"
+DYNAMIC_CURSORS_PLUGIN="dynamic-cursors"
+
+if ! command -v hyprpm &>/dev/null; then
+    echo "hyprpm not found on PATH — skipping dynamic-cursors plugin install."
+    echo "(hyprpm ships with Hyprland; make sure Hyprland itself is installed and up to date.)"
+else
+    if hyprpm list 2>/dev/null | grep -qi "$DYNAMIC_CURSORS_PLUGIN"; then
+        echo "$DYNAMIC_CURSORS_PLUGIN is already added to hyprpm — updating instead of re-adding."
+        hyprpm update || echo "Warning: hyprpm update failed. Continuing with the existing install."
+    else
+        echo "Adding $DYNAMIC_CURSORS_PLUGIN plugin from $DYNAMIC_CURSORS_REPO..."
+        if ! hyprpm add "$DYNAMIC_CURSORS_REPO"; then
+            echo "Error: hyprpm failed to add $DYNAMIC_CURSORS_PLUGIN."
+            echo "This is usually a header/build-tool mismatch — make sure Hyprland is up to date"
+            echo "and cmake/meson/ninja/cpio/pkg-config are installed, then try:"
+            echo "  hyprpm add $DYNAMIC_CURSORS_REPO"
+            echo "manually."
+        fi
+    fi
+
+    if hyprpm list 2>/dev/null | grep -qi "$DYNAMIC_CURSORS_PLUGIN"; then
+        if hyprpm enable "$DYNAMIC_CURSORS_PLUGIN"; then
+            echo "$DYNAMIC_CURSORS_PLUGIN enabled."
+            echo "Reload Hyprland (or run 'hyprctl reload') for the plugin to take effect."
+        else
+            echo "Error: failed to enable $DYNAMIC_CURSORS_PLUGIN. Try 'hyprpm enable $DYNAMIC_CURSORS_PLUGIN' manually."
+        fi
+    else
+        echo "$DYNAMIC_CURSORS_PLUGIN was not found in hyprpm's plugin list after the add step — skipping enable."
+    fi
+fi
+
+echo ""
+
 # ─── Wallpaper-changer ─────────────────────────────────────────────────────────
 # Clones (or updates) FC3243D4/Wallpaper-changer as a sibling of this repo,
 # then runs its own installer.

@@ -74,6 +74,11 @@ _resolve_pkg() {
                 xdg-utils)              echo "xdg-utils" ;;
                 yad)                    echo "yad" ;;
                 pciutils)               echo "pciutils" ;;
+                cmake)                  echo "cmake" ;;
+                meson)                  echo "meson" ;;
+                ninja)                  echo "ninja" ;;
+                cpio)                   echo "cpio" ;;
+                pkgconf)                echo "pkgconf" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         apt)
@@ -117,6 +122,11 @@ _resolve_pkg() {
                 xdg-utils)              echo "xdg-utils" ;;
                 yad)                    echo "yad" ;;
                 pciutils)               echo "pciutils" ;;
+                cmake)                  echo "cmake" ;;
+                meson)                  echo "meson" ;;
+                ninja)                  echo "ninja-build" ;;
+                cpio)                   echo "cpio" ;;
+                pkgconf)                echo "pkg-config" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         dnf)
@@ -160,6 +170,11 @@ _resolve_pkg() {
                 xdg-utils)              echo "xdg-utils" ;;
                 yad)                    echo "yad" ;;
                 pciutils)               echo "pciutils" ;;
+                cmake)                  echo "cmake" ;;
+                meson)                  echo "meson" ;;
+                ninja)                  echo "ninja-build" ;;
+                cpio)                   echo "cpio" ;;
+                pkgconf)                echo "pkgconf-pkg-config" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         zypper)
@@ -203,6 +218,11 @@ _resolve_pkg() {
                 xdg-utils)              echo "xdg-utils" ;;
                 yad)                    echo "yad" ;;
                 pciutils)               echo "pciutils" ;;
+                cmake)                  echo "cmake" ;;
+                meson)                  echo "meson" ;;
+                ninja)                  echo "ninja" ;;
+                cpio)                   echo "cpio" ;;
+                pkgconf)                echo "pkgconf-pkg-config" ;;
                 *)                      echo "$logical" ;;
             esac ;;
     esac
