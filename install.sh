@@ -286,12 +286,15 @@ echo "=== Generating monitor config ==="
 if [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
     echo "Hyprland session detected — launching nwg-displays."
     echo "Arrange your outputs in the window that opens, then click Apply."
-    nwg-displays -m "$CONFIG_HOME/hypr/monitors.conf"
+    nwg-displays -n "${workspaceCount:-5}" -m "$CONFIG_HOME/hypr/monitors.conf"
+    echo "Open the workspaces section and set your workspace-monitor relations if you want them"
+    nwg-displays -n ${workspaceCount:-5} -w "$CONFIG_HOME/hypr/workspaces.conf"
 else
     echo "No active Hyprland session detected (HYPRLAND_INSTANCE_SIGNATURE not set)."
     echo "Skipping monitor config generation."
     echo "After logging into Hyprland, run this manually:"
-    echo "  nwg-displays -n $workspaceCount -m $CONFIG_HOME/hypr/monitors.conf"
+    echo "  nwg-displays -m $CONFIG_HOME/hypr/monitors.conf"
+    echo "  nwg-displays -n ${workspaceCount:-5} -w $CONFIG_HOME/hypr/workspaces.conf"
 fi
 
 echo ""
