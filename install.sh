@@ -164,21 +164,22 @@ else
     if ! command -v xrandr >/dev/null 2>&1; then
         echo "xrandr not found — skipping primary display detection."
     else
-        primary_display=$(xrandr --query 2>/dev/null | awk '
-            / connected/ {
-                for (i = 1; i <= NF; i++) {
-                    if ($i ~ /^[0-9]+x[0-9]+\+0\+0$/) {
-                        print $1
-                        exit
-                    }
-                }
-            }
-        ')
+        mapfile -t connected_displays < <(xrandr --query 2>/dev/null | awk '/ connected/ {print $1}')
 
-        if [ -z "$primary_display" ]; then
-            echo "Could not detect a display at position 0,0 — skipping primary display setup."
+        if [ "${#connected_displays[@]}" -eq 0 ]; then
+            echo "No connected displays detected via xrandr — skipping primary display setup."
             echo "You may need to set this manually in $USERDEFAULTS_LUA."
         else
+            echo "Choose your primary display:"
+            select primary_display in "${connected_displays[@]}"; do
+                if [ -n "$primary_display" ]; then
+                    echo "You chose: $primary_display"
+                    break
+                else
+                    echo "Invalid choice, try again."
+                fi
+            done
+
             xrandr --output "$primary_display" --primary 2>/dev/null
             _ensure_hl_env "$USERDEFAULTS_LUA" "PRIMARY_DISPLAY" "$primary_display"
 
