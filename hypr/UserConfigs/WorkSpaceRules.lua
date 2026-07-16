@@ -26,7 +26,7 @@ You can set workspace rules to achieve workspace-specific behaviors. --]]
 
 --persistance
 -- persist all 20 workspaces
-for i = 1, os.getenv("PERSISTANT_WORKSPACES") do
+for i = 1, os.getenv("PERSISTENT_WORKSPACES") do
     hl.workspace_rule({
         workspace = tostring(i),
         persistent = true,

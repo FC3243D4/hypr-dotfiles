@@ -16,7 +16,7 @@ Search_Engine = "https://www.startpage.com/do/dsearch?q={}"
 hl.env("PRIMARY_DISPLAY", "x")
 
 -- Number of persistant workspaces
-hl.env("PERSISTANT_WORKSPACES", 10)
+hl.env("PERSISTENT_WORKSPACES", 5)
 
 -- Default Layout
 hl.env("DEFAULT_LAYOUT", "master")
