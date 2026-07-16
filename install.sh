@@ -415,8 +415,6 @@ echo ""
 # ─── KDE autostart entry for awww-daemon ───────────────────────────────────────
 # Creates the .desktop file for awww-daemon on KDE into  ~/.config/autostart so 
 # it launches on login.
-echo "=== Installing awww-daemon autostart entry for KDE ==="
-rsync -a "awww-daemon.desktop" "$CONFIG_HOME/autostart/"
 
 cat > "$CONFIG_HOME/autostart/awww-daemon.desktop" <<EOF
 [Desktop Entry]
