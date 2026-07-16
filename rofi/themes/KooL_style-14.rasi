@@ -16,10 +16,10 @@ configuration {
 
 /*****----- Global Properties -----*****/
 * {
-    background-alt:              @color0;
-    selected:                    @color13;
-    active:                      @color12;
-    urgent:                      @color13;
+    background-alt:              @surface-container-lowest;
+    selected:                    @tertiary-container;
+    active:                      @primary;
+    urgent:                      @tertiary-container;
 }
 
 /*****----- Main Window -----*****/
@@ -38,7 +38,7 @@ window {
     border:                      2px 0px 2px 0px;
     border-radius:               16px;
     border-color:                @active;
-    background-color:            @background;
+    background-color:            rgba(0, 0, 0, 0.7);
     cursor:                      "default";
 }
 
@@ -65,7 +65,7 @@ inputbar {
     border-radius:               16px;
     border-color:                @selected;
     background-color:            @background-alt;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     children:                    [ "prompt", "entry" ];
 }
 
@@ -74,7 +74,7 @@ prompt {
     padding:                     12px;
     border-radius:               16px;
     background-color:            @active;
-    text-color:                  @background;
+    text-color:                  rgba(0, 0, 0, 0.7);
 }
 textbox-prompt-colon {
     enabled:                     true;
@@ -113,7 +113,7 @@ listview {
     border-radius:               0px;
     border-color:                @selected;
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     cursor:                      "default";
 }
 scrollbar {
@@ -132,17 +132,17 @@ element {
     border:                      0px solid;
     border-radius:               16px;
     border-color:                @selected;
-    background-color:            @background;
-    text-color:                  @foreground;
+    background-color:            rgba(0, 0, 0, 0.7);
+    text-color:                  @on-surface;
     cursor:                      pointer;
 }
 element normal.normal {
     background-color:            @background-alt;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
 }
 element alternate.normal {
     background-color:            @background-alt;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
 }
 element selected.normal {
     border:                      0px 5px 0px 5px;
@@ -174,8 +174,8 @@ error-message {
     border:                      2px solid;
     border-radius:               16px;
     border-color:                @selected;
-    background-color:            @background;
-    text-color:                  @foreground;
+    background-color:            rgba(0, 0, 0, 0.7);
+    text-color:                  @on-surface;
 }
 textbox {
     background-color:            @active;

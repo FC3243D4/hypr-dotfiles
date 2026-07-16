@@ -17,30 +17,30 @@ configuration {
     me-accept-entry:            "MousePrimary";
 }
 
-/* ---- Load wallust colors ---- */
+/* ---- Load matugen colors (InioX/matugen-themes) ---- */
 @theme "~/.config/rofi/matugen/colors-rofi.rasi"
 
 /* ---- Global Properties ---- */
 * {
 
-    background-alt:              @color0; // neutral background
-    selected:                    @color12; // accent
-    active:                      @color11; // secondary
-    urgent:                      @color13; // alert
+    background-alt:              @surface-container-lowest; // neutral background
+    selected:                    @primary; // accent
+    active:                      @secondary; // secondary
+    urgent:                      @tertiary-container; // alert
 
-    text-selected:               @background;
-    text-color:                  @foreground;
+    text-selected:               rgba(0, 0, 0, 0.7);
+    text-color:                  @on-surface;
     border-color:                @selected;
 }
 
 /* ---- Global Properties ---- */
 * {
-	main-bg:            @background;
-    main-fg:            @foreground;
-    main-br:            @color12;
-    main-ex:            @color11;
-    select-bg:          @foreground;
-    select-fg:          @background;
+	main-bg:            rgba(0, 0, 0, 0.7);
+    main-fg:            @on-surface;
+    main-br:            @primary;
+    main-ex:            @secondary;
+    select-bg:          @on-surface;
+    select-fg:          rgba(0, 0, 0, 0.7);
     separatorcolor:     transparent;
     border-color:       transparent;
 }
@@ -60,7 +60,7 @@ window {
     anchor:                     center;
 
     // Style Values
-    background-color:           @background;
+    background-color:           rgba(0, 0, 0, 0.7);
 }
 
 /* ----- Main Box ----- */
@@ -150,7 +150,7 @@ button {
 }
 button selected {
     background-color:            @selected;
-    text-color:                  @background;
+    text-color:                  rgba(0, 0, 0, 0.7);
 }
 
 /* ---- Scrollbar ---- */
@@ -179,12 +179,12 @@ element normal.normal {
 
 element normal.urgent {
     background-color:            @urgent;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
 }
 
 element normal.active {
     background-color:            @active;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
 }
 
 element selected.normal {
@@ -192,7 +192,7 @@ element selected.normal {
     border-radius:               16px;
     border-color:                @selected;
     background-color:            @selected;
-    text-color:                  @background;
+    text-color:                  rgba(0, 0, 0, 0.7);
 }
 
 element selected.urgent {
@@ -240,7 +240,7 @@ textbox {
     padding:                     12px;
     border-radius:               10px;
     background-color:            @selected;
-    text-color:                  @background;
+    text-color:                  rgba(0, 0, 0, 0.7);
     vertical-align:              0.5;
     horizontal-align:            0.5;
 }
@@ -248,5 +248,5 @@ error-message {
     padding:                     12px;
     border-radius:               20px;
     background-color:            @background-alt;
-    text-color:                  @background;
+    text-color:                  rgba(0, 0, 0, 0.7);
 }

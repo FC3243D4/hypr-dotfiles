@@ -15,17 +15,17 @@ configuration {
     window-format:           "{w} · {c} · {t}";
 }
 
-/* ---- Load wallust colors ---- */
+/* ---- Load matugen colors (InioX/matugen-themes) ---- */
 @theme "~/.config/rofi/matugen/colors-rofi.rasi"
 
 /* ---- Global Properties ---- */
 * {
-    background-alt:          @color1;
-    selected:                @color12;
-    active:                  @color11;
-    urgent:                  @color13;
-    text-selected:           @background;
-    text-color:              @foreground;
+    background-alt:          @error;
+    selected:                @primary;
+    active:                  @secondary;
+    urgent:                  @tertiary-container;
+    text-selected:           rgba(0, 0, 0, 0.7);
+    text-color:              @on-surface;
     border-color:            @selected;
 }
 
@@ -133,18 +133,18 @@ element normal.normal {
 }
 element normal.urgent {
     background-color:        @urgent;
-    text-color:              @foreground;
+    text-color:              @on-surface;
 }
 
 element-text selected,
 element normal.active {
     background-color:        @active;
-    text-color:              @foreground;
+    text-color:              @on-surface;
 }
 
 element selected.normal {
     background-color:            @selected;
-    text-color:              @background;
+    text-color:              rgba(0, 0, 0, 0.7);
 }
 element selected.urgent {
     background-color:        @urgent;
@@ -185,7 +185,7 @@ element-text {
 
 /* ---- Message ---- */
 message {
-    background-color:        @background;
+    background-color:        rgba(0, 0, 0, 0.7);
     border:                  0px;
 }
 
@@ -194,7 +194,7 @@ textbox {
     padding:                 8px; 
     border-radius:           0px; 
     background-color:        @active;
-    text-color:              @foreground;
+    text-color:              @on-surface;
     vertical-align:          0.5;
     horizontal-align:        0.5;
 }
@@ -202,6 +202,6 @@ textbox {
 error-message {
     padding:                 8px; 
     border-radius:           0px; 
-    background-color:        @background;
-    text-color:              @foreground;
+    background-color:        rgba(0, 0, 0, 0.7);
+    text-color:              @on-surface;
 }

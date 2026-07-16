@@ -17,16 +17,16 @@ configuration {
     me-accept-entry:            	"MousePrimary";
 }
 
-/* ---- Load wallust colors ---- */
+/* ---- Load matugen colors (InioX/matugen-themes) ---- */
 @theme "~/.config/rofi/matugen/colors-rofi.rasi"
 
 /*****----- Global Properties -----*****/
 * {    
-    BG:    @background;
-    BGA:   @color12;
-    FG:    @foreground;
+    BG:    rgba(0, 0, 0, 0.7);
+    BGA:   @primary;
+    FG:    @on-surface;
     FGA:   #F28FADff;
-    BDR:   @color12;
+    BDR:   @primary;
     SEL:   #1E1E2Eff;
     UGT:   #F28FADff;
     IMG:   #FAE3B0ff;

@@ -17,19 +17,19 @@ configuration {
 }
 
 
-/* ---- Load wallust colors ---- */
+/* ---- Load matugen colors (InioX/matugen-themes) ---- */
 @theme "~/.config/rofi/matugen/colors-rofi.rasi"
 
 /* ---- Global Properties ---- */
 * {
 
-    background-alt:              @color1;
-    selected:                    @color12;
-    active:                      @color11;
-    urgent:                      @color13;
+    background-alt:              @error;
+    selected:                    @primary;
+    active:                      @secondary;
+    urgent:                      @tertiary-container;
 
-    text-selected:               @background;
-    text-color:                  @foreground;
+    text-selected:               rgba(0, 0, 0, 0.7);
+    text-color:                  @on-surface;
     border-color:                @selected;
 }
 
@@ -44,14 +44,14 @@ window {
     padding:                    1px;
     margin:                     0px; 
     border:                     2px;
-    border-color:               @active-background;
+    border-color:               @primary;
     cursor:                     "default";
     location:                   center;
     anchor:                     center;
     fullscreen:                 false;
     enabled:                    true;
     border-radius:              12px;
- 	background-color:           @background-color;
+ 	background-color:           rgba(0, 0, 0, 0.7);
 }
 
 /* ---- Mainbox ---- */
@@ -79,8 +79,8 @@ listbox {
 	padding:					10px;
     border-radius:              12px;
     border:                     1px;
-    border-color:               @active-background;
-	background-color:		    @background;
+    border-color:               @primary;
+	background-color:		    rgba(0, 0, 0, 0.7);
 }
 
 /* ---- Dummy ---- */
@@ -91,14 +91,14 @@ dummy {
 /* ---- Inputbar ---- */
 inputbar {
     enabled:                    true;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
     spacing:                    10px;
     border-radius:              12px;
-    border-color:               @foreground;
-	background-color:		    @background;
+    border-color:               @on-surface;
+	background-color:		    rgba(0, 0, 0, 0.7);
     children:                   [ "mode-switcher", "textbox-prompt-colon", "entry" ];
     border:                     1px;
-    border-color:               @active-background;
+    border-color:               @primary;
 }
 
 textbox-prompt-colon {
@@ -113,11 +113,11 @@ textbox-prompt-colon {
 entry {
     enabled:                    true;
 	padding:					10px 0px 10px 0px;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
     cursor:                     text;
     placeholder:                "  Search";
     placeholder-color:          inherit;
-	background-color:			@background;
+	background-color:			rgba(0, 0, 0, 0.7);
 }
 
 /* ---- Mode Switcher ---- */
@@ -125,22 +125,22 @@ mode-switcher{
     enabled:                    true;
     spacing:                    10px;
     background-color:          	transparent;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 button {
     padding:                   2px 24px 2px 24px;
     border-radius:             12px;
-    background-color:          @background;
+    background-color:          rgba(0, 0, 0, 0.7);
     text-color:                inherit;
     cursor:                    pointer;
     border:                    1px;
-    border-color:              @active-background;
+    border-color:              @primary;
 }
 
 button selected {
     background-color:          @selected;
-    text-color:                @background;
+    text-color:                rgba(0, 0, 0, 0.7);
     border:                    1px;
     border-color:              transparent;
 }
@@ -159,7 +159,7 @@ listview {
 	reverse:                    false;
 	fixed-height:               true;
 	fixed-columns:              false;
-	background-color:           @background;
+	background-color:           rgba(0, 0, 0, 0.7);
 	border-radius:   	        12px;
 	border:						0px;
 }
@@ -203,7 +203,7 @@ element normal.active {
 element-text selected,
 element selected.normal {
     background-color:           @selected;
-    text-color:                 @background;
+    text-color:                 rgba(0, 0, 0, 0.7);
 }
 
 element selected.urgent {
@@ -223,7 +223,7 @@ element alternate.normal {
 
 element alternate.urgent {
     background-color:           inherit;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 element alternate.active {
@@ -240,7 +240,7 @@ element-icon {
 
 element-text {
     background-color:           transparent;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
     cursor:                     inherit;
     vertical-align:             0.5;
     horizontal-align:           0;
@@ -255,7 +255,7 @@ textbox {
     padding:                     12px;
     border-radius:               10px;
     background-color:            @background-alt;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     vertical-align:              0.5;
     horizontal-align:            0.5;
 }
@@ -263,5 +263,5 @@ error-message {
     padding:                     12px;
     border-radius:               12px;
     background-color:            @background-alt;
-    text-color:                  @background;
+    text-color:                  rgba(0, 0, 0, 0.7);
 }

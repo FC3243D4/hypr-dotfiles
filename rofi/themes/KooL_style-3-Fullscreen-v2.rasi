@@ -18,39 +18,39 @@ configuration {
     me-accept-entry:            "MousePrimary";
 }
 
-/* ---- Load wallust colors ---- */
+/* ---- Load matugen colors (InioX/matugen-themes) ---- */
 @theme "~/.config/rofi/matugen/colors-rofi.rasi"
 
 /*****----- Global Properties -----*****/
 * {
-    background-alt: @color7;
-    selected:       @color12;
-    active:         @color11;
-    urgent:         @color13;
+    background-alt: @outline-variant;
+    selected:       @primary;
+    active:         @secondary;
+    urgent:         @tertiary-container;
     
     border-color:                @selected;
     handle-color:                @selected;
-    background-color:            @background;
-    foreground-color:            @foreground;
+    background-color:            rgba(0, 0, 0, 0.7);
+    foreground-color:            @on-surface;
     alternate-background:        @background-alt;
-    normal-background:           @background;
-    normal-foreground:           @foreground;
+    normal-background:           rgba(0, 0, 0, 0.7);
+    normal-foreground:           @on-surface;
     urgent-background:           @urgent;
-    urgent-foreground:           @background;
+    urgent-foreground:           rgba(0, 0, 0, 0.7);
     active-background:           @active;
-    active-foreground:           @background;
+    active-foreground:           rgba(0, 0, 0, 0.7);
     selected-normal-background:  @selected;
-    selected-normal-foreground:  @background;
+    selected-normal-foreground:  rgba(0, 0, 0, 0.7);
     selected-urgent-background:  @active;
-    selected-urgent-foreground:  @background;
+    selected-urgent-foreground:  rgba(0, 0, 0, 0.7);
     selected-active-background:  @urgent;
-    selected-active-foreground:  @background;
-    alternate-normal-background: @background;
-    alternate-normal-foreground: @foreground;
+    selected-active-foreground:  rgba(0, 0, 0, 0.7);
+    alternate-normal-background: rgba(0, 0, 0, 0.7);
+    alternate-normal-foreground: @on-surface;
     alternate-urgent-background: @urgent;
-    alternate-urgent-foreground: @background;
+    alternate-urgent-foreground: rgba(0, 0, 0, 0.7);
     alternate-active-background: @active;
-    alternate-active-foreground: @background;
+    alternate-active-foreground: rgba(0, 0, 0, 0.7);
     
 
 }
@@ -98,7 +98,7 @@ inputbar {
     border-radius:               6px;
     border-color:                white / 25%;
     background-color:            white / 5%;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     children:                    [ "prompt", "entry" ];
 }
 
@@ -117,7 +117,7 @@ textbox-prompt-colon {
 entry {
     enabled:                     true;
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     cursor:                      text;
     placeholder:                 "  Search  👀 NOTE: CTRL TAB to change MODE";
     placeholder-color:           inherit;
@@ -143,7 +143,7 @@ listview {
     border-radius:               0px;
     border-color:                @selected;
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     cursor:                      "default";
 }
 scrollbar {
@@ -163,25 +163,25 @@ element {
     border-radius:               15px;
     border-color:                @selected;
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     orientation:                 vertical;
     cursor:                      pointer;
 }
 
 element normal.normal {
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
 }
 
 element selected.normal {
     background-color:            inherit;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
 }
 
 element-text selected,
 element selected.selected {
     background-color:            white/50%;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
 	border-radius:				 20px;
 	padding:					 20px;
 }
@@ -211,13 +211,13 @@ error-message {
     padding:                     0px;
     border-color:                @selected;
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
 }
 textbox {
     padding:                     20px;
     border-radius:               15px;
     background-color:            white / 10%;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     vertical-align:              0.5;
     horizontal-align:            0.5;
     highlight:                   none;

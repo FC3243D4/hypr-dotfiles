@@ -17,17 +17,17 @@ configuration {
     me-accept-entry:            "MousePrimary";
 }
 
-/* ---- Load wallust colors ---- */
+/* ---- Load matugen colors (InioX/matugen-themes) ---- */
 @theme "~/.config/rofi/matugen/colors-rofi.rasi"
 
 
 /*****----- Global Properties -----*****/
 * {
-    background-alt:              @color0;
-    /* selected uses color12, active uses color11 (match other working styles) */
-    selected:                    @color12;
-    active:                      @color11;
-    urgent:                      @color13;
+    background-alt:              @surface-container-lowest;
+    /* selected uses primary, active uses secondary (match other working styles) */
+    selected:                    @primary;
+    active:                      @secondary;
+    urgent:                      @tertiary-container;
 }
 
 /*****----- Main Window -----*****/
@@ -73,7 +73,7 @@ inputbar {
     border-radius:               100%;
     border-color:                @selected;
     background-color:            @background-alt;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     children:                    [ "entry" ];
 }
 
@@ -82,7 +82,7 @@ prompt {
     padding:                     15px;
     border-radius:               100%;
     background-color:            @selected;
-    text-color:                  @background;
+    text-color:                  rgba(0, 0, 0, 0.7);
 }
 textbox-prompt-colon {
     enabled:                     true;
@@ -96,7 +96,7 @@ entry {
     enabled:                     true;
     padding:                     15px 0px;
     background-color:            inherit;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     cursor:                      text;
     placeholder:                 "Search...  👀 NOTE: CTRL TAB to change MODE";
     placeholder-color:           inherit;
@@ -122,7 +122,7 @@ listview {
     border-radius:               0px;
     border-color:                @selected;
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     cursor:                      "default";
 }
 scrollbar {
@@ -142,20 +142,20 @@ element {
     border-radius:               0px;
     border-color:                @selected;
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     orientation:                 horizontal;
     cursor:                      pointer;
 }
 element normal.normal {
     background-color:            transparent;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
 }
 
 element-text selected,
 element selected.normal {
 	border-radius:               30px;
     background-color:            @selected;
-    text-color:                  @background;
+    text-color:                  rgba(0, 0, 0, 0.7);
 }
 element-icon {
     padding:                     0px;
@@ -183,14 +183,14 @@ error-message {
     border:                      2px solid;
     border-radius:               20px;
     border-color:                @active;
-    background-color:            @background;
-    text-color:                  @foreground;
+    background-color:            rgba(0, 0, 0, 0.7);
+    text-color:                  @on-surface;
 }
 textbox {
 	padding:					 10px;
     border-radius:               20px;
     background-color:            @selected;
-    text-color:                  @foreground;
+    text-color:                  @on-surface;
     vertical-align:              0.5;
     horizontal-align:            0.5;
     highlight:                   none;

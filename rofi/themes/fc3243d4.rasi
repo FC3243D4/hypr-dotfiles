@@ -17,18 +17,18 @@ configuration {
     window-format:              "{w} · {c} · {t}";
     
 }
-/* ---- Load wallust colors ---- */
+/* ---- Load matugen colors (InioX/matugen-themes) ---- */
 @theme "~/.config/rofi/matugen/colors-rofi.rasi"
 
 /* ---- Global Properties ---- */
 * {
-    background-alt:              @color10;
-    selected:                    @color12;
-    active:                      @color11;
-    urgent:                      @color13;
+    background-alt:              @tertiary-container;
+    selected:                    @primary;
+    active:                      @secondary;
+    urgent:                      @tertiary-container;
 
-    text-selected:               @background;
-    text-color:                  @foreground;
+    text-selected:               rgba(0, 0, 0, 0.7);
+    text-color:                  @on-surface;
     border-color:                @selected;
 }
 
@@ -89,12 +89,12 @@ dummy {
 /* ---- Inputbar ---- */
 inputbar {
     enabled:                    false;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
     spacing:                    0px;
     padding:                    0px 0px 0px 0px;
     border-radius:              0px;
     border-color:               @border-color;
-	background-color:		    @background;
+	background-color:		    rgba(0, 0, 0, 0.7);
     //background-image:           url("~/.config/rofi/.current_wallpaper", width);
     children:                   [ "textbox-prompt-colon","entry" ];
     border:                     0px;
@@ -112,12 +112,12 @@ textbox-prompt-colon {
 entry {
     enabled:                    true;
 	padding:					0px 0px 0px 0px;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
     cursor:                     text;
     border-radius:              0px;
     placeholder:                "Type to search";
     placeholder-color:          inherit;
-	background-color:			@background;
+	background-color:			rgba(0, 0, 0, 0.7);
 	horizontal-align:           0.5;
 }
 
@@ -128,13 +128,13 @@ mode-switcher{
     padding:                    8px;
     spacing:                    12px;
     background-color:          	transparent;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 button {
     padding:                   10px;
     border-radius:             0px;
-    background-color:          @background;
+    background-color:          rgba(0, 0, 0, 0.7);
     text-color:                inherit;
     cursor:                    pointer;
     border:                    1px;
@@ -143,9 +143,9 @@ button {
 
 button selected {
     background-color:          @active;
-    text-color:                @foreground;
+    text-color:                @on-surface;
     border:                    1px;
-    border-color:              @background;
+    border-color:              rgba(0, 0, 0, 0.7);
 	
 }
 
@@ -189,48 +189,48 @@ element {
 
 element normal.normal {
     background-color:           inherit;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 element normal.urgent {
     background-color:           inherit;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 element normal.active {
     background-color:           inherit;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 element-text selected,
 element selected.normal {
     background-color:           @active;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 element selected.urgent {
     background-color:           inherit;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 element selected.active {
     background-color:           inherit;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 element alternate.normal {
     background-color:           inherit;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 element alternate.urgent {
     background-color:           inherit;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 element alternate.active {
     background-color:           inherit;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
 
 element-icon {
@@ -258,7 +258,7 @@ message {
 textbox {
     padding:                    10px;
     background-color:      		@background-alt;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
     vertical-align:             0.5;
     horizontal-align:           0.5;
 }
@@ -267,5 +267,5 @@ error-message {
     padding:                    15px;
     border-radius:            	0px;
     background-color:      		@background-alt;
-    text-color:                 @foreground;
+    text-color:                 @on-surface;
 }
