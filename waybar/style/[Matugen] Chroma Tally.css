@@ -1,7 +1,7 @@
 /* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-/* Wallust - Chroma Tally */
+/* Matugen - Chroma Tally */
 
-@import '../../.config/waybar/matugen/colors-waybar.css';
+@import '../../.config/waybar/colors.css';
 
 * {
 font-family: "JetBrainsMono Nerd Font";
@@ -17,7 +17,7 @@ window#waybar {
     border-radius: 12px;
 	border-bottom: 2px;
     border-style: solid;
-	border-color: @color12; 
+	border-color: @primary; 
 }
 
 #workspaces {
@@ -240,7 +240,7 @@ tooltip {
 }
 
 #custom-cava_mviz{
-	color: @color11;
+	color: @secondary;
 } 
   
 #custom-weather{

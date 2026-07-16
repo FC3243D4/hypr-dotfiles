@@ -1,14 +1,14 @@
 /* ----------- 💫 https://github.com/JaKooLit 💫 -------- */
-/* ....Wallust Transparent - Crystal Clear........ */
+/* ....Matugen Transparent - Crystal Clear........ */
 /* --- 👍 original designed by https://github.com/Krautt  👍 --- */
 
-@import '../../.config/waybar/matugen/colors-waybar.css';
+@import '../../.config/waybar/colors.css';
 
 @define-color critical #ff0000; /* critical color */
 @define-color warning #f3f809;  /* warning color */
-@define-color text @color12;  /* text color */
-@define-color text-alt @color13;  /* text alternative color */
-@define-color bg @color7;  /* background color */
+@define-color text @primary;  /* text color */
+@define-color text-alt @tertiary_container;  /* text alternative color */
+@define-color bg @outline_variant;  /* background color */
 
 *{
 	font-family: "JetBrainsMono Nerd Font";
@@ -52,8 +52,8 @@ window#waybar.empty #window {
 }
 
 tooltip {
-	color: @color12;
-	background: @color10;
+	color: @primary;
+	background: @tertiary_container;
 	opacity: 0.8;
 	border-radius: 10px;
 	border-width: 1px;
@@ -208,5 +208,3 @@ tooltip {
 	border-radius: 5px;
 	background-color: wheat;
 }
-	
-	

@@ -1,17 +1,17 @@
 /* ---- 💫 https://github.com/JaKooLit 💫 ---- */
 /*  ml4w-modern */
 
-@import '../../.config/waybar/matugen/colors-waybar.css';
+@import '../../.config/waybar/colors.css';
 
-@define-color backgroundlight @color0;
-@define-color backgrounddark @color12;
-@define-color workspacesbackground1 @color0;
-@define-color workspacesbackground2 @color12;
-@define-color bordercolor @color13;
-@define-color textcolor1 @foreground;
-@define-color textcolor2 @color4;
-@define-color textcolor3 @foreground;
-@define-color iconcolor @foreground;
+@define-color backgroundlight @surface_container_lowest;
+@define-color backgrounddark @primary;
+@define-color workspacesbackground1 @surface_container_lowest;
+@define-color workspacesbackground2 @primary;
+@define-color bordercolor @tertiary_container;
+@define-color textcolor1 @on_surface;
+@define-color textcolor2 @primary;
+@define-color textcolor3 @on_surface;
+@define-color iconcolor @on_surface;
 
 * {
 	font-family: "JetBrainsMono Nerd Font";
@@ -263,7 +263,7 @@ window#waybar.empty #window {
 }
 
 #clock {
-    background-color: @color8;
+    background-color: @outline;
     color: @textcolor2;
     border-radius: 3px 5px 3px 5px;
     padding: 1px 10px 0px 10px;

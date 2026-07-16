@@ -1,6 +1,6 @@
 /* ----------- 💫 https://github.com/JaKooLit 💫 -------- */
 /* ....Chroma Fusion Edge .... */
-/* Wallust & Catppuccin - Bordered */
+/* Matugen (InioX/matugen-themes) - Bordered */
 
 @define-color white      	#F2F2F2;
 @define-color black      	#000000;
@@ -13,11 +13,11 @@
 @define-color cyan			rgba(53, 140, 169, 1);
 
 @define-color background-module     @transparent;
-@define-color border-color          @color12;
-@define-color button-color          @color11;
-@define-color button-hover          @color9;
+@define-color border-color          @primary;
+@define-color button-color          @secondary;
+@define-color button-hover          @error;
 
-@import '../../.config/waybar/matugen/colors-waybar.css';
+@import '../../.config/waybar/colors.css';
 @import "../waybar/style/catppuccin-themes/latte.css";
 
 * {
@@ -185,7 +185,7 @@ tooltip {
 }
 
 #custom-cava_mviz{
-	color: @color2;
+	color: @tertiary;
 }
 #workspaces {
     border-radius: 25px;
@@ -200,7 +200,7 @@ tooltip {
 #workspaces button {
     border-radius: 15px;
     border:0px;
-    color: @color13;
+    color: @tertiary_container;
     padding-left: 2px;
     padding-right: 2px;
     animation: gradient_f 20s ease-in infinite;
@@ -239,7 +239,7 @@ tooltip {
 
 #pulseaudio-slider,
 #pulseaudio {
-	color: @color13;
+	color: @tertiary_container;
 }
 
 #pulseaudio.muted {
@@ -303,5 +303,3 @@ tooltip {
 	min-height: 10px;
 	border-radius: 5px;
 }
-
-

@@ -1,7 +1,7 @@
 /* ----------- 💫 https://github.com/JaKooLit 💫 -------- */
-/* Wallust Colored*/
+/* Matugen Colored*/
 
-@import '../../.config/waybar/matugen/colors-waybar.css';
+@import '../../.config/waybar/colors.css';
 
 * {
     font-family: "JetBrainsMono Nerd Font";
@@ -25,18 +25,18 @@ window#waybar.empty #window {
 
 
 tooltip {
-    background: @background;
+    background: @surface;
     border-radius: 10px;
     border-width: 1px;
     border-style: solid;
-    border-color: @color15;
+    border-color: @surface_bright;
 }
 
 /*-----module groups----*/
 .modules-right {
-	border: 3px solid @color12;
+	border: 3px solid @primary;
 	border-radius: 40px 0px 0px 0px;
-	background-color: @color1;
+	background-color: @error;
 	padding-top: 2px;
 	padding-bottom: 2px;
 	padding-right: 4px;
@@ -44,9 +44,9 @@ tooltip {
 }
 
 .modules-center {
-	border: 3px solid @color7;
+	border: 3px solid @outline_variant;
 	border-radius: 60px 0px 60px 0px;
-	background-color: @background;
+	background-color: @surface;
 	padding-top: 2px;
 	padding-bottom: 2px;
 	padding-right: 4px;
@@ -54,9 +54,9 @@ tooltip {
 }
 
 .modules-left {
-	border: 3px solid @color12;
+	border: 3px solid @primary;
 	border-radius: 0px 0px 40px 0px;
-	background-color: @color1;
+	background-color: @error;
 	padding-top: 2px;
 	padding-bottom: 2px;
 	padding-right: 4px;
@@ -65,7 +65,7 @@ tooltip {
 
 #taskbar button,
 #workspaces button {
-    color: @foreground;
+    color: @on_surface;
     box-shadow: none;
 	text-shadow: none;
     padding: 0px;
@@ -78,8 +78,8 @@ tooltip {
 
 #taskbar button.active,
 #workspaces button.active {
-    color: @background;
-    background-color: @color7;
+    color: @surface;
+    background-color: @outline_variant;
     padding-left: 8px;
     padding-right: 8px;
     animation: gradient_f 20s ease-in infinite;
@@ -87,7 +87,7 @@ tooltip {
 }
 
 #workspaces button.focused {
-    color: @color4;
+    color: @primary;
 }
 
 #workspaces button.urgent {
@@ -97,7 +97,7 @@ tooltip {
 
 #taskbar button:hover,
 #workspaces button:hover {
-    color: @color4;
+    color: @primary;
     padding-left: 2px;
     padding-right: 2px;
     animation: gradient_f 20s ease-in infinite;
@@ -105,7 +105,7 @@ tooltip {
 }
 
 #clock#2 {
-    color: @color6;
+    color: @secondary;
 }
 
 #backlight,
@@ -162,7 +162,7 @@ tooltip {
 #custom-weather.showyIcyDay,
 #custom-weather.snowyIcyNight,
 #custom-weather.sunnyDay {
-	color: @foreground;
+	color: @on_surface;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	padding-right: 6px;

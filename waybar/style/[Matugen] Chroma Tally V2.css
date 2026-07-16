@@ -1,9 +1,9 @@
 /* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-/* Wallust - Chroma Tally v2 */
+/* Matugen - Chroma Tally v2 */
 
 /* edited by: https://github.com/prateekshukla1108 */ 
 
-@import '../../.config/waybar/matugen/colors-waybar.css';
+@import '../../.config/waybar/colors.css';
 
 * {
     font-family: "JetBrainsMono Nerd Font";
@@ -14,11 +14,11 @@
 }
 
 window#waybar {
-    background: @color0; /* Dark background */
+    background: @surface_container_lowest; /* Dark background */
     border-radius: 12px;
     border-bottom: 2px;
     border-style: solid;
-    border-color: @color7; /* Light border */
+    border-color: @outline_variant; /* Light border */
 }
 
 #workspaces {
@@ -27,7 +27,7 @@ window#waybar {
     border-radius: 15px;
     border: 0px;
     font-style: normal;
-    color: @color7; /* Light text */
+    color: @outline_variant; /* Light text */
 }
 
 #taskbar button,
@@ -35,8 +35,8 @@ window#waybar {
     padding: 0px 5px;
     border-radius: 15px;
     border: 0px;
-    color: @color7; /* Light text */
-    background: linear-gradient(45deg, @color5, @color6, @color7); /* Lighter gradient */
+    color: @outline_variant; /* Light text */
+    background: linear-gradient(45deg, @tertiary, @secondary, @outline_variant); /* Lighter gradient */
     opacity: 0.5;
     transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
@@ -46,8 +46,8 @@ window#waybar {
     padding: 0px 5px;
     border-radius: 15px;
     border: 0px;
-    color: @color7; /* Light text */
-    background: linear-gradient(45deg, @color5, @color6); /* Lighter gradient */
+    color: @outline_variant; /* Light text */
+    background: linear-gradient(45deg, @tertiary, @secondary); /* Lighter gradient */
     opacity: 1.0;
     min-width: 40px;
     transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
@@ -55,17 +55,17 @@ window#waybar {
 
 #workspaces button:hover {
     border-radius: 15px;
-    color: @color7; /* Light text */
-    background: linear-gradient(45deg, @color6, @color7); /* Lighter gradient */
+    color: @outline_variant; /* Light text */
+    background: linear-gradient(45deg, @secondary, @outline_variant); /* Lighter gradient */
     opacity: 0.8;
     transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
 tooltip {
-    background: @color1; /* Slightly darker tooltip background */
+    background: @error; /* Slightly darker tooltip background */
     opacity: 0.8;
     border-radius: 6px;
-    color: @color7; /* Light text */
+    color: @outline_variant; /* Light text */
 }
 
 #backlight,
@@ -126,35 +126,35 @@ tooltip {
     padding-bottom: 5px;
     padding-right: 6px;
     padding-left: 6px;
-    color: @color6; /* Lighter - changed from color5 */
+    color: @secondary; /* Lighter - changed from color5 */
 }
 
 #clock {
-    color: @color6; /* Lighter */
+    color: @secondary; /* Lighter */
 }
 
 #backlight {
-    color: @color5; /* Lighter */
+    color: @tertiary; /* Lighter */
 }
 
 #battery {
-    color: @color6; /* Lighter */
+    color: @secondary; /* Lighter */
 }
 
 #battery.charging {
-    color: @color7; /* Lightest */
+    color: @outline_variant; /* Lightest */
 }
 
 @keyframes blink {
     to {
-        color: @color4; /* Slightly lighter blink color */
-        background-color: @color7; /* Lightest */
+        color: @primary; /* Slightly lighter blink color */
+        background-color: @outline_variant; /* Lightest */
     }
 }
 
 #battery.critical:not(.charging) {
-    background: @color5; /* Lighter background */
-    color: @color7; /* Lightest */
+    background: @tertiary; /* Lighter background */
+    color: @outline_variant; /* Lightest */
     animation-name: blink;
     animation-duration: 3.0s;
     animation-timing-function: steps(12);
@@ -163,56 +163,56 @@ tooltip {
 }
 
 #cpu {
-    color: @color6; /* Lighter */
+    color: @secondary; /* Lighter */
 }
 
 #disk {
-    color: @color5; /* Lighter */
+    color: @tertiary; /* Lighter */
 }
 
 #custom-keyboard,
 #memory {
-    color: @color6; /* Lighter */
+    color: @secondary; /* Lighter */
 }
 
 #network.disabled {
-    color: @color5; /* Lighter */
+    color: @tertiary; /* Lighter */
 }
 
 #network{
-    color: @color6; /* Lighter */
+    color: @secondary; /* Lighter */
 }
 
 #network.disconnected {
-    color: @color5; /* Lighter */
+    color: @tertiary; /* Lighter */
 }
 
 #pulseaudio {
-    color: @color7; /* Lightest */
+    color: @outline_variant; /* Lightest */
 }
 
 #pulseaudio.muted {
-    color: @color5; /* Lighter */
+    color: @tertiary; /* Lighter */
 }
 
 #temperature {
-    color: @color6; /* Lighter */
+    color: @secondary; /* Lighter */
 }
 
 #temperature.critical {
-    color: @color5; /* Lighter */
+    color: @tertiary; /* Lighter */
 }
 
 #keyboard-state,
 #custom-hypridle,
 #idle_inhibitor {
-    color: @color5; /* Lighter */
+    color: @tertiary; /* Lighter */
 }
 
 /*-----Indicators----*/
 #custom-hypridle.notactive,
 #idle_inhibitor.activated {
-    color: @color4; /* Slightly lighter */
+    color: @primary; /* Slightly lighter */
 }
 
 #tray {
@@ -220,12 +220,12 @@ tooltip {
 
 #custom-swaync,
 #custom-menu {
-    color: @color7; /* Lightest */
+    color: @outline_variant; /* Lightest */
     padding-left: 8px;
 }
 
 #custom-power{
-    color: @color6; /* Lighter */
+    color: @secondary; /* Lighter */
 }
 
 #window{
@@ -234,15 +234,15 @@ tooltip {
 
 #custom-lock,    
 #bluetooth{
-    color: @color5; /* Lighter */
+    color: @tertiary; /* Lighter */
 }
 
 #custom-cava_mviz{
-    color: @color7; /* Lightest */
+    color: @outline_variant; /* Lightest */
 } 
  
 #custom-weather{
-    color: @color5; /* Lighter */
+    color: @tertiary; /* Lighter */
 }
 
 #backlight-slider slider,
@@ -260,12 +260,12 @@ tooltip {
     min-width: 80px;
     min-height: 5px;
     border-radius: 5px;
-    background-color: @color2; /* Slightly darker trough */
+    background-color: @tertiary; /* Slightly darker trough */
 }
 
 #backlight-slider highlight,
 #pulseaudio-slider highlight {
     min-height: 10px;
     border-radius: 5px;
-    background-color: @color6; /* Lighter highlight */
+    background-color: @secondary; /* Lighter highlight */
 }

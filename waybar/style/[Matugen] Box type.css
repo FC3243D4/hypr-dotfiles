@@ -1,7 +1,7 @@
 /* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-/* Wallust - Box type */
+/* Matugen - Box type */
 
-@import '../../.config/waybar/matugen/colors-waybar.css';
+@import '../../.config/waybar/colors.css';
 
 * {
 font-family: "JetBrainsMono Nerd Font";
@@ -40,7 +40,7 @@ window#waybar.empty #window {
 
 #taskbar button,
 #workspaces button {
-    color: @foreground;
+    color: @on_surface;
     box-shadow: none;
 	text-shadow: none;
     padding: 0px;
@@ -53,8 +53,8 @@ window#waybar.empty #window {
 
 #taskbar button.active,
 #workspaces button.active {
-    color: @color12;
-    background-color: @foreground;
+    color: @primary;
+    background-color: @on_surface;
     padding-left: 4px;
     padding-right: 8px;
     animation: gradient_f 20s ease-in infinite;
@@ -63,7 +63,7 @@ window#waybar.empty #window {
 
 #taskbar button.focused,
 #workspaces button.focused {
-    color: @color4;
+    color: @primary;
 }
 
 #workspaces button.urgent {
@@ -73,7 +73,7 @@ window#waybar.empty #window {
 
 #taskbar button:hover,
 #workspaces button:hover {
-    color: @color4;
+    color: @primary;
     padding-left: 2px;
     padding-right: 8px;
     animation: gradient_f 20s ease-in infinite;
@@ -140,10 +140,10 @@ window#waybar.empty #window {
 	padding-right: 10px;
 	border-radius: 10px;
 	transition: none;
-	color: @foreground;
-	background: @color0;
+	color: @on_surface;
+	background: @surface_container_lowest;
     border-bottom-width: 5px;
-    border-bottom-color: @color12;
+    border-bottom-color: @primary;
     border-bottom-style: solid;
 }
 
@@ -182,7 +182,7 @@ window#waybar.empty #window {
 	animation-iteration-count: infinite;
 	animation-direction: alternate;
     border-bottom-width: 5px;
-    border-bottom-color: @color12;
+    border-bottom-color: @primary;
     border-bottom-style: solid;
 }
 
@@ -200,7 +200,7 @@ window#waybar.empty #window {
 	opacity: 10;
 	background-image: none;
 	border: none;
-	box-shadow: @color12;
+	box-shadow: @primary;
 }
 
 #backlight-slider trough,

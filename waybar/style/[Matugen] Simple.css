@@ -1,5 +1,5 @@
 /* ----------- 💫 https://github.com/JaKooLit 💫 -------- */
-/* Wallust - Simple */
+/* Matugen - Simple */
 
 *{
 font-family: "JetBrainsMono Nerd Font";
@@ -10,7 +10,7 @@ font-size: 97%;
 font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
 }
 
-@import '../../.config/waybar/matugen/colors-waybar.css';
+@import '../../.config/waybar/colors.css';
 
 #waybar.empty, #waybar.tiled, #waybar.floating {
 	background-color: transparent;
@@ -25,8 +25,8 @@ window#waybar.empty #window {
 }
 
 tooltip {
-	color: @color13;
-	background: @color10;
+	color: @tertiary_container;
+	background: @tertiary_container;
 	opacity: 1.0;
 	border-radius: 10px;
 }
@@ -35,8 +35,8 @@ tooltip {
 .modules-left,
 .modules-center,
 .modules-right {
-	background-color: @color0;
-	border: 0.5px solid @color15;
+	background-color: @surface_container_lowest;
+	border: 0.5px solid @surface_bright;
 	border-radius: 10px;
 	padding-top: 2px;
 	padding-bottom: 2px;
@@ -47,7 +47,7 @@ tooltip {
 
 #taskbar button,
 #workspaces button {
-    color: @color2;
+    color: @tertiary;
     box-shadow: none;
 	text-shadow: none;
     padding: 0px;
@@ -60,8 +60,8 @@ tooltip {
 
 #taskbar button.active,
 #workspaces button.active {
-    color: @foreground;
-    background-color: @color2;
+    color: @on_surface;
+    background-color: @tertiary;
     padding-left: 8px;
     padding-right: 8px;
     animation: gradient_f 20s ease-in infinite;
@@ -69,7 +69,7 @@ tooltip {
 }
 
 #workspaces button.focused {
-    color: @color4;
+    color: @primary;
 }
 
 #workspaces button.urgent {
@@ -79,7 +79,7 @@ tooltip {
 
 #taskbar button:hover,
 #workspaces button:hover {
-    color: @color4;
+    color: @primary;
     padding-left: 2px;
     padding-right: 2px;
     animation: gradient_f 20s ease-in infinite;
@@ -141,7 +141,7 @@ tooltip {
 #custom-weather.showyIcyDay,
 #custom-weather.snowyIcyNight,
 #custom-weather.sunnyDay {
-	color: @color12;
+	color: @primary;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	padding-right: 6px;
