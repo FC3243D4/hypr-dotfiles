@@ -1,14 +1,21 @@
-/* wlogout style - matugen template */
-/* This file is a matugen template. Add a [templates.wlogout] entry in your
-   matugen config.toml pointing input_path here and output_path to
-   ~/.config/wlogout/style.css so it regenerates on every wallpaper change,
-   the same way you do it for waybar/vscode/discord. */
+/* wlogout style */
+/* Colors now come from the shared InioX/matugen-themes colors.css template
+   (the same one used for Waybar) via a dedicated [templates.wlogout] entry:
+
+   [templates.wlogout]
+   input_path = 'path/to/matugen-waybar-template.css'   # same generic template
+   output_path = '~/.config/wlogout/colors.css'
+
+   This file is a plain stylesheet now, not a matugen template itself - it
+   just imports the generated colors.css, same pattern as Waybar/wofi/swaync. */
+
+@import "colors.css";
 
 window {
     font-family: "JetBrainsMono Nerd Font", sans-serif;
     font-size: 16pt;
-    color: {{colors.on_surface.default.hex}};
-    background-color: alpha({{colors.surface.default.hex}}, 0.8);
+    color: @on_surface;
+    background-color: alpha(@surface, 0.8);
 }
 
 button {
@@ -34,7 +41,7 @@ button:active {
 button:hover {
     background-color: transparent;
     background-size: 25%;
-    color: {{colors.primary.default.hex}};
+    color: @primary;
 }
 
 button span {
