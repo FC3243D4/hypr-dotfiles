@@ -140,8 +140,14 @@ _ensure_hl_env() {
     # $1 file, $2 hl.env variable name, $3 value
     local file="$1" varname="$2" value="$3"
     if grep -qE "^[[:space:]]*hl\.env\(\"$varname\"" "$file"; then
-        sed -i -E "s|^([[:space:]]*)hl\.env\(\"$varname\", *\"[^\"]*\"\)|\1hl.env(\"$varname\", \"$value\")|" "$file"
-        echo "$varname updated to $value in $file."
+        # Value may be a quoted string (hl.env("X", "y")) or a bare
+        # Lua literal like a number (hl.env("X", 10)) - match either.
+        if sed -i -E "s|^([[:space:]]*)hl\.env\(\"$varname\", *\"?[^\"()]*\"?\)|\1hl.env(\"$varname\", \"$value\")|" "$file" \
+            && grep -qE "^[[:space:]]*hl\.env\(\"$varname\", *\"$value\"\)" "$file"; then
+            echo "$varname updated to $value in $file."
+        else
+            echo "$varname: failed to update in $file (unexpected existing format) — please check manually." >&2
+        fi
     else
         {
             echo ""
