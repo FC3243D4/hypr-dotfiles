@@ -1,12 +1,28 @@
-@define-color noti-border-color {{colors.outline.default.hex}};
-@define-color noti-bg alpha({{colors.background.default.hex}}, 0.85);
-@define-color noti-bg-alt {{colors.surface_container.default.hex}};
-@define-color noti-bg-hover {{colors.surface_container_high.default.hex}};
-@define-color text-color {{colors.on_background.default.hex}};
-@define-color accent {{colors.primary.default.hex}};
-@define-color on-accent {{colors.on_primary.default.hex}};
-@define-color accent-container {{colors.secondary_container.default.hex}};
-@define-color on-accent-container {{colors.on_secondary_container.default.hex}};
+/* Colors now come from the shared InioX/matugen-themes colors.css template
+   (the same one used for Waybar/wlogout) via a dedicated [templates.swaync]
+   entry:
+
+   [templates.swaync]
+   input_path = 'path/to/matugen-waybar-template.css'   # same generic template
+   output_path = '~/.config/swaync/colors.css'
+   post_hook = 'swaync-client -rs'
+
+   This file is a plain stylesheet now, not a matugen template itself - the
+   aliases below just re-point at the generated colors.css variables, so
+   everything past this block that already uses @noti-bg-alt/@accent/
+   @text-color/etc. keeps working unchanged. */
+
+@import "colors.css";
+
+@define-color noti-border-color @outline;
+@define-color noti-bg alpha(@background, 0.85);
+@define-color noti-bg-alt @surface_container;
+@define-color noti-bg-hover @surface_container_high;
+@define-color text-color @on_background;
+@define-color accent @primary;
+@define-color on-accent @on_primary;
+@define-color accent-container @secondary_container;
+@define-color on-accent-container @on_secondary_container;
 
 * {
     font-family: "JetBrains Mono Nerd Font";
