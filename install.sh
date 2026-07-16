@@ -284,7 +284,7 @@ else
     echo "No active Hyprland session detected (HYPRLAND_INSTANCE_SIGNATURE not set)."
     echo "Skipping monitor config generation."
     echo "After logging into Hyprland, run this manually:"
-    echo "  nwg-displays -m $CONFIG_HOME/hypr/monitors.conf"
+    echo "  nwg-displays -n $workspaceCount -m $CONFIG_HOME/hypr/monitors.conf"
 fi
 
 echo ""
