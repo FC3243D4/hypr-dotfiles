@@ -43,7 +43,7 @@ echo ""
 # ~/.config/swaync. Confirm this matches what's actually inside those
 # folders before relying on it.
 
-CONFIG_DIRS=("hypr" "matugen" "rofi" "waybar" "swaync" "wlogout")
+CONFIG_DIRS=("hypr" "matugen" "rofi" "waybar" "swaync" "wlogout" "quickshell")
 
 echo "=== Syncing configs ==="
 mkdir -p "$CONFIG_HOME"
