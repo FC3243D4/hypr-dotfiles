@@ -256,6 +256,55 @@ fi
 
 echo ""
 
+# ─── Waybar layout selection ───────────────────────────────────────────────────
+# Waybar's active config/style are chosen via symlinks (config -> ./configs/X,
+# style.css -> ./style/Y) rather than a single static file, so multiple named
+# layouts can sit side by side and switching is just repointing the symlink.
+# The configs/ and style/ directories hold many more (JaKooLit's stock
+# options, kept around to browse/copy from) but only these 3 "blessed"
+# layouts are offered here to keep the prompt short.
+
+echo "=== Configuring Waybar layout ==="
+
+WAYBAR_DIR="$CONFIG_HOME/waybar"
+WAYBAR_CONFIGS_DIR="$WAYBAR_DIR/configs"
+
+if [ ! -d "$WAYBAR_CONFIGS_DIR" ]; then
+    echo "$WAYBAR_CONFIGS_DIR not found — skipping Waybar layout selection."
+else
+    waybarLayoutLabels=(
+        "Desktop default"
+        "Laptop default"
+        "Desktop default (primary display only)"
+    )
+    waybarLayoutFiles=(
+        "[TOP] fc3243d4"
+        "[TOP] fc3243d4-laptop"
+        "[TOP] fc3243d4-primary-display-only"
+    )
+
+    echo "Choose your Waybar layout:"
+    select waybarLayoutChoice in "${waybarLayoutLabels[@]}"; do
+        if [ -n "$waybarLayoutChoice" ]; then
+            waybarLayoutFile="${waybarLayoutFiles[$((REPLY - 1))]}"
+            echo "You chose: $waybarLayoutChoice"
+            break
+        else
+            echo "Invalid choice, try again."
+        fi
+    done
+
+    if [ ! -f "$WAYBAR_CONFIGS_DIR/$waybarLayoutFile" ]; then
+        echo "Error: '$WAYBAR_CONFIGS_DIR/$waybarLayoutFile' not found — repo layout may have"
+        echo "changed. Leaving the existing config symlink untouched."
+    else
+        ln -sf "./configs/$waybarLayoutFile" "$WAYBAR_DIR/config"
+        echo "Linked $WAYBAR_DIR/config -> ./configs/$waybarLayoutFile"
+    fi
+fi
+
+echo ""
+
 # ─── Waybar systemd service ────────────────────────────────────────────────────
 # Installs a systemd user unit so waybar-git restarts automatically on crash,
 # instead of relying on exec-once (which won't respawn a dead process). Any
