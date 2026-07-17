@@ -4,7 +4,7 @@
 
 -- Set your default editor here uncomment and reboot to take effect.
 -- NOTE, this will be automatically uncommented if you select neovim or vim to your default editor
-hl.env("EDITOR", "code") -- default editor
+hl.env("EDITOR", "nano") -- default editor
 
 term = "kitty" -- Terminal
 files = "dolphin" -- File Manager
