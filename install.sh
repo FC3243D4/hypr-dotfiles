@@ -287,7 +287,6 @@ if [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
     echo "Hyprland session detected — launching nwg-displays."
     echo "Arrange your outputs in the window that opens, then click Apply."
     nwg-displays -n "${workspaceCount:-5}" -m "$CONFIG_HOME/hypr/monitors.conf"
-    echo "Open the workspaces section and set your workspace-monitor relations if you want them"
     nwg-displays -n ${workspaceCount:-5} -w "$CONFIG_HOME/hypr/workspaces.conf"
 else
     echo "No active Hyprland session detected (HYPRLAND_INSTANCE_SIGNATURE not set)."
@@ -390,6 +389,116 @@ else
         fi
     else
         echo "$DYNAMIC_CURSORS_PLUGIN was not found in hyprpm's plugin list after the add step — skipping enable."
+    fi
+fi
+
+echo ""
+
+# ─── Configure Spicetify (Spotify theming) ─────────────────────────────────────
+# One-time setup so matugen-driven Spotify theming works right after install:
+# backs up/patches the Spotify client, makes sure the theme used by the
+# matugen spicetify template is present, points config-xpui.ini at it, and
+# applies it.
+#
+# ASSUMPTION: targets the "Sleek" spicetify theme, matching the
+# InioX/matugen-themes spicetify.ini template. If you use a different theme,
+# change SPICETIFY_THEME below and make sure your matugen [templates.spotify]
+# output_path/color keys match that theme instead.
+#
+# NOTE: this does NOT add the [templates.spotify] entry to matugen's own
+# config.toml — nothing in this codebase manages matugen's config.toml, so
+# that stays a manual step (see the reminder this section prints below).
+
+echo "=== Configuring Spicetify ==="
+
+SPICETIFY_THEME="Sleek"
+SPICETIFY_THEMES_DIR="$CONFIG_HOME/spicetify/Themes"
+SPICETIFY_CONFIG="$CONFIG_HOME/spicetify/config-xpui.ini"
+
+_ensure_ini_kv() {
+    # $1 file, $2 key, $3 value — updates an existing "key = ..." line
+    # anywhere in the file, or appends "key = value" if the key isn't
+    # present at all (defensive fallback; spicetify's own config-xpui.ini
+    # normally already has these keys after `spicetify backup apply`).
+    # Verifies the write actually landed rather than assuming success.
+    local file="$1" key="$2" value="$3"
+    if [ ! -f "$file" ]; then
+        echo "$file not found — skipping $key update." >&2
+        return 1
+    fi
+    if grep -qE "^[[:space:]]*$key[[:space:]]*=" "$file"; then
+        sed -i -E "s|^([[:space:]]*)$key[[:space:]]*=.*|\1$key = $value|" "$file"
+    else
+        echo "$key = $value" >> "$file"
+    fi
+    if grep -qE "^[[:space:]]*$key[[:space:]]*=[[:space:]]*$value[[:space:]]*\$" "$file"; then
+        echo "$key set to $value in $file."
+    else
+        echo "$key: failed to verify update in $file — please check manually." >&2
+    fi
+}
+
+if ! command -v spicetify &>/dev/null; then
+    echo "spicetify not found on PATH — skipping Spicetify configuration."
+elif ! command -v spotify &>/dev/null \
+    && [ ! -d "/opt/spotify" ] \
+    && ! flatpak info com.spotify.Client &>/dev/null 2>&1; then
+    # Best-effort only — won't catch every install method (snap, AUR
+    # spotify-launcher wrappers, etc.). If you know Spotify is installed and
+    # this still skips, just run the commands below manually instead.
+    echo "Spotify client not detected — skipping Spicetify configuration."
+    echo "Install Spotify first, then run manually: spicetify backup apply && spicetify apply"
+else
+    if pgrep -x spotify &>/dev/null; then
+        echo "Spotify is currently running — spicetify needs it closed to patch safely."
+        echo "Close Spotify, then run manually:"
+        echo "  spicetify backup apply"
+    else
+        echo "Running spicetify backup apply..."
+        if ! spicetify backup apply; then
+            echo "Warning: 'spicetify backup apply' failed. Skipping the rest of Spicetify setup."
+            echo "Run it manually once Spotify/spicetify are in a known-good state."
+        else
+            if [ -d "$SPICETIFY_THEMES_DIR/$SPICETIFY_THEME" ]; then
+                echo "$SPICETIFY_THEME theme already present at $SPICETIFY_THEMES_DIR/$SPICETIFY_THEME."
+            else
+                echo "Fetching $SPICETIFY_THEME theme from spicetify/spicetify-themes..."
+                tmp="$(mktemp -d)"
+                if git clone --depth 1 https://github.com/spicetify/spicetify-themes "$tmp/spicetify-themes"; then
+                    if [ -d "$tmp/spicetify-themes/$SPICETIFY_THEME" ]; then
+                        mkdir -p "$SPICETIFY_THEMES_DIR"
+                        cp -r "$tmp/spicetify-themes/$SPICETIFY_THEME" "$SPICETIFY_THEMES_DIR/"
+                        echo "Installed $SPICETIFY_THEME theme to $SPICETIFY_THEMES_DIR/$SPICETIFY_THEME."
+                    else
+                        echo "Error: $SPICETIFY_THEME not found in spicetify-themes repo — repo layout may have changed."
+                    fi
+                else
+                    echo "Error: failed to clone spicetify-themes. Skipping theme install."
+                fi
+                rm -rf "$tmp"
+            fi
+
+            _ensure_ini_kv "$SPICETIFY_CONFIG" "current_theme" "$SPICETIFY_THEME"
+            _ensure_ini_kv "$SPICETIFY_CONFIG" "color_scheme" "matugen"
+
+            echo ""
+            echo "Reminder: add matugen's [templates.spotify] entry to your config.toml if you"
+            echo "haven't already (input_path = your spicetify color.ini template, output_path ="
+            echo "'$SPICETIFY_THEMES_DIR/$SPICETIFY_THEME/color.ini'), then run matugen once to"
+            echo "generate color.ini."
+
+            if [ -f "$SPICETIFY_THEMES_DIR/$SPICETIFY_THEME/color.ini" ]; then
+                echo "Applying spicetify..."
+                if ! spicetify apply; then
+                    echo "Warning: 'spicetify apply' failed. Try running it manually after checking the errors above."
+                else
+                    echo "Spicetify applied successfully."
+                fi
+            else
+                echo "color.ini not found yet at $SPICETIFY_THEMES_DIR/$SPICETIFY_THEME/color.ini —"
+                echo "run matugen once (or wait for your next wallpaper change), then run 'spicetify apply' manually."
+            fi
+        fi
     fi
 fi
 

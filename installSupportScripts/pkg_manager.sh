@@ -79,6 +79,7 @@ _resolve_pkg() {
                 ninja)                  echo "ninja" ;;
                 cpio)                   echo "cpio" ;;
                 pkgconf)                echo "pkgconf" ;;
+                spicetify-cli)          echo "spicetify-cli" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         apt)
@@ -127,6 +128,7 @@ _resolve_pkg() {
                 ninja)                  echo "ninja-build" ;;
                 cpio)                   echo "cpio" ;;
                 pkgconf)                echo "pkg-config" ;;
+                spicetify-cli)          echo "spicetify-cli" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         dnf)
@@ -175,6 +177,7 @@ _resolve_pkg() {
                 ninja)                  echo "ninja-build" ;;
                 cpio)                   echo "cpio" ;;
                 pkgconf)                echo "pkgconf-pkg-config" ;;
+                spicetify-cli)          echo "spicetify-cli" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         zypper)
@@ -223,6 +226,7 @@ _resolve_pkg() {
                 ninja)                  echo "ninja" ;;
                 cpio)                   echo "cpio" ;;
                 pkgconf)                echo "pkgconf-pkg-config" ;;
+                spicetify-cli)          echo "spicetify-cli" ;;
                 *)                      echo "$logical" ;;
             esac ;;
     esac
@@ -281,8 +285,11 @@ _install_kde_apps() {
 #   topgrade        — cargo install (no official package on Debian/Ubuntu or
 #                     default openSUSE Tumbleweed repos; Arch uses AUR and
 #                     Fedora uses COPR instead, both via their normal paths)
+#   spicetify-cli   — upstream's own official install.sh (spicetify.app);
+#                     packaged in the AUR on Arch, not officially packaged
+#                     anywhere else
 
-_SOURCE_BUILDABLE=("matugen" "awww" "nwg-displays" "accurse" "cliphist" "hyprpolkitagent" "topgrade")
+_SOURCE_BUILDABLE=("matugen" "awww" "nwg-displays" "accurse" "cliphist" "hyprpolkitagent" "topgrade" "spicetify-cli")
 
 _is_source_buildable() {
     local pkg="$1"
@@ -429,6 +436,33 @@ _install_from_source() {
                     echo "Failed to build topgrade. Please install it manually and re-run this script."
                     return 1
                 fi
+                ;;
+            spicetify-cli)
+                echo "Installing spicetify-cli via the official install script (spicetify.app)..."
+                if ! command -v curl &>/dev/null; then
+                    echo "curl is required to install spicetify-cli but is not installed."
+                    return 1
+                fi
+                if ! curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh; then
+                    echo "Failed to install spicetify-cli via the official script. Please install it"
+                    echo "manually (see https://spicetify.app) and re-run this script."
+                    return 1
+                fi
+                # The official installer places the binary under ~/.spicetify and
+                # updates shell rc files itself, but that PATH change won't be
+                # visible in THIS already-running script — export it directly so
+                # the rest of install.sh (the Configure Spicetify section) can
+                # actually find the binary without requiring a new shell.
+                if ! command -v spicetify &>/dev/null; then
+                    if [ -x "$HOME/.spicetify/spicetify" ]; then
+                        export PATH="$HOME/.spicetify:$PATH"
+                    fi
+                fi
+                if ! command -v spicetify &>/dev/null; then
+                    echo "spicetify-cli installed but still not found on PATH — you may need to"
+                    echo "open a new shell (or 'source ~/.bashrc'/'~/.zshrc') before using it."
+                fi
+                echo "spicetify-cli installed successfully."
                 ;;
             *)
                 echo "No source build method available for $pkg. Please install it manually."

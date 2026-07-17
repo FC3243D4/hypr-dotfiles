@@ -90,6 +90,17 @@ cursorDeps=(
 )
 _check_deps "${cursorDeps[@]}"
 
+# --- Spicetify (Spotify theming) ---
+# Only checks for the spicetify CLI itself — it does NOT check for Spotify,
+# since Spotify isn't packaged consistently enough across distros/AUR/flatpak/
+# snap for a single command -v check to be reliable. See the dedicated
+# "Configure Spicetify" section in install.sh, which does its own best-effort
+# Spotify detection before trying to apply anything.
+spicetifyDeps=(
+    "command -v spicetify|spicetify-cli"
+)
+_check_deps "${spicetifyDeps[@]}"
+
 # --- hyprpm plugin build toolchain (needed to compile the dynamic-cursors
 # Hyprland plugin, and any other hyprpm-managed plugin) ---
 hyprpmBuildDeps=(
