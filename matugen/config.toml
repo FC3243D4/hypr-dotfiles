@@ -56,4 +56,4 @@ post_hook   = 'pgrep -x swaync >/dev/null && timeout 2 swaync-client -rs || true
 [templates.spotify]
 input_path = '~/.config/matugen/templates/spicetify-color-template.ini'
 output_path = '~/.config/spicetify/Themes/Sleek/color.ini'
-post_hook = 'spicetify watch -s 2>&1 | sed "/Reloaded Spotify/q"'
+post_hook = '~/.config/matugen/scripts/spicetifyPostHook.sh'
