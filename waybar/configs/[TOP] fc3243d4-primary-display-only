@@ -1,5 +1,4 @@
-/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-// ### TOP Simple ## //
+/* FC3243D4's config standard only appearing on primary display*/
 
 {
 "include": [
@@ -23,7 +22,6 @@
 	"group/hardware-cpu",
 	"group/hardware-gpu",
     "group/hardware-memory",
-	"battery",
 ],
     
 "modules-center": [
