@@ -29,6 +29,17 @@ _check_deps() {
     done
 }
 
+# Vesktop can be installed as a native/AUR package or via Flatpak, and neither
+# `command -v vesktop` nor a single package-manager check covers both — so
+# this is a small function used as the check itself (see the "|"-delimited
+# format above; a check string can't contain its own literal "|").
+_has_vesktop() {
+    command -v vesktop &>/dev/null && return 0
+    flatpak info dev.vencord.Vesktop &>/dev/null 2>&1 && return 0
+    [ -d "/opt/Vesktop" ] && return 0
+    return 1
+}
+
 echo "Checking dependencies..."
 
 coreDeps=(
@@ -100,6 +111,12 @@ spicetifyDeps=(
     "command -v spicetify|spicetify-cli"
 )
 _check_deps "${spicetifyDeps[@]}"
+
+# --- Vesktop (Discord client w/ Vencord, for the Midnight Discord theme) ---
+vesktopDeps=(
+    "_has_vesktop|vesktop"
+)
+_check_deps "${vesktopDeps[@]}"
 
 # --- hyprpm plugin build toolchain (needed to compile the dynamic-cursors
 # Hyprland plugin, and any other hyprpm-managed plugin) ---

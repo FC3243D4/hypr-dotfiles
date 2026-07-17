@@ -502,6 +502,75 @@ else
     fi
 fi
 
+# ─── Configure Vesktop (Midnight Discord theme) ────────────────────────────────
+# One-time setup so the matugen-driven Midnight Discord theme works right after
+# install: makes sure the themes directory exists, and best-effort enables the
+# theme inside Vencord's own settings.json.
+#
+# NOTE: this does NOT add the [templates.vesktop] entry to matugen's own
+# config.toml — nothing in this codebase manages matugen's config.toml, so
+# that stays a manual step (see the reminder this section prints below).
+#
+# UNVERIFIED: the settings.json "enabledThemes" array patch below assumes
+# Vencord's current settings schema. If Vencord changes this schema, or if
+# your Vesktop version differs, the theme may not actually enable — check
+# manually via Vesktop settings → Vencord → Themes if it doesn't take effect.
+
+echo "=== Configuring Vesktop (Midnight Discord theme) ==="
+
+if flatpak info dev.vencord.Vesktop &>/dev/null 2>&1; then
+    VESKTOP_CONFIG_DIR="$HOME/.var/app/dev.vencord.Vesktop/config/vesktop"
+    echo "Detected Flatpak Vesktop — using $VESKTOP_CONFIG_DIR."
+else
+    VESKTOP_CONFIG_DIR="$CONFIG_HOME/vesktop"
+fi
+VESKTOP_THEMES_DIR="$VESKTOP_CONFIG_DIR/themes"
+VESKTOP_SETTINGS="$VESKTOP_CONFIG_DIR/settings.json"
+VESKTOP_THEME_FILE="midnight-discord.css"
+
+if ! command -v vesktop &>/dev/null \
+    && ! flatpak info dev.vencord.Vesktop &>/dev/null 2>&1 \
+    && [ ! -d "/opt/Vesktop" ]; then
+    # Best-effort only — won't catch every install method (AppImage without
+    # desktop integration, etc.). If you know Vesktop is installed and this
+    # still skips, just create the themes dir and enable the theme manually.
+    echo "Vesktop not detected — skipping Vesktop configuration."
+    echo "Install Vesktop first (see https://vesktop.vencord.dev), then re-run this section."
+else
+    mkdir -p "$VESKTOP_THEMES_DIR"
+    echo "Ensured themes directory exists: $VESKTOP_THEMES_DIR"
+
+    echo ""
+    echo "IMPORTANT: enable dark mode in Discord's own appearance settings — the"
+    echo "Midnight theme expects it and won't look right without it (this can't be"
+    echo "scripted; it's stored in Discord's own local app state, not a config file)."
+
+    if [ -f "$VESKTOP_SETTINGS" ]; then
+        if command -v jq &>/dev/null; then
+            tmp_settings="$(mktemp)"
+            if jq --arg theme "$VESKTOP_THEME_FILE" \
+                '.enabledThemes = ((.enabledThemes // []) + [$theme] | unique)' \
+                "$VESKTOP_SETTINGS" > "$tmp_settings" \
+                && [ -s "$tmp_settings" ] \
+                && jq -e . "$tmp_settings" &>/dev/null; then
+                mv "$tmp_settings" "$VESKTOP_SETTINGS"
+                echo "Enabled $VESKTOP_THEME_FILE in $VESKTOP_SETTINGS."
+            else
+                rm -f "$tmp_settings"
+                echo "Warning: failed to update $VESKTOP_SETTINGS via jq — leaving it untouched."
+                echo "Enable the theme manually: Vesktop settings → Vencord → Themes → $VESKTOP_THEME_FILE"
+            fi
+        else
+            echo "jq not found — can't auto-enable the theme."
+            echo "Enable it manually: Vesktop settings → Vencord → Themes → $VESKTOP_THEME_FILE"
+        fi
+    else
+        echo "$VESKTOP_SETTINGS not found (Vesktop may not have been launched yet)."
+        echo "Launch Vesktop once to generate it, then either re-run this script or enable"
+        echo "the theme manually: Vesktop settings → Vencord → Themes → $VESKTOP_THEME_FILE"
+    fi
+fi
+
 echo ""
 
 # ─── Wallpaper-changer ─────────────────────────────────────────────────────────
@@ -545,5 +614,6 @@ X-GNOME-Autostart-enabled=true
 EOF
 
 echo ""
+
 echo "Install complete."
 exit 0

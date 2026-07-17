@@ -80,6 +80,7 @@ _resolve_pkg() {
                 cpio)                   echo "cpio" ;;
                 pkgconf)                echo "pkgconf" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
+                vesktop)                echo "vesktop-bin" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         apt)
@@ -129,6 +130,7 @@ _resolve_pkg() {
                 cpio)                   echo "cpio" ;;
                 pkgconf)                echo "pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
+                vesktop)                echo "vesktop" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         dnf)
@@ -178,6 +180,7 @@ _resolve_pkg() {
                 cpio)                   echo "cpio" ;;
                 pkgconf)                echo "pkgconf-pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
+                vesktop)                echo "vesktop" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         zypper)
@@ -227,6 +230,7 @@ _resolve_pkg() {
                 cpio)                   echo "cpio" ;;
                 pkgconf)                echo "pkgconf-pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
+                vesktop)                echo "vesktop" ;;
                 *)                      echo "$logical" ;;
             esac ;;
     esac
@@ -288,8 +292,14 @@ _install_kde_apps() {
 #   spicetify-cli   — upstream's own official install.sh (spicetify.app);
 #                     packaged in the AUR on Arch, not officially packaged
 #                     anywhere else
+#   vesktop         — Flatpak (dev.vencord.Vesktop); packaged in the AUR
+#                     (vesktop-bin) on Arch, not officially packaged in
+#                     apt/dnf/zypper repos. Unlike every other entry here
+#                     this isn't a source build at all — see the Flatpak
+#                     install call below — but it lives in this fallback
+#                     path for the same reason: no official repo package.
 
-_SOURCE_BUILDABLE=("matugen" "awww" "nwg-displays" "accurse" "cliphist" "hyprpolkitagent" "topgrade" "spicetify-cli")
+_SOURCE_BUILDABLE=("matugen" "awww" "nwg-displays" "accurse" "cliphist" "hyprpolkitagent" "topgrade" "spicetify-cli" "vesktop")
 
 _is_source_buildable() {
     local pkg="$1"
@@ -463,6 +473,30 @@ _install_from_source() {
                     echo "open a new shell (or 'source ~/.bashrc'/'~/.zshrc') before using it."
                 fi
                 echo "spicetify-cli installed successfully."
+                ;;
+            vesktop)
+                echo "Installing Vesktop via Flatpak (flathub: dev.vencord.Vesktop)..."
+                if ! command -v flatpak &>/dev/null; then
+                    echo "flatpak is required to install Vesktop on this distro but is not installed."
+                    echo "Install flatpak first (see https://flatpak.org/setup/), then re-run this"
+                    echo "script, or install Vesktop manually from https://vesktop.vencord.dev."
+                    return 1
+                fi
+                if ! flatpak remote-list 2>/dev/null | grep -qi flathub; then
+                    echo "Adding the Flathub remote..."
+                    if ! flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo; then
+                        echo "Failed to add the Flathub remote. Please add it manually and re-run this script."
+                        return 1
+                    fi
+                fi
+                if ! flatpak install -y flathub dev.vencord.Vesktop; then
+                    echo "Failed to install Vesktop via Flatpak. Please install it manually"
+                    echo "(see https://vesktop.vencord.dev) and re-run this script."
+                    return 1
+                fi
+                echo "Vesktop installed successfully via Flatpak."
+                echo "NOTE: Flatpak's config path differs from a native install — the"
+                echo "'Configure Vesktop' section later in install.sh accounts for this."
                 ;;
             *)
                 echo "No source build method available for $pkg. Please install it manually."
