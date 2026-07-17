@@ -9,14 +9,16 @@ Hyprland dotfiles for a hybrid KDE Plasma / Hyprland setup, dual-booted alongsid
 - **Rofi** config (`rofi/`)
 - **SwayNotificationCenter** config (`swaync/`)
 - **wlogout** config (`wlogout/`)
-- **matugen** config and templates (`matugen/`) — generates the accent-color theming from your wallpaper and pushes it out to Waybar, Hyprland, Kitty, Rofi, GTK, KDE color schemes, and a few per-app patchers
+- **matugen** config and templates (`matugen/`) — generates the accent-color theming from your wallpaper and pushes it out to Waybar, Hyprland, Kitty, Rofi, GTK, KDE color schemes, Spicetify, Vesktop (Midnight Discord), VS Code, and a few other per-app patchers
 - **Icon patchers** — recolor the icon set (a mix of Tabler Icons and custom icons) shipped in the [Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) repo to match the current accent color and push them out per-app (VS Code, Ferdium service recipes, browsers, Discord, etc.) — see [Icons](#icons) below
-- `install.sh` — dependency check + install, config sync, GPU-aware env toggling, monitor setup, cursor theme build, and companion tool installation
+- `install.sh` — dependency check + install, config sync, GPU-aware env toggling, Hyprland/Waybar preferences, monitor setup, cursor theme build, Spicetify/Vesktop theming setup, and companion tool installation
 - `installSupportScripts/` — package-manager abstraction (`pkg_manager.sh`) and dependency checking (`dependency_check.sh`) used by `install.sh`
 
 ## Credit
 
 The Hyprland configuration in this repo started from [JaKooLit/Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots) and has been substantially modified since — theming pipeline, KDE integration, and install tooling are all custom, but the base config structure, a lot of the original keybind/window-rule scaffolding, and the base utility dependency list trace back to that project. Go check it out if you want the unmodified, Arch-focused original.
+
+Most of the matugen templates themselves (Waybar, Hyprland/hyprlock, Kitty, Rofi, wlogout, swaync, Vesktop's Midnight Discord theme, VS Code) are adapted from [InioX/matugen-themes](https://github.com/InioX/matugen-themes), migrated over from an earlier hand-rolled template set. Go check that repo out too if you want more matugen-driven app themes than what's wired up here.
 
 ## Requirements
 
@@ -40,9 +42,16 @@ chmod +x install.sh
 1. **Dependency check** — detects your package manager (`pacman`, `apt`, `dnf`, or `zypper`) and installs anything missing. `openrgb` is checked but optional — you'll get a warning, not a failure, if it's absent.
 2. **Config sync** — `rsync`'s `hypr/`, `matugen/`, `rofi/`, `waybar/`, `swaync/`, and `wlogout/` into `~/.config/`. This is additive (no `--delete`), so nothing you've added locally to those folders gets removed on a re-run. Anything already present at those paths that wasn't put there by this script gets backed up once, to `<name>.bak`, before the first sync.
 3. **GPU env toggle** — detects whether an NVIDIA GPU is present via `lspci` and comments/uncomments the NVIDIA block in `~/.config/hypr/ENVariables.lua` accordingly. Idempotent — safe to re-run on the same or different hardware.
-4. **Monitor config** — if you're in an active Hyprland session, launches `nwg-displays` so you can arrange your outputs and generate `~/.config/hypr/monitors.conf`. If you run the installer from KDE (or before your first Hyprland login), this step is skipped with instructions to run it manually later — `nwg-displays` only supports sway/Hyprland/Niri and can't run under Plasma.
-5. **Cursor theme** — clones [accurse](https://github.com/ATM-Jahid/accurse), patches its bundled Breeze theme (recolored, extended size set), compiles it, and installs the result to `~/.local/share/icons/AC-Breeze`.
-6. **Wallpaper-changer** — clones (or updates) [FC3243D4/Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) as a sibling directory next to this repo and runs its own installer.
+4. **Hyprland user preferences** — interactively sets a handful of `hl.env(...)` values in `01-UserDefaults.lua`: your primary display (picked from every output `xrandr` reports as connected), number of persistent workspaces, default Hyprland layout (`master`/`dwindle`/`scrolling`), and default editor (detected from whatever's actually installed among `nano`/`vim`/`nvim`/`code`/`micro`/`emacs`/`hx`/`kate`/`gedit`, defaulting to `nano`).
+5. **Waybar layout selection** — lets you choose between three Waybar layouts (desktop, laptop, or desktop-primary-display-only) by repointing the `config` symlink in `~/.config/waybar/`.
+6. **Waybar systemd service** — installs a user systemd unit so Waybar restarts on crash instead of relying on Hyprland's `exec-once`, and adds a KDE autostart entry to stop it when logging into Plasma instead.
+7. **Monitor config** — if you're in an active Hyprland session, launches `nwg-displays` so you can arrange your outputs and generate `~/.config/hypr/monitors.conf` and `workspaces.conf`. If you run the installer from KDE (or before your first Hyprland login), this step is skipped with instructions to run it manually later — `nwg-displays` only supports sway/Hyprland/Niri and can't run under Plasma.
+8. **Cursor theme** — clones [accurse](https://github.com/ATM-Jahid/accurse), patches its bundled Breeze theme (recolored, extended size set), compiles it, and installs the result to `~/.local/share/icons/AC-Breeze`.
+9. **Dynamic-cursors Hyprland plugin** — adds and enables [hypr-dynamic-cursors](https://github.com/VirtCode/hypr-dynamic-cursors) via `hyprpm`. Skipped (not failed) if `hyprpm` isn't available or the build fails — a mismatched Hyprland header set is the usual cause, and generally means Hyprland itself needs updating first.
+10. **Configure Spicetify** — if `spicetify` and a native Spotify install are both detected, runs `spicetify backup apply`, fetches the Sleek theme if it's not already present, and points `config-xpui.ini` at the matugen-generated color scheme.
+11. **Configure Vesktop** — if Vesktop is detected (native or Flatpak), ensures its themes directory exists and best-effort enables the Midnight Discord theme in Vencord's own settings.
+12. **Wallpaper-changer** — clones (or updates) [FC3243D4/Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) as a sibling directory next to this repo and runs its own installer.
+13. **KDE autostart entry for awww-daemon** — adds the `.desktop` file so the wallpaper daemon starts under a KDE Plasma session (see [Wallpapers](#wallpapers-awww) below for the desktop-icon caveat).
 
 Re-running `install.sh` is safe — it'll pick up dependency and config changes without clobbering local edits or reinstalling things that are already present.
 
@@ -56,9 +65,9 @@ The repo includes a `.desktop` file to autostart the awww daemon under a **KDE P
 
 ## Icons
 
-`iconPatcher.sh` and the per-app patcher scripts (`vscodePatcher.sh`, `discordPatcher.sh`, `ferdiumIconPatcher.sh`, browser patchers, etc.) recolor a shared set of monochrome SVG icons to match the matugen-derived accent color, then push the result out to each app's icon lookup path. Icons are recolored via their `currentColor` stroke/fill (or, for a handful of flat-hex legacy icons, a direct hex substitution), then dropped into place per app — a local `file://` icon override for Ferdium's recipes, the app's own resource directory for VS Code, and so on.
+`iconPatcher.sh` and the per-app patcher scripts (`vscodePatcher.sh`, `discordPatcher.sh`, `ferdiumIconPatcher.sh`, `spicetifyPostHook.sh`, browser patchers, etc.) recolor a shared set of monochrome SVG icons to match the matugen-derived accent color, then push the result out to each app's icon lookup path. Icons are recolored via their `currentColor` stroke/fill (or, for a handful of flat-hex legacy icons, a direct hex substitution), then dropped into place per app — a local `file://` icon override for Ferdium's recipes, the app's own resource directory for VS Code, and so on.
 
-The icon set itself lives in the [Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) repo (installed alongside this one — see step 6 above), not in this repo. It's a mix of [Tabler Icons](https://tabler.io/icons) (MIT licensed) for general/category icons and custom icons for specific app/game overrides. See that repo for the icon files and license details.
+The icon set itself lives in the [Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) repo (installed alongside this one — see step 12 above), not in this repo. It's a mix of [Tabler Icons](https://tabler.io/icons) (MIT licensed) for general/category icons and custom icons for specific app/game overrides. See that repo for the icon files and license details.
 
 ## Dependencies
 
@@ -79,6 +88,8 @@ The icon set itself lives in the [Wallpaper-changer](https://github.com/FC3243D4
 | `plasma-apply-colorscheme` | Applies generated KDE color schemes |
 | `hyprpolkitagent` | Polkit authentication agent for the Hyprland session (installed via COPR on Fedora; built from source on Debian/Ubuntu) |
 | `openrgb` (optional) | Syncs the wallpaper's dominant color to RGB peripherals |
+| `spicetify-cli` | Spotify theming CLI, used to apply the matugen-generated color scheme (via the Sleek theme) — installed via the AUR on Arch, upstream's own install script elsewhere |
+| `vesktop` (optional) | Discord client with built-in Vencord, used for the matugen-generated Midnight Discord theme — installed via the AUR on Arch, Flatpak elsewhere. Not required if you don't use Discord/Vesktop |
 | `awww` (via Wallpaper-changer) | Wallpaper daemon that drives the whole theming pipeline — see [Wallpapers](#wallpapers-awww) above |
 
 ### General utilities
