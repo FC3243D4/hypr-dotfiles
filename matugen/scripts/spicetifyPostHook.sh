@@ -92,4 +92,22 @@ if ! spicetify config prefs_path "$SPOTIFY_PREFS" &>/dev/null; then
     exit 0
 fi
 
-spicetify watch -s 2>&1 | sed "/Reloaded Spotify/q"
+# spicetify watch -s | sed "/Reloaded Spotify/q" (the upstream-suggested
+# one-shot trick) is NOT actually one-shot: `watch` is a persistent mode that
+# waits for a running Spotify instance to reload, and by this point in the
+# script Spotify is confirmed NOT running (see the pgrep check above) - so
+# there's nothing for it to watch, and it blocks forever, taking matugen's
+# entire run down with it. `spicetify apply` is what we actually want: a
+# synchronous, one-shot patch that returns regardless of whether Spotify is
+# running. The timeout is a second safety net in case it ever hangs for an
+# unrelated reason (e.g. a stuck lock file) - a stalled post_hook should
+# never be able to stall the rest of matugen's run.
+timeout 30 spicetify apply
+status=$?
+if [ "$status" -ne 0 ]; then
+    if [ "$status" -eq 124 ]; then
+        echo "spicetifyPostHook: 'spicetify apply' timed out after 30s — skipping."
+    else
+        echo "spicetifyPostHook: 'spicetify apply' failed (exit $status) — skipping."
+    fi
+fi
