@@ -10,6 +10,7 @@ hl.on("hyprland.start", function()
         "hyprpm reload -n",
         
         "ags",
+        "systemctl --user import-environment PRIMARY_DISPLAY && dbus-update-activation-environment --systemd PRIMARY_DISPLAY",
 
         -- for dolphin apps menu
         "$HOME/.config/hypr/scripts/login-kde-apps.sh",
