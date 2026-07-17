@@ -216,6 +216,42 @@ else
         fi
     done
     _ensure_hl_env "$USERDEFAULTS_LUA" "DEFAULT_LAYOUT" "$defaultLayout"
+
+    # Default editor — detect what's actually installed and offer only those,
+    # always including nano (a tracked core dependency, so it should already
+    # be installed by this point) as the guaranteed fallback/default choice.
+    # Uses a plain read loop rather than `select`: bash's `select` has
+    # documented behavior where pressing Enter with no input just redisplays
+    # the menu without ever running the loop body, so there's no way to make
+    # empty input mean "use the default" with `select` — only a manual
+    # read-based prompt supports that.
+    editorCandidates=("nano" "vim" "nvim" "code" "micro" "emacs" "hx" "kate" "gedit")
+    editorOptions=()
+    for candidate in "${editorCandidates[@]}"; do
+        command -v "$candidate" &>/dev/null && editorOptions+=("$candidate")
+    done
+    if ! printf '%s\n' "${editorOptions[@]}" | grep -qx "nano"; then
+        editorOptions=("nano" "${editorOptions[@]}")
+    fi
+
+    echo "Choose your default editor:"
+    for i in "${!editorOptions[@]}"; do
+        printf '%d) %s\n' "$((i + 1))" "${editorOptions[$i]}"
+    done
+    defaultEditor=""
+    while [ -z "$defaultEditor" ]; do
+        read -p "Enter a number [default: nano]: " editorChoice
+        if [ -z "$editorChoice" ]; then
+            defaultEditor="nano"
+            echo "No selection — defaulting to nano."
+        elif [[ "$editorChoice" =~ ^[0-9]+$ ]] && [ "$editorChoice" -ge 1 ] && [ "$editorChoice" -le "${#editorOptions[@]}" ]; then
+            defaultEditor="${editorOptions[$((editorChoice - 1))]}"
+            echo "You chose: $defaultEditor"
+        else
+            echo "Invalid choice, try again (or press Enter for nano)."
+        fi
+    done
+    _ensure_hl_env "$USERDEFAULTS_LUA" "EDITOR" "$defaultEditor"
 fi
 
 echo ""
@@ -541,6 +577,9 @@ else
     echo "Ensured themes directory exists: $VESKTOP_THEMES_DIR"
 
     echo ""
+    echo "Reminder: add matugen's [templates.vesktop] entry to your config.toml if you"
+    echo "haven't already (input_path = your midnight-discord.css template, output_path ="
+    echo "'$VESKTOP_THEMES_DIR/$VESKTOP_THEME_FILE'), then run matugen once to generate it."
     echo "IMPORTANT: enable dark mode in Discord's own appearance settings — the"
     echo "Midnight theme expects it and won't look right without it (this can't be"
     echo "scripted; it's stored in Discord's own local app state, not a config file)."
