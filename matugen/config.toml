@@ -40,6 +40,14 @@ output_path = '~/.config/wlogout/style.css'
 input_path = 'path/to/midnight-discord-template.css'
 output_path = '~/.config/vesktop/themes/midnight-discord.css'
 
+[templates.vscode-raw]
+input_path = 'path/to/vscode-colors-template'
+output_path = '~/.cache/matugen/vscode-colors'
+
+[templates.vscode-json]
+input_path = 'path/to/vscode-colors-template.json'
+output_path = '~/.cache/matugen/vscode-colors.json'
+
 [templates.swaync]
 input_path = '~/.config/matugen/templates/swaync.css'
 output_path = '~/.config/swaync/style.css'
