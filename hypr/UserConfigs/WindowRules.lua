@@ -10,6 +10,9 @@ hl.window_rule({ match = { class = "^(SourceGit)$" },
 -- Gimp
 hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" }, workspace = "4" })
 
+-- Spotify
+hl.window_rule({ match = { class = "^(Spotify)$" }, workspace = "8" })
+
 -- Plasma System Monitor
 hl.window_rule({ match = { class = "^(org.kde.plasma-systemmonitor)$" }, 
     no_blur = true, 
