@@ -13,12 +13,17 @@ TARGETS=(
     "$HOME/.local/share/Steam/public/"                  # Steam
     "/usr/share/pixmaps/"                               # generic pixmaps
 )
+firstFind=true
 
 for target in $TARGETS
 do
     if [ -d $target ]; then
         # Check if any file inside is not writable
         if find "$target" -not -writable | grep -q .; then
+            if [ "$firstFind" == "true" ]; then
+                notify-send -i "$HOME/.config/swaync/icons/note.svg" "Ownership issues found" "please enter the password for sudo to fix"
+                firstFind=false
+            fi
             echo "Found non-writable files inside $target, fixing ownership..."
             sudo chown -R "$USER" "$target"
         else
