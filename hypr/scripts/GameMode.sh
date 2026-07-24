@@ -5,6 +5,7 @@
 # mid-game. Run again to revert everything.
 
 GAME_MODE_LOCATION="${HOME}/.config/hypr/scripts/gamemode_status"
+PREVIOUS_POWER_PROFILE="${HOME}/.config/hypr/scripts/power_profile"
 notif="$HOME/.local/share/icons/breeze-dark-accent/apps/scalable/gaming.svg"
 mkdir -p "${HOME}/.config/hypr/scripts"
 
@@ -83,6 +84,8 @@ CURRENT_STATE=$(cat "${GAME_MODE_LOCATION}" 2>/dev/null || echo "false")
 
 if [ "${CURRENT_STATE}" = "false" ]; then
     echo "true" > "${GAME_MODE_LOCATION}"
+    echo $(powerprofilesctl get) > "${PREVIOUS_POWER_PROFILE}"
+    powerprofilesctl set performance
 
     if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
         hyprctl reload >/dev/null 2>&1
@@ -104,6 +107,7 @@ if [ "${CURRENT_STATE}" = "false" ]; then
     sleep 10 && enable_notif_inhibit
 else
     echo "false" > "${GAME_MODE_LOCATION}"
+    powerprofilesctl set $(cat "${PREVIOUS_POWER_PROFILE}")
 
     if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
         hyprctl reload >/dev/null 2>&1

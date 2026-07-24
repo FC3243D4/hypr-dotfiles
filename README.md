@@ -105,6 +105,7 @@ Package names are resolved per-distro in `installSupportScripts/pkg_manager.sh`.
 `hypr/scripts/gamemode.sh` (bound to a keybind in the Hyprland config) toggles a "gamemode" state that:
 
 - Stops `docker`/`ollama` systemd units to free up resources — only for units that actually exist on the system, so this is safe to use even if you don't have Docker or Ollama installed
+- Sets the powerprofile for the cpu to performance
 - Suppresses notifications via `swaync` (Hyprland session) or KDE's Do Not Disturb system (Plasma session), detected via `$XDG_CURRENT_DESKTOP`
 - Reloads Hyprland and toggles `hypridle`
 
