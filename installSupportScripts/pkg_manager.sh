@@ -81,6 +81,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkgconf" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop-bin" ;;
+                power-profiles-daemon)  echo "power-profiles-daemon" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         apt)
@@ -131,6 +132,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
+                power-profiles-daemon)  echo "power-profiles-daemon" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         dnf)
@@ -181,6 +183,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkgconf-pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
+                power-profiles-daemon)  echo "power-profiles-daemon" ;;
                 *)                      echo "$logical" ;;
             esac ;;
         zypper)
@@ -231,6 +234,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkgconf-pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
+                power-profiles-daemon)  echo "power-profiles-daemon" ;;
                 *)                      echo "$logical" ;;
             esac ;;
     esac

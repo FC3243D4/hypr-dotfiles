@@ -83,6 +83,7 @@ generalDeps=(
     "command -v yad|yad"
     "command -v topgrade|topgrade"
     "command -v lspci|pciutils"
+    "command -v powerprofilesctl|power-profiles-daemon"
     "pkg-config --exists spng|libspng"
 )
 _check_deps "${generalDeps[@]}"
