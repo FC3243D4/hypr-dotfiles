@@ -15,7 +15,7 @@ TARGETS=(
 )
 firstFind=true
 
-for target in $TARGETS
+for target in "${TARGETS[@]}"
 do
     if [ -d $target ]; then
         # Check if any file inside is not writable
