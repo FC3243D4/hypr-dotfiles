@@ -48,6 +48,14 @@ output_path = '~/.cache/matugen/vscode-colors'
 input_path = '~/.config/matugen/templates/vscode-colors-template.json'
 output_path = '~/.cache/matugen/vscode-colors.json'
 
+[config.custom_colors]
+diff_added_bg = { color = "#143620", blend = false }
+diff_added_fg = { color = "#4CAF50", blend = false }
+
+[templates.sourcegit]
+input_path = '~/.config/matugen/templates/sourceGit-theme.json'
+output_path = '~/.sourcegit/matugen-theme.json'
+
 [templates.swaync]
 input_path = '~/.config/matugen/templates/swaync.css'
 output_path = '~/.config/swaync/style.css'
@@ -57,11 +65,3 @@ post_hook   = 'pgrep -x swaync >/dev/null && timeout 2 swaync-client -rs || true
 input_path = '~/.config/matugen/templates/spicetify-color-template.ini'
 output_path = '~/.config/spicetify/Themes/Sleek/color.ini'
 post_hook = '~/.config/matugen/scripts/spicetifyPostHook.sh'
-
-[config.custom_colors]
-diff_added_bg = { color = "#143620", blend = false }
-diff_added_fg = { color = "#4CAF50", blend = false }
-
-[templates.sourcegit]
-input_path = '~/.config/matugen/templates/sourceGit-theme.json'
-output_path = '~/.sourcegit/matugen-theme.json'
