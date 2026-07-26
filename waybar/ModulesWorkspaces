@@ -101,7 +101,7 @@
 		"20": "二十",
 	}
 },
-// for Camilla or Spanish
+// for Camilla or Italian
 "hyprland/workspaces#cam": {
 	"active-only":false,
 	"all-outputs": true,
