@@ -32,6 +32,14 @@ hl.env("QT_QPA_PLATFORM","wayland")
 -----------------------------
 hl.env("QT_QUICK_CONTROLS_STYLE", "org.hyprland.style")
 
+----------------------
+---- Cursor Theme ----
+----------------------
+hl.env("HYPRCURSOR_THEME", "AC-Breeze")
+hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("XCURSOR_THEME", "AC-Breeze")
+hl.env("XCURSOR_SIZE", "24")
+
 -------------------------------------------------------------------------
 ---- xwayland apps scale fix (useful if you are use monitor scaling) ----
 -------------------------------------------------------------------------

@@ -89,6 +89,21 @@ hl.window_rule({ match = { class = "^(gnome-system-monitor|org.gnome.SystemMonit
 hl.window_rule({ match = { class = "^(evince)$" },                                                                      tag = "+viewer" }) -- document viewer
 hl.window_rule({ match = { class = "^(eog|org.gnome.Loupe)$" },                                                         tag = "+viewer" }) -- image viewer
 
+-- 3D tag
+hl.window_rule({ match = { class = "^([Bb]lender)$" }, tag = "+threeD" })
+hl.window_rule({ match = { class = "^(OrcaSlicer)$" }, tag = "+threeD" })
+hl.window_rule({ match = { class = "^([Ff]reecad)$" }, tag = "+threeD" })
+hl.window_rule({ match = { class = "^(fusion360.exe)$" }, tag = "+threeD" })
+hl.window_rule({ match = { class = "^([Ll]ycheeslicer)$" }, tag = "+threeD" })
+
+-- git tag
+hl.window_rule({ match = { class = "^(SourceGit)$" }, tag = "+git" })
+
+-- Gimp
+hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" }, workspace = "4" })
+
+-- Spotify
+hl.window_rule({ match = { class = "^(Spotify)$" }, workspace = "8" })
 
 -- ── MULTIMEDIA VIDEO OVERRIDES ────────────────────────────────────────────────
 
@@ -119,8 +134,10 @@ hl.window_rule({ match = { fullscreen = true }, idle_inhibit = "fullscreen" })
 -- ── WORKSPACES ───────────────────────────────────────────────────────────────
 
 hl.window_rule({ match = { tag = "projects*" },  workspace = 2 })
-hl.window_rule({ match = { tag = "gamestore*" }, workspace = 5 })
-hl.window_rule({ match = { tag = "games*" },     workspace = 8 })
+hl.window_rule({ match = { tag = "games*" }, workspace = 10 , opacity = "1 override 1 override 1 override" })
+hl.window_rule({ match = { tag = "gamestore*" }, workspace = 9 })
+hl.window_rule({ match = { tag = "git*" }, workspace = 7 })
+hl.window_rule({ match = { tag = "threeD*" }, workspace = 3 })
 
 -- silent workspace assignments (disabled by default)
 -- hl.window_rule({ match = { tag = "screenshare*" }, workspace = "4 silent" })

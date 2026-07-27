@@ -10,7 +10,7 @@ local mainMod = "SUPER"
 local scriptsDir = "$HOME/.config/hypr/scripts"
 local UserScripts = "$HOME/.config/hypr/UserScripts"
 local UserConfigs = "$HOME/.config/hypr/UserConfigs"
-local WallpapersScripts = "$HOME/.config/WallpaperChanger"
+
 
 --  IMPORTANT: If you want to remap and existing keybind you MUST unbindd it first 
 
@@ -26,17 +26,3 @@ local WallpapersScripts = "$HOME/.config/WallpaperChanger"
 
 -- E.g.
 -- hl.bind( mainMod .. " + Z", hl.dsp.exec_cmd("myApp") { description = "Launch myApp" })
-
-hl.unbind( mainMod .. " + W")
-hl.bind( mainMod .. " + W ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperMenu.sh"), { description = "Select Wallpaper" })
-
-hl.unbind("CTRL + ALT + W")
-hl.bind("CTRL + ALT + W ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random"), { description = "Random Wallpaper" })
-
-hl.unbind( mainMod .. " + ALT + R")
-hl.bind( mainMod .. " + ALT + R ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh --full"), { description = "Refresh Bar, Menus and Apps" })
-
-hl.bind( mainMod .. " + CTRL + SHIFT + S ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random sfw"), { description = "Random SFW Wallpaper" })
-hl.bind( mainMod .. " + CTRL + SHIFT + N ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random nsfw"), { description = "Random NSFW Wallpaper" })
-
-hl.bind( mainMod .. " + CTRL + SHIFT + T ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh --softrun"), { description = "Refresh Bar, Menus and Apps without restarting" })

@@ -6,6 +6,7 @@
 -------------------
 
 local scriptsDir = os.getenv("HOME") .. "/.config/hypr/scripts"
+local WallpapersScripts = os.getenv("HOME") .. "/.config/WallpaperChanger"
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
@@ -39,7 +40,6 @@ hl.bind(mainMod .. " + E",      hl.dsp.exec_cmd(files),                         
 ---- FEATURES / EXTRAS ----
 ---------------------------
 hl.bind(mainMod .. " + H",                hl.dsp.exec_cmd(scriptsDir .. "/KeyHints.sh"),                                               { description = "show keybinds cheat sheet" })
-hl.bind(mainMod .. " + ALT + R",          hl.dsp.exec_cmd(scriptsDir .. "/Refresh.sh"),                                                { description = "refresh bar and menus" })
 hl.bind(mainMod .. " + ALT + E",          hl.dsp.exec_cmd(scriptsDir .. "/RofiEmoji.sh"),                                              { description = "emoji menu" })
 hl.bind(mainMod .. " + S",                hl.dsp.exec_cmd(scriptsDir .. "/RofiSearch.sh"),                                             { description = "web search" })
 hl.bind(mainMod .. " + CTRL + S",         hl.dsp.exec_cmd("rofi -show window"),                                                        { description = "window switcher" })
@@ -63,9 +63,7 @@ hl.bind(mainMod .. " + ALT + B",        hl.dsp.exec_cmd(scriptsDir .. "/WaybarLa
 -----------------------------------------
 ---- FEATURES / EXTRAS (UserScripts) ----
 -----------------------------------------
-hl.bind(mainMod .. " + W",         hl.dsp.exec_cmd(scriptsDir .. "/WallpaperSelect.sh"),            { description = "select wallpaper" })
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(scriptsDir .. "/WallpaperEffects.sh"),           { description = "wallpaper effects" })
-hl.bind("CTRL + ALT + W",          hl.dsp.exec_cmd(scriptsDir .. "/WallpaperRandomAspectRatio.sh"), { description = "random wallpaper" })
 hl.bind(mainMod .. " + CTRL + O",  hl.dsp.window.set_prop({ prop = "opaque", value = "toggle" }),         { description = "toggle active window opacity" })
 hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd(scriptsDir .. "/KeyBinds.sh"),                   { description = "search keybinds" })
 hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd(scriptsDir .. "/Animations.sh"),                 { description = "animations menu" })
@@ -88,6 +86,16 @@ hl.bind(mainMod .. " + CTRL + F12", function()
     hl.dispatch(hl.dsp.workspace.move({ workspace = hl.get_active_workspace().id, monitor = "d" }))
 end, { description = "move workspace to down monitor" })
 
+
+----------------------------------------------
+---- FEATURES / EXTRAS (WallpaperChanger) ----
+----------------------------------------------
+hl.bind( mainMod .. " + W ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperMenu.sh"), { description = "Select Wallpaper" })
+hl.bind("CTRL + ALT + W ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random"), { description = "Random Wallpaper" })
+hl.bind( mainMod .. " + CTRL + SHIFT + S ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random sfw"), { description = "Random SFW Wallpaper" })
+hl.bind( mainMod .. " + CTRL + SHIFT + N ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random nsfw"), { description = "Random NSFW Wallpaper" })
+hl.bind( mainMod .. " + ALT + R ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh --full"), { description = "Refresh Bar, Menus and Apps" })
+hl.bind( mainMod .. " + CTRL + SHIFT + T ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh --softrun"), { description = "Refresh Bar, Menus and Apps without restarting" })
 
 ----------------
 ---- SYSTEM ----

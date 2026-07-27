@@ -134,7 +134,7 @@ echo ""
 echo "=== Configuring Hyprland user preferences ==="
 
 USERDEFAULTS_LUA="$CONFIG_HOME/hypr/UserConfigs/01-UserDefaults.lua"
-STARTUPAPPS_LUA="$CONFIG_HOME/hypr/UserConfigs/Startup_Apps.lua"
+STARTUPAPPS_LUA="$CONFIG_HOME/hypr/configs/Startup_Apps.lua"
 
 _ensure_hl_env() {
     # $1 file, $2 hl.env variable name, $3 value
