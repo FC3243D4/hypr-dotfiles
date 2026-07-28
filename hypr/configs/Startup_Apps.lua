@@ -38,6 +38,7 @@ hl.on("hyprland.start", function()
 
         --reload hyprland to enable plugins
         "hyprpm reload -n",
+        "$HOME/.config/hypr/scripts/pluginStatusChecker.sh dynamic-cursors",
 
         "ags",
         "systemctl --user import-environment PRIMARY_DISPLAY && dbus-update-activation-environment --systemd PRIMARY_DISPLAY",

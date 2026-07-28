@@ -10,16 +10,25 @@ if f then
     gamemode = (val == "true")
 end
 
+-- Reads a status file instead of calling hyprctl live: hyprctl plugin list
+-- is the only reliable source for "did it actually load" (vs. just "is the
+-- .so built"), but it can't be called synchronously here — Hyprland
+-- re-sources this file on its own main thread during any reload, so an IPC
+-- call made mid-parse can deadlock waiting on that same reload. Instead,
+-- pluginStatusChecker.sh writes this file once Hyprland is already fully up
+-- (see Startup_Apps), and gets re-run manually after `hyprpm update`.
 local function isPluginLoaded(name)
-    local handle = io.popen("hyprctl plugin list 2>/dev/null")
-    if not handle then
+    local home = os.getenv("HOME") or ""
+    local statusFile = home .. "/.config/hypr/scripts/" .. name .. "_status"
+    local f = io.open(statusFile, "r")
+    if not f then
         return false
     end
 
-    local result = handle:read("*a")
-    handle:close()
+    local val = f:read("*l")
+    f:close()
 
-    return result ~= nil and result:find(name, 1, true) ~= nil
+    return val == "true"
 end
 
 -- Sourcing external config files
@@ -64,5 +73,12 @@ require("workspaces") -- User-defined workspace settings
 
 -- hypr-dynamic-cursors
 if isPluginLoaded("dynamic-cursors") then
-    require("hypr-dynamic-cursor") -- User-defined dynamic cursor plugin settings
+    -- pcall as a second safety net: the status file can go stale if the
+    -- plugin breaks after Hyprland already started (no restart in between),
+    -- so a failed require here degrades gracefully instead of erroring the
+    -- whole config.
+    local ok, err = pcall(require, "hypr-dynamic-cursor") -- User-defined dynamic cursor plugin settings
+    if not ok then
+        print("hypr-dynamic-cursor failed to load: " .. tostring(err))
+    end
 end
