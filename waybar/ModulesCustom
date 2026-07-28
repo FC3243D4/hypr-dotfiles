@@ -195,7 +195,7 @@
 	"interval": 3600, // (Arch Linux will try to check 1 hrs interval only
 	"signal": 8,
 	//"on-click": "$HOME/.config/hypr/scripts/Distro_update.sh",
-	"on-click": "kitty -T update bash -c $HOME/.config/hypr/UserScripts/update-and-fix.sh",
+	"on-click": "kitty -T update bash -c $HOME/.config/hypr/scripts/update-and-fix.sh",
 	"tooltip": true,
 	"tooltip-format": "Left Click\nUpdate System with topgrade",
 },
@@ -283,5 +283,59 @@
 "custom/arrow10": {
 	"format": "",
 	"tooltip": false
+},
+
+"custom/gpu#usage": {
+    "format": "{:>2}% 󰾲 ",
+    "exec": "~/.config/hypr/scripts/gpu-info.sh usage",
+    "interval": 1,
+    "on-click-right": "rocm-smi"
+},
+
+"custom/gpu#temp": {
+    "format": "{:>2}°C 󰾲",
+    "exec": "~/.config/hypr/scripts/gpu-info.sh temp",
+    "interval": 1
+},
+
+"custom/gpu#memory": {
+    "format": "{:>2}% ",
+    "exec": "~/.config/hypr/scripts/gpu-info.sh memory",
+    "interval": 1
+},
+
+"custom/gpu#frequency": {
+    "format": "{:>4}MHz 󰾆",
+    "exec": "~/.config/hypr/scripts/gpu-info.sh freq",
+    "interval": 1
+},
+
+"custom/weather#better": {
+    "exec": "waybar-weather",
+    "restart-interval": 60,
+    "return-type": "json",
+    "hide-empty-text": true,
+    "on-click": "pkill -USR1 waybar-weather"
+},
+
+"custom/keylocks#numlock": {
+    "exec": "/home/fc3243d4/.config/hypr/scripts/numlock_status.sh",
+    "interval": 0.5,
+    "format": "{}",
+},
+
+"custom/keylocks#capslock": {
+    "exec": "/home/fc3243d4/.config/hypr/scripts/capslock_status.sh",
+    "interval": 0.5,
+    "format": "{}",
+},
+
+"custom/hypridle_widget": {
+    "exec": "/home/fc3243d4/.config/hypr/scripts/Hypridle.sh status",
+    "return-type": "json",
+    "interval": 0.5,
+    "format": "{text}",
+    "on-click": "$HOME/.config/hypr/scripts/Hypridle.sh toggle",
+	"on-click-right": "hyprlock"
 },
 }
