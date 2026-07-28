@@ -10,6 +10,18 @@ if f then
     gamemode = (val == "true")
 end
 
+local function isPluginLoaded(name)
+    local handle = io.popen("hyprctl plugin list 2>/dev/null")
+    if not handle then
+        return false
+    end
+
+    local result = handle:read("*a")
+    handle:close()
+
+    return result ~= nil and result:find(name, 1, true) ~= nil
+end
+
 -- Sourcing external config files
 
 -- Keybinds
@@ -50,8 +62,7 @@ require("UserConfigs/WorkSpaceRules")
 require("monitors") -- User-defined monitor settings
 require("workspaces") -- User-defined workspace settings
 
--- hyprcursor
-require("hypr-dynamic-cursor") -- User-defined dynamic cursor plugin settings
-
--- hyprexpo
---require("UserConfigs/hyprexpo") -- User-defined hyprexpo plugin settings
+-- hypr-dynamic-cursors
+if isPluginLoaded("dynamic-cursors") then
+    require("hypr-dynamic-cursor") -- User-defined dynamic cursor plugin settings
+end
