@@ -24,15 +24,6 @@ You can set workspace rules to achieve workspace-specific behaviors. --]]
 --hl.workspace_rule({ workspace = "special:scratchpad", on_created_empty = "foot" })
 --hl.workspace_rule({ workspace = "15", animation = "slidevert", default_name = "slider" })
 
---persistance
--- persist all 20 workspaces
-for i = 1, os.getenv("PERSISTENT_WORKSPACES") do
-    hl.workspace_rule({
-        workspace = tostring(i),
-        persistent = true,
-    })
-end
-
 --specific workspace layout override
 --add here your override for the layout of specific workspace, for example
 --hl.workspace_rule({ workspace = "3", layout = "scrolling" })
