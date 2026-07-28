@@ -89,14 +89,14 @@ hl.window_rule({ match = { class = "^(gnome-system-monitor|org.gnome.SystemMonit
 hl.window_rule({ match = { class = "^(evince)$" },                                                                      tag = "+viewer" }) -- document viewer
 hl.window_rule({ match = { class = "^(eog|org.gnome.Loupe)$" },                                                         tag = "+viewer" }) -- image viewer
 
--- 3D tag
+-- 3D
 hl.window_rule({ match = { class = "^([Bb]lender)$" }, tag = "+threeD" })
-hl.window_rule({ match = { class = "^(OrcaSlicer)$" }, tag = "+threeD" })
+hl.window_rule({ match = { class = "^(orca-slicer)$" }, tag = "+threeD" })
 hl.window_rule({ match = { class = "^([Ff]reecad)$" }, tag = "+threeD" })
 hl.window_rule({ match = { class = "^(fusion360.exe)$" }, tag = "+threeD" })
 hl.window_rule({ match = { class = "^([Ll]ycheeslicer)$" }, tag = "+threeD" })
 
--- git tag
+-- git
 hl.window_rule({ match = { class = "^(SourceGit)$" }, tag = "+git" })
 
 -- Gimp
