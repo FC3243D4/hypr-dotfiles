@@ -1,5 +1,3 @@
---https://github.com/VirtCode/hypr-dynamic-cursors
-
 hl.config { plugin = { dynamic_cursors = {
 
     -- enables the plugin
@@ -125,6 +123,6 @@ hl.config { plugin = { dynamic_cursors = {
         -- shape to use when clientside cursors are being magnified
         -- see the shape-name property of shape rules for possible names
         -- specifying clientside will use the actual shape, but will be pixelated
-        fallback = "default",
+        fallback = "clientside",
     },
 }}}
