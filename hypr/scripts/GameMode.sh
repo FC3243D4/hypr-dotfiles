@@ -100,6 +100,9 @@ if [ "${CURRENT_STATE}" = "false" ]; then
     if [ -n "$GAME_MODE_USER_UNITS" ]; then
         systemctl --user stop $GAME_MODE_USER_UNITS >/dev/null 2>&1
     fi
+    if (! pgrep steam) && (command -v steam >/dev/null 2>&1) ; then
+        steam &
+    fi
 
     awww kill
 
