@@ -48,5 +48,21 @@ for dir in "${CONFIG_DIRS[@]}"; do
 done
 
 echo ""
-echo "Update complete."
+read "Update dotfiles complete. Would you like to update Wallpaper Changer as well? [Y/n]"
+echo ""
+echo ""
+if [[ ! $REPLY =~ ^[Nn]$ ]]; then
+    WALLPAPER_CHANGER_DIR="$(dirname "$SCRIPT_DIR")/Wallpaper-changer"
+    echo "Updating WallpaperChanger's scripts"
+    if [ -d "$WALLPAPER_CHANGER_DIR/.git" ]; then
+        echo "Wallpaper-changer already cloned at $WALLPAPER_CHANGER_DIR — pulling latest."
+        if ! git -C "$WALLPAPER_CHANGER_DIR" pull --ff-only; then
+            echo "Warning: git pull failed (local changes or diverged history?). Skipping update, using existing checkout."
+        fi
+    elif ! git clone https://github.com/FC3243D4/Wallpaper-changer "$WALLPAPER_CHANGER_DIR"; then
+        echo "Error: failed to clone Wallpaper-changer. Skipping install."
+        WALLPAPER_CHANGER_DIR=""
+    fi
+    "$WALLPAPER_CHANGER_DIR/install-Linux.sh" --update-scripts
+fi
 exit 0
