@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-
 topgrade && patch-grub
-
 echo "checking code folder for writing permission"
 TARGETS=(
     "/usr/share/code/resources/app/out/media"           # VSCode icons
@@ -12,9 +10,9 @@ TARGETS=(
     "/usr/lib/streamcontroller/Assets/icons/hicolor"    # StreamController
     "$HOME/.local/share/Steam/public/"                  # Steam
     "/usr/share/pixmaps/"                               # generic pixmaps
+    "/opt/ytmdesktop/resources"                         # YTMDesktop tray
 )
 firstFind=true
-
 for target in "${TARGETS[@]}"
 do
     if [ -d $target ]; then
@@ -31,5 +29,4 @@ do
         fi
     fi
 done
-
 pkill -RTMIN+8 waybar
