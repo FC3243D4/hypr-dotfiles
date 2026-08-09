@@ -13,7 +13,7 @@ hl.window_rule({ match = { class = "^(conky)$" },
 })
 
 -- Ferdium
-hl.window_rule({ match = { class = "^(Ferdium)$" }, workspace = 1 })
+hl.window_rule({ match = { class = "^([Ff]erdium)$" }, workspace = 1 })
 
 -- Solaar
 hl.window_rule({ match = { class = "^([Ss]olaar)$" }, workspace = 5 })
