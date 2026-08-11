@@ -82,6 +82,7 @@ _resolve_pkg() {
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop-bin" ;;
                 power-profiles-daemon)  echo "power-profiles-daemon" ;;
+                millennium)             echo "millennium" ;;   # AUR
                 *)                      echo "$logical" ;;
             esac ;;
         apt)
@@ -133,6 +134,7 @@ _resolve_pkg() {
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
                 power-profiles-daemon)  echo "power-profiles-daemon" ;;
+                millennium)             echo "millennium" ;;   # not packaged — falls to official installer script
                 *)                      echo "$logical" ;;
             esac ;;
         dnf)
@@ -184,6 +186,7 @@ _resolve_pkg() {
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
                 power-profiles-daemon)  echo "power-profiles-daemon" ;;
+                millennium)             echo "millennium" ;;   # not packaged — falls to official installer script
                 *)                      echo "$logical" ;;
             esac ;;
         zypper)
@@ -235,6 +238,7 @@ _resolve_pkg() {
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
                 power-profiles-daemon)  echo "power-profiles-daemon" ;;
+                millennium)             echo "millennium" ;;   # not packaged — falls to official installer script
                 *)                      echo "$logical" ;;
             esac ;;
     esac
@@ -302,8 +306,15 @@ _install_kde_apps() {
 #                     this isn't a source build at all — see the Flatpak
 #                     install call below — but it lives in this fallback
 #                     path for the same reason: no official repo package.
+#   millennium      — upstream's own official installer
+#                     (curl -fsSL https://steambrew.app/install.sh | bash);
+#                     officially packaged in the AUR (plain "millennium",
+#                     not "millennium-git") on Arch, not officially packaged
+#                     anywhere else. Linux x86_64 only, and only supports a
+#                     native Steam install (not Flatpak/Snap) — see
+#                     https://docs.steambrew.app/users/getting-started/installation.
 
-_SOURCE_BUILDABLE=("matugen" "awww" "nwg-displays" "accurse" "cliphist" "hyprpolkitagent" "topgrade" "spicetify-cli" "vesktop")
+_SOURCE_BUILDABLE=("matugen" "awww" "nwg-displays" "accurse" "cliphist" "hyprpolkitagent" "topgrade" "spicetify-cli" "vesktop" "millennium")
 
 _is_source_buildable() {
     local pkg="$1"
@@ -501,6 +512,36 @@ _install_from_source() {
                 echo "Vesktop installed successfully via Flatpak."
                 echo "NOTE: Flatpak's config path differs from a native install — the"
                 echo "'Configure Vesktop' section later in install.sh accounts for this."
+                ;;
+            millennium)
+                echo "Installing Millennium via the official installer (steambrew.app)..."
+                if [ "$(uname -m)" != "x86_64" ]; then
+                    echo "Millennium only supports Linux x86_64 (detected $(uname -m))."
+                    echo "Skipping — install manually if you have a supported setup."
+                    continue
+                fi
+                if ! command -v curl &>/dev/null; then
+                    echo "curl is required to install Millennium but is not installed."
+                    return 1
+                fi
+                if flatpak info com.valvesoftware.Steam &>/dev/null 2>&1 \
+                    || command -v snap &>/dev/null && snap list steam &>/dev/null 2>&1; then
+                    echo "Detected a Flatpak or Snap install of Steam — Millennium doesn't support"
+                    echo "either. Install Steam natively and re-run this script to use Millennium."
+                    continue
+                fi
+                if pgrep -x steam &>/dev/null; then
+                    echo "Steam is currently running — Millennium's installer needs it closed."
+                    echo "Close Steam and re-run this script to install Millennium."
+                    continue
+                fi
+                if ! curl -fsSL "https://steambrew.app/install.sh" | bash; then
+                    echo "Failed to install Millennium via the official script. Please install it"
+                    echo "manually (see https://docs.steambrew.app) and re-run this script."
+                    return 1
+                fi
+                echo "Millennium installed successfully. Launch Steam to finish setup — the"
+                echo "Millennium panel should appear automatically in the Steam window."
                 ;;
             *)
                 echo "No source build method available for $pkg. Please install it manually."

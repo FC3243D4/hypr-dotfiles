@@ -119,6 +119,35 @@ vesktopDeps=(
 )
 _check_deps "${vesktopDeps[@]}"
 
+# --- Millennium (Steam client theming/plugin framework) ---
+# Only supports native Steam (not Flatpak/Snap) on Linux x86_64 — see
+# https://docs.steambrew.app/users/getting-started/installation. Millennium
+# doesn't ship a standalone CLI to check with `command -v`, so detection
+# instead looks for the bootstrap library it symlinks into Steam's own
+# runtime dir on a successful install.
+_has_millennium() {
+    [ -e "$HOME/.steam/steam/ubuntu12_64/libmillennium_hhx64.so" ] && return 0
+    command -v millennium &>/dev/null && return 0
+    return 1
+}
+
+if [ "$(uname -m)" != "x86_64" ]; then
+    echo "Millennium only supports Linux x86_64 (detected $(uname -m)) — skipping."
+    echo ""
+elif ! command -v steam &>/dev/null \
+    && [ ! -d "$HOME/.steam/steam" ] \
+    && [ ! -d "$HOME/.local/share/Steam" ]; then
+    echo "Steam not detected — skipping Millennium (Steam theming) dependency check."
+    echo "Install Steam natively (not via Flatpak/Snap — Millennium doesn't support those)"
+    echo "first if you want Millennium, then re-run this script."
+    echo ""
+else
+    millenniumDeps=(
+        "_has_millennium|millennium"
+    )
+    _check_deps "${millenniumDeps[@]}"
+fi
+
 # --- hyprpm plugin build toolchain (needed to compile the dynamic-cursors
 # Hyprland plugin, and any other hyprpm-managed plugin) ---
 hyprpmBuildDeps=(
