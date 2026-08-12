@@ -661,6 +661,77 @@ fi
 
 echo ""
 
+# ─── Millennium add-ons (Material theme + Extendium plugin) ───────────────────
+# Millennium itself is installed as a regular dependency via
+# dependency_check.sh/pkg_manager.sh (see the "millennium" entry there). This
+# section only drops the actual theme/plugin content in place, by cloning
+# (or updating) each repo directly into Millennium's own content folders —
+# per its documented Linux file system layout:
+# https://docs.steambrew.app/users/getting-started/structure
+#
+# UNVERIFIED: Millennium exposes a "steam://millennium/settings/..." URL
+# protocol that can enable a theme/plugin without opening the Settings UI
+# (https://docs.steambrew.app/users/guides/millennium-protocol), but the
+# only documented examples are steam://millennium/settings/themes/enable/
+# <id> and .../plugins/disable/<id> — an enable equivalent for plugins isn't
+# explicitly documented, and both assume the folder name IS the id, which
+# isn't confirmed either. Rather than guess and risk silently launching/
+# restarting Steam mid-install, this section just clones the content and
+# prints the manual steps (Steam → Millennium Settings → Themes/Plugins).
+
+echo "=== Installing Millennium add-ons ==="
+
+if ! command -v steam &>/dev/null \
+    && [ ! -d "$HOME/.steam/steam" ] \
+    && [ ! -d "$HOME/.local/share/Steam" ]; then
+    echo "Steam not detected — skipping Millennium add-ons (Material theme, Extendium)."
+elif [ ! -e "$HOME/.steam/steam/ubuntu12_64/libmillennium_hhx64.so" ] \
+    && ! command -v millennium &>/dev/null; then
+    echo "Millennium not detected — skipping Millennium add-ons (Material theme, Extendium)."
+    echo "Install Millennium first (see the dependency check above), then re-run this script."
+else
+    MILLENNIUM_SKINS_DIR="$HOME/.steam/steam/steamui/skins"
+    MILLENNIUM_PLUGINS_DIR="$HOME/.local/share/millennium/plugins"
+    mkdir -p "$MILLENNIUM_SKINS_DIR" "$MILLENNIUM_PLUGINS_DIR"
+
+    # --- Material theme (kuska1/Material-Theme) ---
+    MATERIAL_THEME_DIR="$MILLENNIUM_SKINS_DIR/Material-Theme"
+    echo "Installing Material theme..."
+    if [ -d "$MATERIAL_THEME_DIR/.git" ]; then
+        echo "Material theme already cloned at $MATERIAL_THEME_DIR — pulling latest."
+        if ! git -C "$MATERIAL_THEME_DIR" pull --ff-only; then
+            echo "Warning: git pull failed (local changes or diverged history?). Using existing checkout."
+        fi
+    elif ! git clone https://github.com/kuska1/Material-Theme "$MATERIAL_THEME_DIR"; then
+        echo "Error: failed to clone Material-Theme. Skipping."
+        MATERIAL_THEME_DIR=""
+    fi
+
+    # --- Extendium plugin (BossSloth/Extendium) ---
+    EXTENDIUM_DIR="$MILLENNIUM_PLUGINS_DIR/extendium"
+    echo "Installing Extendium plugin..."
+    if [ -d "$EXTENDIUM_DIR/.git" ]; then
+        echo "Extendium already cloned at $EXTENDIUM_DIR — pulling latest."
+        if ! git -C "$EXTENDIUM_DIR" pull --ff-only; then
+            echo "Warning: git pull failed (local changes or diverged history?). Using existing checkout."
+        fi
+    elif ! git clone https://github.com/BossSloth/Extendium "$EXTENDIUM_DIR"; then
+        echo "Error: failed to clone Extendium. Skipping."
+        EXTENDIUM_DIR=""
+    fi
+
+    echo ""
+    if [ -n "$MATERIAL_THEME_DIR" ] || [ -n "$EXTENDIUM_DIR" ]; then
+        echo "Restart Steam, then finish enabling the new add-on(s) via Steam → Millennium"
+        echo "Settings:"
+        [ -n "$MATERIAL_THEME_DIR" ] && echo "  - Themes tab  → select 'Material-Theme'"
+        [ -n "$EXTENDIUM_DIR" ] && echo "  - Plugins tab → enable 'Extendium' → Save Changes → restart Steam again"
+        echo "(Extendium specifically needs a second restart after Save Changes to fully load.)"
+    fi
+fi
+
+echo ""
+
 # ─── Wallpaper-changer ─────────────────────────────────────────────────────────
 # Clones (or updates) FC3243D4/Wallpaper-changer as a sibling of this repo,
 # then runs its own installer.
