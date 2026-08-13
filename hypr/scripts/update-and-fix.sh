@@ -11,6 +11,7 @@ TARGETS=(
     "$HOME/.local/share/Steam/public/"                  # Steam
     "/usr/share/pixmaps/"                               # generic pixmaps
     "/opt/ytmdesktop/resources"                         # YTMDesktop tray
+    "/opt/betterbird/chrome/icons/default/"             # BetterBird
 )
 firstFind=true
 for target in "${TARGETS[@]}"
