@@ -138,6 +138,7 @@ hl.window_rule({ match = { tag = "games*" }, workspace = 10 , opacity = "1 overr
 hl.window_rule({ match = { tag = "gamestore*" }, workspace = 9 })
 hl.window_rule({ match = { tag = "git*" }, workspace = 7 })
 hl.window_rule({ match = { tag = "threeD*" }, workspace = 3 })
+hl.window_rule({ match = { tag = "email*" }, workspace = 6 })
 
 -- silent workspace assignments (disabled by default)
 -- hl.window_rule({ match = { tag = "screenshare*" }, workspace = "4 silent" })
