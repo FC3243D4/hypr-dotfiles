@@ -99,6 +99,9 @@ hl.window_rule({ match = { class = "^([Ll]ycheeslicer)$" }, tag = "+threeD" })
 -- git
 hl.window_rule({ match = { class = "^(SourceGit)$" }, tag = "+git" })
 
+-- communication
+hl.window_rule({ match = { class = "^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$" }, tag = "+communication" })
+
 -- Gimp
 hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" }, workspace = "4" })
 
@@ -139,6 +142,7 @@ hl.window_rule({ match = { tag = "gamestore*" }, workspace = 9 })
 hl.window_rule({ match = { tag = "git*" }, workspace = 7 })
 hl.window_rule({ match = { tag = "threeD*" }, workspace = 3 })
 hl.window_rule({ match = { tag = "email*" }, workspace = 6 })
+hl.window_rule({ match = { tag = "communication*" }, workspace = 6 })
 
 -- silent workspace assignments (disabled by default)
 -- hl.window_rule({ match = { tag = "screenshare*" }, workspace = "4 silent" })
