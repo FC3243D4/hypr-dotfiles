@@ -185,7 +185,7 @@
         //"format": "󰆓",
         "path": "/mass",
         //"format-alt-click": "click",
-        "format": "{percentage_used}% 󰆓",
+        "format": "{percentage_used}% 󱁋",
         //"tooltip": true,
         "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)",
 },
