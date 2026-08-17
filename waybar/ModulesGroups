@@ -149,8 +149,8 @@
 	"modules": [
 		"memory",
 		"disk",
-		"disk#massExt4"
-		//"disk#mass"
+		"disk#mass"
+		//"disk#massExt4"
 	]
 },
 
