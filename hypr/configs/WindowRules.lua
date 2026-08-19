@@ -26,7 +26,7 @@ hl.window_rule({ match = { class = "^(nwg-displays|nwg-look)$" },   tag = "+KooL
 hl.window_rule({ match = { class = "^(kitty|kitty-dropterm)$" }, tag = "+terminal" })
 
 -- email
-hl.window_rule({ match = { class = "^([Tt]hunderbird|org.gnome.Evolution)$" },  tag = "+email" })
+hl.window_rule({ match = { class = "^(org.mozilla.Thunderbird|org.gnome.Evolution)$" },  tag = "+email" })
 hl.window_rule({ match = { class = "^(eu.betterbird.Betterbird)$" },            tag = "+email" })
 
 -- projects
