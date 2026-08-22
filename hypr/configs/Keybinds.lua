@@ -44,7 +44,7 @@ hl.bind(mainMod .. " + ALT + E",          hl.dsp.exec_cmd(scriptsDir .. "/RofiEm
 hl.bind(mainMod .. " + S",                hl.dsp.exec_cmd(scriptsDir .. "/RofiSearch.sh"),                                             { description = "web search" })
 hl.bind(mainMod .. " + CTRL + S",         hl.dsp.exec_cmd("rofi -show window"),                                                        { description = "window switcher" })
 hl.bind(mainMod .. " + ALT + O",          hl.dsp.exec_cmd(scriptsDir .. "/ChangeBlur.sh"),                                             { description = "toggle blur" })
-hl.bind(mainMod .. " + SHIFT + G",        hl.dsp.exec_cmd(scriptsDir .. "/GameMode.sh"),                                               { description = "toggle game mode" })
+hl.bind(mainMod .. " + SHIFT + G",        hl.dsp.exec_cmd(scriptsDir .. "/GameMode.sh --polkit"),                                       { description = "toggle game mode" })
 hl.bind(mainMod .. " + ALT + L",          hl.dsp.exec_cmd(scriptsDir .. "/ChangeLayout.sh"),                                           { description = "toggle master/dwindle layout" })
 hl.bind(mainMod .. " + ALT + V",          hl.dsp.exec_cmd(scriptsDir .. "/ClipManager.sh"),                                            { description = "clipboard manager" })
 hl.bind(mainMod .. " + CTRL + R",         hl.dsp.exec_cmd(scriptsDir .. "/RofiThemeSelector.sh"),                                      { description = "rofi theme selector" })
