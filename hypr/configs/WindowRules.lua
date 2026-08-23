@@ -94,7 +94,8 @@ hl.window_rule({ match = { class = "^([Bb]lender)$" }, tag = "+threeD" })
 hl.window_rule({ match = { class = "^(orca-slicer)$" }, tag = "+threeD" })
 hl.window_rule({ match = { class = "^([Ff]reecad)$" }, tag = "+threeD" })
 hl.window_rule({ match = { class = "^(fusion360.exe)$" }, tag = "+threeD" })
-hl.window_rule({ match = { class = "^([Ll]ycheeslicer)$" }, tag = "+threeD" })
+hl.window_rule({ match = { class = "^([Ll]ycheeSlicer)$" }, tag = "+threeD" })
+
 
 -- git
 hl.window_rule({ match = { class = "^(SourceGit)$" }, tag = "+git" })
