@@ -20,10 +20,10 @@ local WallpapersScripts = os.getenv("HOME") .. "/.config/WallpaperChanger"
 
 -- E.g. 
 -- hl.unbind( mainMod .. " + Return")
--- hl.bind( mainMod .. " + Return ", hl.dsp.exec_cmd("ghostty") { description = "Launch terminal" })
+-- hl.bind( mainMod .. " + Return ", hl.dsp.exec_cmd("ghostty"), { description = "Launch terminal" })
 
 -- If you are ADDING a bindd, make sure you include the description 
 -- Other the keybind search menu might not show it properly 
 
 -- E.g.
--- hl.bind( mainMod .. " + Z", hl.dsp.exec_cmd("myApp") { description = "Launch myApp" })
+-- hl.bind( mainMod .. " + Z", hl.dsp.exec_cmd("myApp"), { description = "Launch myApp" })
