@@ -7,9 +7,10 @@
 
 -- /* ---- ✴️ Variables ✴️ ---- */  #
 local mainMod = "SUPER"
-local scriptsDir = "$HOME/.config/hypr/scripts"
-local UserScripts = "$HOME/.config/hypr/UserScripts"
-local UserConfigs = "$HOME/.config/hypr/UserConfigs"
+local scriptsDir = os.getenv("HOME") .. "/.config/hypr/scripts"
+local UserScripts = os.getenv("HOME") .. "/.config/hypr/UserScripts"
+local UserConfigs = os.getenv("HOME") .. "/.config/hypr/UserConfigs"
+local WallpapersScripts = os.getenv("HOME") .. "/.config/WallpaperChanger"
 
 
 --  IMPORTANT: If you want to remap and existing keybind you MUST unbindd it first 
