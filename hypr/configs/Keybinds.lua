@@ -95,7 +95,8 @@ hl.bind("CTRL + ALT + W ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperAppli
 hl.bind( mainMod .. " + CTRL + SHIFT + S ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random sfw"), { description = "Random SFW Wallpaper" })
 hl.bind( mainMod .. " + CTRL + SHIFT + N ", hl.dsp.exec_cmd(WallpapersScripts .. "/WallpaperApplicator.sh random nsfw"), { description = "Random NSFW Wallpaper" })
 hl.bind( mainMod .. " + ALT + R ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh --full"), { description = "Refresh Bar, Menus and Apps" })
-hl.bind( mainMod .. " + CTRL + SHIFT + T ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh --softrun"), { description = "Refresh Bar, Menus and Apps without restarting" })
+hl.bind( mainMod .. " + CTRL + SHIFT + T ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh --softrun"), { description = "Refresh Bar, Menus and Apps without restarting them" })
+hl.bind( mainMod .. " + SHIFT + L ", hl.dsp.exec_cmd(WallpapersScripts .. "/themeRefresher.sh --rgb"), { description = "Refreshes RGB led" })
 
 ----------------
 ---- SYSTEM ----
