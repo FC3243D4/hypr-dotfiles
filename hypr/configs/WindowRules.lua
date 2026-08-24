@@ -90,10 +90,10 @@ hl.window_rule({ match = { class = "^(evince)$" },                              
 hl.window_rule({ match = { class = "^(eog|org.gnome.Loupe)$" },                                                         tag = "+viewer" }) -- image viewer
 
 -- 3D
-hl.window_rule({ match = { class = "^([Bb]lender)$" }, tag = "+threeD" })
-hl.window_rule({ match = { class = "^(orca-slicer)$" }, tag = "+threeD" })
-hl.window_rule({ match = { class = "^([Ff]reecad)$" }, tag = "+threeD" })
-hl.window_rule({ match = { class = "^(fusion360.exe)$" }, tag = "+threeD" })
+hl.window_rule({ match = { class = "^([Bb]lender)$" },      tag = "+threeD" })
+hl.window_rule({ match = { class = "^(orca-slicer)$" },     tag = "+threeD" })
+hl.window_rule({ match = { class = "^([Ff]reecad)$" },      tag = "+threeD" })
+hl.window_rule({ match = { class = "^(fusion360.exe)$" },   tag = "+threeD" })
 hl.window_rule({ match = { class = "^([Ll]ycheeSlicer)$" }, tag = "+threeD" })
 
 
@@ -104,8 +104,8 @@ hl.window_rule({ match = { class = "^(SourceGit)$" }, tag = "+git" })
 hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" }, workspace = "4" })
 
 -- Music
-hl.window_rule({ match = { class = "^(Spotify)$" }, tag = "+music" })
-hl.window_rule({ match = { class = "^(YouTube Music Desktop App)$" }, tag = "+music" })
+hl.window_rule({ match = { class = "^(Spotify)$" },                     tag = "+music" })
+hl.window_rule({ match = { class = "^(YouTube Music Desktop App)$" },   tag = "+music" })
 
 
 
