@@ -23,7 +23,11 @@ hl.window_rule({ match = { title = "^(KooL Hyprland Settings)$" },  tag = "+KooL
 hl.window_rule({ match = { class = "^(nwg-displays|nwg-look)$" },   tag = "+KooL-Settings" })
 
 -- terminal
-hl.window_rule({ match = { class = "^(kitty|kitty-dropterm)$" }, tag = "+terminal" })
+hl.window_rule({ match = { class = "^(kitty|kitty-dropterm)$" },                    tag = "+terminal" })
+hl.window_rule({ match = { class = "^(alacritty)$" },                               tag = "+terminal" })
+hl.window_rule({ match = { class = "^([Kk]onsole)$" },                              tag = "+terminal" })
+hl.window_rule({ match = { class = "^([Gg]hostty)$" },                              tag = "+terminal" })
+hl.window_rule({ match = { class = "^(org.gnome.Terminal|[Gg]nome-terminal)$" },    tag = "+terminal" })
 
 -- email
 hl.window_rule({ match = { class = "^(org.mozilla.Thunderbird|org.gnome.Evolution)$" },  tag = "+email" })
