@@ -105,6 +105,7 @@ hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" },           tag = "+crea
 hl.window_rule({ match = { class = "^(org.inkscape.Inkscape)$" },   tag = "+creative-tools" })
 hl.window_rule({ match = { class = "^(resolve)$" },                 tag = "+creative-tools" })
 hl.window_rule({ match = { class = "^(org.kde.kdenlive)$" },        tag = "+creative-tools" })
+hl.window_rule({ match = { class = "^(com.obsproject.Studio)$" },   tag = "+creative-tools" })
 
 -- Music
 hl.window_rule({ match = { class = "^(Spotify)$" },                     tag = "+music" })
