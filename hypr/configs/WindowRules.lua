@@ -67,8 +67,8 @@ hl.window_rule({ match = { class = "^([Ww]aytrogen)$" }, tag = "+wallpaper" })
 hl.window_rule({ match = { class = "^([Aa]udacious)$" }, tag = "+multimedia" })
 hl.window_rule({ match = { class = "^([Ss]potify)$" },   tag = "+multimedia" })
 
--- multimedia-video
-hl.window_rule({ match = { class = "^([Mm]pv|vlc)$" }, tag = "+multimedia_video" })
+-- video
+hl.window_rule({ match = { class = "^([Mm]pv|vlc)$" }, tag = "+video" })
 
 -- settings
 hl.window_rule({ match = { title = "^(ROG Control)$" },                                                       tag = "+settings" })
@@ -107,10 +107,6 @@ hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" }, workspace = "4" })
 hl.window_rule({ match = { class = "^(Spotify)$" }, tag = "+music" })
 hl.window_rule({ match = { class = "^(YouTube Music Desktop App)$" }, tag = "+music" })
 
--- ── MULTIMEDIA VIDEO OVERRIDES ────────────────────────────────────────────────
-
-hl.window_rule({ match = { tag = "multimedia_video*" }, no_blur = true })
-hl.window_rule({ match = { tag = "multimedia_video*" }, opacity = "1.0 override 1.0 override" })
 
 
 -- ── POSITION ─────────────────────────────────────────────────────────────────
@@ -200,6 +196,7 @@ hl.window_rule({ match = { class = "^(seahorse)$" },                            
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" },                  opacity = "0.95 override 0.75 override" })
 hl.windows_rule({ match = { tag = "music*" },                                   opacity = "0.9 override 0.7 override" })
 hl.windows_rule({ match = { tag = "games*" },                                   opacity = "1 override 1 override 1 override" })
+hl.window_rule({ match = { tag = "video*" },                                    opacity = "1.0 override 1.0 override" })
 
 
 -- ── SIZE ─────────────────────────────────────────────────────────────────────
@@ -223,6 +220,7 @@ hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, pin = true, keep_
 -- ── BLUR & FULLSCREEN ────────────────────────────────────────────────────────
 
 hl.window_rule({ match = { tag = "games*" }, no_blur = true, fullscreen = true })
+hl.window_rule({ match = { tag = "video*" }, no_blur = true })
 
 
 -- ── INTELLIJ / JETBRAINS ─────────────────────────────────────────────────────
