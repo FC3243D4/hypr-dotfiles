@@ -67,8 +67,8 @@ hl.window_rule({ match = { class = "^([Ww]aytrogen)$" }, tag = "+wallpaper" })
 hl.window_rule({ match = { class = "^([Aa]udacious)$" }, tag = "+multimedia" })
 hl.window_rule({ match = { class = "^([Ss]potify)$" },   tag = "+multimedia" })
 
--- multimedia-video
-hl.window_rule({ match = { class = "^([Mm]pv|vlc)$" }, tag = "+multimedia_video" })
+-- video
+hl.window_rule({ match = { class = "^([Mm]pv|vlc)$" }, tag = "+video" })
 
 -- settings
 hl.window_rule({ match = { title = "^(ROG Control)$" },                                                       tag = "+settings" })
@@ -90,29 +90,27 @@ hl.window_rule({ match = { class = "^(evince)$" },                              
 hl.window_rule({ match = { class = "^(eog|org.gnome.Loupe)$" },                                                         tag = "+viewer" }) -- image viewer
 
 -- 3D
-hl.window_rule({ match = { class = "^([Bb]lender)$" }, tag = "+threeD" })
-hl.window_rule({ match = { class = "^(orca-slicer)$" }, tag = "+threeD" })
-hl.window_rule({ match = { class = "^([Ff]reecad)$" }, tag = "+threeD" })
-hl.window_rule({ match = { class = "^(fusion360.exe)$" }, tag = "+threeD" })
+hl.window_rule({ match = { class = "^([Bb]lender)$" },      tag = "+threeD" })
+hl.window_rule({ match = { class = "^(orca-slicer)$" },     tag = "+threeD" })
+hl.window_rule({ match = { class = "^([Ff]reecad)$" },      tag = "+threeD" })
+hl.window_rule({ match = { class = "^(fusion360.exe)$" },   tag = "+threeD" })
 hl.window_rule({ match = { class = "^([Ll]ycheeSlicer)$" }, tag = "+threeD" })
 
 
 -- git
 hl.window_rule({ match = { class = "^(SourceGit)$" }, tag = "+git" })
 
--- communication
-hl.window_rule({ match = { class = "^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$" }, tag = "+communication" })
+-- Creative-tools
+hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" },           tag = "+creative-tools" })
+hl.window_rule({ match = { class = "^(org.inkscape.Inkscape)$" },   tag = "+creative-tools" })
 
--- Gimp
-hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" }, workspace = "4" })
+-- Music
+hl.window_rule({ match = { class = "^(Spotify)$" },                     tag = "+music" })
+hl.window_rule({ match = { class = "^(YouTube Music Desktop App)$" },   tag = "+music" })
 
--- Spotify
-hl.window_rule({ match = { class = "^(Spotify)$" }, workspace = "8" })
-
--- ── MULTIMEDIA VIDEO OVERRIDES ────────────────────────────────────────────────
-
-hl.window_rule({ match = { tag = "multimedia_video*" }, no_blur = true })
-hl.window_rule({ match = { tag = "multimedia_video*" }, opacity = "1.0 override 1.0 override" })
+-- File-sharing
+hl.window_rule({ match = { class = "^([Ll]ocalsend)$" },            tag = "+file-sharing" })
+hl.window_rule({ match = { class = "^(org.kde.kdeconnect.app)$" },  tag = "+file-sharing" })
 
 
 -- ── POSITION ─────────────────────────────────────────────────────────────────
@@ -137,13 +135,16 @@ hl.window_rule({ match = { fullscreen = true }, idle_inhibit = "fullscreen" })
 
 -- ── WORKSPACES ───────────────────────────────────────────────────────────────
 
-hl.window_rule({ match = { tag = "projects*" },  workspace = 2 })
-hl.window_rule({ match = { tag = "games*" }, workspace = 10 , opacity = "1 override 1 override 1 override" })
-hl.window_rule({ match = { tag = "gamestore*" }, workspace = 9 })
-hl.window_rule({ match = { tag = "git*" }, workspace = 7 })
-hl.window_rule({ match = { tag = "threeD*" }, workspace = 3 })
-hl.window_rule({ match = { tag = "email*" }, workspace = 6 })
-hl.window_rule({ match = { tag = "communication*" }, workspace = 6 })
+hl.window_rule({ match = { tag = "im*" },               workspace = 1 })
+hl.window_rule({ match = { tag = "projects*" },         workspace = 2 })
+hl.window_rule({ match = { tag = "threeD*" },           workspace = 3 })
+hl.window_rule({ match = { tag = "creative-tools*" },   workspace = 4 })
+hl.window_rule({ match = { tag = "file-sharing*" },     workspace = 5 })
+hl.window_rule({ match = { tag = "email*" },            workspace = 6 })
+hl.window_rule({ match = { tag = "git*" },              workspace = 7 })
+hl.window_rule({ match = { tag = "music*" },            workspace = 8 })
+hl.window_rule({ match = { tag = "gamestore*" },        workspace = 9 })
+hl.window_rule({ match = { tag = "games*" },            workspace = 10 })
 
 -- silent workspace assignments (disabled by default)
 -- hl.window_rule({ match = { tag = "screenshare*" }, workspace = "4 silent" })
@@ -199,6 +200,9 @@ hl.window_rule({ match = { class = "^(gedit|org.gnome.TextEditor|mousepad)$" }, 
 hl.window_rule({ match = { class = "^(deluge)$" },                              opacity = "0.9 override 0.8 override" })
 hl.window_rule({ match = { class = "^(seahorse)$" },                            opacity = "0.9 override 0.8 override" }) -- gnome-keyring gui
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" },                  opacity = "0.95 override 0.75 override" })
+hl.window_rule({ match = { tag = "music*" },                                   opacity = "0.9 override 0.7 override" })
+hl.window_rule({ match = { tag = "games*" },                                   opacity = "1 override 1 override 1 override" })
+hl.window_rule({ match = { tag = "video*" },                                    opacity = "1.0 override 1.0 override" })
 
 
 -- ── SIZE ─────────────────────────────────────────────────────────────────────
@@ -222,6 +226,7 @@ hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, pin = true, keep_
 -- ── BLUR & FULLSCREEN ────────────────────────────────────────────────────────
 
 hl.window_rule({ match = { tag = "games*" }, no_blur = true, fullscreen = true })
+hl.window_rule({ match = { tag = "video*" }, no_blur = true })
 
 
 -- ── INTELLIJ / JETBRAINS ─────────────────────────────────────────────────────
