@@ -119,6 +119,10 @@ hl.window_rule({ match = { class = "^(YouTube Music Desktop App)$" },   tag = "+
 hl.window_rule({ match = { class = "^([Ll]ocalsend)$" },            tag = "+file-sharing" })
 hl.window_rule({ match = { class = "^(org.kde.kdeconnect.app)$" },  tag = "+file-sharing" })
 
+-- Notes
+hl.window_rule({ match = { class = "^(md.obsidian.Obsidian)$" },  tag = "+notes" })
+hl.window_rule({ match = { class = "^(cohesion)$" }, tag = "+notes" })
+
 
 -- ── POSITION ─────────────────────────────────────────────────────────────────
 
@@ -140,6 +144,7 @@ hl.window_rule({ match = { fullscreen = true }, idle_inhibit = "fullscreen" })
 
 hl.window_rule({ match = { tag = "im*" },               workspace = 1 })
 hl.window_rule({ match = { tag = "projects*" },         workspace = 2 })
+hl.window_rule({ match = { tag = "notes*" },            workspace = 2 })
 hl.window_rule({ match = { tag = "threeD*" },           workspace = 3 })
 hl.window_rule({ match = { tag = "creative-tools*" },   workspace = 4 })
 hl.window_rule({ match = { tag = "file-sharing*" },     workspace = 5 })
