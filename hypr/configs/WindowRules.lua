@@ -200,8 +200,8 @@ hl.window_rule({ match = { class = "^(gedit|org.gnome.TextEditor|mousepad)$" }, 
 hl.window_rule({ match = { class = "^(deluge)$" },                              opacity = "0.9 override 0.8 override" })
 hl.window_rule({ match = { class = "^(seahorse)$" },                            opacity = "0.9 override 0.8 override" }) -- gnome-keyring gui
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" },                  opacity = "0.95 override 0.75 override" })
-hl.windows_rule({ match = { tag = "music*" },                                   opacity = "0.9 override 0.7 override" })
-hl.windows_rule({ match = { tag = "games*" },                                   opacity = "1 override 1 override 1 override" })
+hl.window_rule({ match = { tag = "music*" },                                   opacity = "0.9 override 0.7 override" })
+hl.window_rule({ match = { tag = "games*" },                                   opacity = "1 override 1 override 1 override" })
 hl.window_rule({ match = { tag = "video*" },                                    opacity = "1.0 override 1.0 override" })
 
 
