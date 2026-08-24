@@ -108,6 +108,9 @@ hl.window_rule({ match = { class = "^(org.inkscape.Inkscape)$" },   tag = "+crea
 hl.window_rule({ match = { class = "^(Spotify)$" },                     tag = "+music" })
 hl.window_rule({ match = { class = "^(YouTube Music Desktop App)$" },   tag = "+music" })
 
+-- File-sharing
+hl.window_rule({ match = { class = "^([Ll]ocalsend)$" },            tag = "+file-sharing" })
+hl.window_rule({ match = { class = "^(org.kde.kdeconnect.app)$" },  tag = "+file-sharing" })
 
 
 -- ── POSITION ─────────────────────────────────────────────────────────────────
@@ -136,6 +139,7 @@ hl.window_rule({ match = { tag = "im*" }, workspace = 1 })
 hl.window_rule({ match = { tag = "projects*" },  workspace = 2 })
 hl.window_rule({ match = { tag = "threeD*" }, workspace = 3 })
 hl.window_rule({ match = { tag = "creative-tools*" }, workspace = 4 })
+hl.window_rule({ match = { tag = "file-sharing*" }, workspace = 5 })
 hl.window_rule({ match = { tag = "email*" }, workspace = 6 })
 hl.window_rule({ match = { tag = "git*" }, workspace = 7 })
 hl.window_rule({ match = { tag = "music*" }, workspace = 8 })
