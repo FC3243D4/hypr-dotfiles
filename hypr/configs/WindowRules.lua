@@ -100,8 +100,9 @@ hl.window_rule({ match = { class = "^([Ll]ycheeSlicer)$" }, tag = "+threeD" })
 -- git
 hl.window_rule({ match = { class = "^(SourceGit)$" }, tag = "+git" })
 
--- Gimp
-hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" }, workspace = "4" })
+-- Creative-tools
+hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" },           tag = "+creative-tools" })
+hl.window_rule({ match = { class = "^(org.inkscape.Inkscape)$" },   tag = "+creative-tools" })
 
 -- Music
 hl.window_rule({ match = { class = "^(Spotify)$" },                     tag = "+music" })
@@ -134,6 +135,7 @@ hl.window_rule({ match = { fullscreen = true }, idle_inhibit = "fullscreen" })
 hl.window_rule({ match = { tag = "im*" }, workspace = 1 })
 hl.window_rule({ match = { tag = "projects*" },  workspace = 2 })
 hl.window_rule({ match = { tag = "threeD*" }, workspace = 3 })
+hl.window_rule({ match = { tag = "creative-tools*" }, workspace = 4 })
 hl.window_rule({ match = { tag = "email*" }, workspace = 6 })
 hl.window_rule({ match = { tag = "git*" }, workspace = 7 })
 hl.window_rule({ match = { tag = "music*" }, workspace = 8 })
