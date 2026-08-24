@@ -103,8 +103,9 @@ hl.window_rule({ match = { class = "^(SourceGit)$" }, tag = "+git" })
 -- Gimp
 hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" }, workspace = "4" })
 
--- Spotify
-hl.window_rule({ match = { class = "^(Spotify)$" }, workspace = "8" })
+-- Music
+hl.window_rule({ match = { class = "^(Spotify)$" }, tag = "+music" })
+hl.window_rule({ match = { class = "^(YouTube Music Desktop App)$" }, tag = "+music" })
 
 -- ── MULTIMEDIA VIDEO OVERRIDES ────────────────────────────────────────────────
 
@@ -141,6 +142,7 @@ hl.window_rule({ match = { tag = "git*" }, workspace = 7 })
 hl.window_rule({ match = { tag = "threeD*" }, workspace = 3 })
 hl.window_rule({ match = { tag = "email*" }, workspace = 6 })
 hl.window_rule({ match = { tag = "im*" }, workspace = 1 })
+hl.window_rule({ match = { tag = "music*" }, workspace = 8 })
 
 -- silent workspace assignments (disabled by default)
 -- hl.window_rule({ match = { tag = "screenshare*" }, workspace = "4 silent" })
@@ -196,6 +198,7 @@ hl.window_rule({ match = { class = "^(gedit|org.gnome.TextEditor|mousepad)$" }, 
 hl.window_rule({ match = { class = "^(deluge)$" },                              opacity = "0.9 override 0.8 override" })
 hl.window_rule({ match = { class = "^(seahorse)$" },                            opacity = "0.9 override 0.8 override" }) -- gnome-keyring gui
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" },                  opacity = "0.95 override 0.75 override" })
+hl.windows_rule({ match = { tag = "music*" },                                   opacity = "0.9 override 0.7 override" })
 
 
 -- ── SIZE ─────────────────────────────────────────────────────────────────────
