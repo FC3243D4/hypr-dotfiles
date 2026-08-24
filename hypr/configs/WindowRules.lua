@@ -124,15 +124,11 @@ hl.window_rule({ match = { class = "^(org.kde.kdeconnect.app)$" },  tag = "+file
 
 -- warning: center on floating:1 causes menus to float and center too — left disabled
 hl.window_rule({ match = { tag = "KooL_Cheat*" },                                                              center = true })
-hl.window_rule({ match = { class = "([Tt]hunar)", title = "negative:(.*[Tt]hunar.*)" },                        center = true })
 hl.window_rule({ match = { title = "^(ROG Control)$" },                                                        center = true })
 hl.window_rule({ match = { tag = "KooL-Settings*" },                                                           center = true })
 hl.window_rule({ match = { title = "^(Keybindings)$" },                                                        center = true })
 hl.window_rule({ match = { class = "^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$" },     center = true })
-hl.window_rule({ match = { class = "^([Ww]hatsapp-for-linux|ZapZap|com.rtosta.zapzap)$" },                     center = true })
-hl.window_rule({ match = { class = "^([Ff]erdium)$" },                                                         center = true })
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, move = { "72%", "7%" } })
--- hl.window_rule({ match = { title = "^(Firefox)$" }, move = { "72%", "7%" } })
 
 
 -- ── IDLE INHIBIT ─────────────────────────────────────────────────────────────
@@ -167,14 +163,9 @@ hl.window_rule({ match = { tag = "wallpaper*" },                                
 hl.window_rule({ match = { tag = "settings*" },                                            float = true })
 hl.window_rule({ match = { tag = "viewer*" },                                              float = true })
 hl.window_rule({ match = { tag = "KooL-Settings*" },                                       float = true })
-hl.window_rule({ match = { class = "([Zz]oom|onedriver|onedriver-launcher)$" },            float = true })
 hl.window_rule({ match = { class = "(org.gnome.Calculator)", title = "(Calculator)" },     float = true })
-hl.window_rule({ match = { class = "^(mpv|com.github.rafostar.Clapper)$" },                float = true })
 hl.window_rule({ match = { class = "^([Qq]alculate-gtk)$" },                               float = true })
---hl.window_rule({ match = { class = "^([Ww]hatsapp-for-linux|ZapZap|com.rtosta.zapzap)$" }, float = true })
---hl.window_rule({ match = { class = "^([Ff]erdium)$" },                                     float = true })
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" },                             float = true })
---hl.window_rule({ match = { title = "^(Firefox)$" },                                        float = true })
 
 -- float popups and dialogues
 hl.window_rule({ match = { title = "^(Authentication Required)$" },                                                           float = true, center = true })
@@ -182,7 +173,6 @@ hl.window_rule({ match = { class = "(codium|codium-url-handler|VSCodium)", title
 hl.window_rule({ match = { class = "^(com.heroicgameslauncher.hgl)$",      title = "negative:(Heroic Games Launcher)" },      float = true })
 hl.window_rule({ match = { class = "^([Ss]team)$",                         title = "negative:^([Ss]team)$" },                 float = true })
 hl.window_rule({ match = { class = "([Tt]hunar)",                          title = "negative:(.*[Tt]hunar.*)" },              float = true })
-
 hl.window_rule({ match = { title = "^(Add Folder to Workspace)$" },                                                           float = true, center = true, size = { "70%", "60%" } })
 hl.window_rule({ match = { title = "^(Save As)$" },                                                                           float = true, center = true, size = { "70%", "60%" } })
 hl.window_rule({ match = { initial_title = "(Open Files)" },                                                                  float = true, size = { "70%", "60%" } })
@@ -207,8 +197,8 @@ hl.window_rule({ match = { class = "^(gedit|org.gnome.TextEditor|mousepad)$" }, 
 hl.window_rule({ match = { class = "^(deluge)$" },                              opacity = "0.9 override 0.8 override" })
 hl.window_rule({ match = { class = "^(seahorse)$" },                            opacity = "0.9 override 0.8 override" }) -- gnome-keyring gui
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" },                  opacity = "0.95 override 0.75 override" })
-hl.window_rule({ match = { tag = "music*" },                                   opacity = "0.9 override 0.7 override" })
-hl.window_rule({ match = { tag = "games*" },                                   opacity = "1 override 1 override 1 override" })
+hl.window_rule({ match = { tag = "music*" },                                    opacity = "0.9 override 0.7 override" })
+hl.window_rule({ match = { tag = "games*" },                                    opacity = "1 override 1 override 1 override" })
 hl.window_rule({ match = { tag = "video*" },                                    opacity = "1.0 override 1.0 override" })
 
 
@@ -217,17 +207,11 @@ hl.window_rule({ match = { tag = "video*" },                                    
 hl.window_rule({ match = { tag = "KooL_Cheat*" },                                           size = { "65%", "90%" } })
 hl.window_rule({ match = { tag = "wallpaper*" },                                            size = { "70%", "70%" } })
 hl.window_rule({ match = { tag = "settings*" },                                             size = { "70%", "70%" } })
-hl.window_rule({ match = { class = "^([Ww]hatsapp-for-linux|ZapZap|com.rtosta.zapzap)$" },  size = { "60%", "70%" } })
-hl.window_rule({ match = { class = "^([Ff]erdium)$" },                                      size = { "60%", "70%" } })
-
--- hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, size = { "25%", "25%" } })
--- hl.window_rule({ match = { title = "^(Firefox)$" }, size = { "25%", "25%" } })
 
 
 -- ── PIN & EXTRAS ─────────────────────────────────────────────────────────────
 
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, pin = true, keep_aspect_ratio = true })
--- hl.window_rule({ match = { title = "^(Firefox)$" }, pin = true })
 
 
 -- ── BLUR & FULLSCREEN ────────────────────────────────────────────────────────
@@ -241,6 +225,7 @@ hl.window_rule({ match = { tag = "video*" }, no_blur = true })
 -- Prevent focus stealing from tooltip-like windows in JetBrains IDEs
 hl.window_rule({ match = { class = "^(jetbrains-.*)" }, no_initial_focus = true })
 hl.window_rule({ match = { title = "^(wind.*)" },       no_initial_focus = true })
+
 
 -- ── LAYER RULES ──────────────────────────────────────────────────────────────
 
