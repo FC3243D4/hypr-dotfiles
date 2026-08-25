@@ -39,9 +39,6 @@ hl.window_rule({ match = { class = "^(VSCode|code|code-url-handler)$" },       t
 hl.window_rule({ match = { class = "^(jetbrains-.+)$" },                       tag = "+projects" }) -- JetBrains IDEs
 hl.window_rule({ match = { class = "^([Gg]lint)$" },                           tag = "+projects" })
 
--- screenshare
-hl.window_rule({ match = { class = "^(com.obsproject.Studio)$" }, tag = "+screenshare" })
-
 -- IM
 hl.window_rule({ match = { class = "^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$" },                      tag = "+im" })
 hl.window_rule({ match = { class = "^([Ff]erdium)$" },                                            tag = "+im" })
