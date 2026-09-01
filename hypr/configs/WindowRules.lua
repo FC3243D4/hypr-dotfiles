@@ -120,6 +120,9 @@ hl.window_rule({ match = { class = "^(org.kde.kdeconnect.app)$" },  tag = "+file
 hl.window_rule({ match = { class = "^(md.obsidian.Obsidian)$" },  tag = "+notes" })
 hl.window_rule({ match = { class = "^(cohesion)$" }, tag = "+notes" })
 
+-- Office
+hl.window_rule({ match = { class = "^(ONLYOFFICE)$" }, tag = "+office" })
+
 
 -- ── POSITION ─────────────────────────────────────────────────────────────────
 
@@ -142,6 +145,7 @@ hl.window_rule({ match = { fullscreen = true }, idle_inhibit = "fullscreen" })
 hl.window_rule({ match = { tag = "im*" },               workspace = 1 })
 hl.window_rule({ match = { tag = "projects*" },         workspace = 2 })
 hl.window_rule({ match = { tag = "notes*" },            workspace = 2 })
+hl.window_rule({ match = { tag = "office*" },           workspace = 2 })
 hl.window_rule({ match = { tag = "threeD*" },           workspace = 3 })
 hl.window_rule({ match = { tag = "creative-tools*" },   workspace = 4 })
 hl.window_rule({ match = { tag = "file-sharing*" },     workspace = 5 })
