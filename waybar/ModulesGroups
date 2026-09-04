@@ -128,7 +128,8 @@
 	"orientation": "horizontal",
 	"modules": [
 		"power-profiles-daemon",
-		"temperature",
+		//"temperature",
+		"custom/cpu#temp",
 		"cpu",
 		"cpu#frequency"
 	]

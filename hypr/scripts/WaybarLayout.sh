@@ -14,7 +14,8 @@ msg=' 🎌 NOTE: Some waybar LAYOUT NOT fully compatible with some STYLES'
 # Apply selected configuration
 apply_config() {
     ln -sf "$waybar_layouts/$1" "$waybar_config"
-    "${SCRIPTSDIR}/Refresh.sh" &
+    systemctl --user restart waybar
+    echo "Applied layout: $1"
 }
 
 main() {

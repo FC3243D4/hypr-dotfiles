@@ -32,7 +32,7 @@ require("UserConfigs/01-UserDefaults") -- Set your defaults editor through ENV i
 hl.bind(mainMod .. " + D",                  hl.dsp.exec_cmd("pkill rofi || true && rofi -show drun -modi drun,filebrowser,run,window"),     { description = "app launcher" })
 hl.bind(mainMod .. " + Return",             hl.dsp.exec_cmd(term),                                                                          { description = "open terminal" })
 hl.bind(mainMod .. " + SHIFT + Return",     hl.dsp.exec_cmd(scriptsDir .. "/Dropterminal.sh" .. term),                                      { description = "dropdown terminal" })
-hl.bind(mainMod .. " + F",                  hl.dsp.exec_cmd(files),                                                                         { description = "open file manager" })
+hl.bind(mainMod .. " + E",                  hl.dsp.exec_cmd(files),                                                                         { description = "open file manager" })
 hl.bind(mainMod .. " + B",                  hl.dsp.exec_cmd("xdg-open https://"),                                                           { description = "open default browser" })
 hl.bind(mainMod .. " + H",                  hl.dsp.exec_cmd(scriptsDir .. "/KeyHints.sh"),                                                  { description = "show keybinds cheat sheet" })
 hl.bind(mainMod .. " + S",                  hl.dsp.exec_cmd(scriptsDir .. "/RofiSearch.sh"),                                                { description = "web search" })
@@ -57,7 +57,7 @@ hl.bind(mainMod .. " + SPACE",              hl.dsp.window.float({ action = "togg
 ----------------------------
 ---- TYPING / SEARCHING ----
 ----------------------------
-hl.bind(mainMod .. " + E",              hl.dsp.exec_cmd(scriptsDir .. "/RofiEmoji.sh"),                     { description = "emoji menu" })
+hl.bind(mainMod .. " + SHIFT + E",              hl.dsp.exec_cmd(scriptsDir .. "/RofiEmoji.sh"),                     { description = "emoji menu" })
 hl.bind(mainMod .. " + K",              hl.dsp.exec_cmd(scriptsDir .. "/KeyBinds.sh"),                      { description = "search keybinds" })
 hl.bind(mainMod .. " + V",              hl.dsp.exec_cmd(scriptsDir .. "/ClipManager.sh"),                   { description = "clipboard manager" })
 hl.bind(mainMod .. " + CTRL + SPACE",   hl.dsp.exec_cmd(scriptsDir .. "/SwitchKeyboardLayout.sh"),          { description = "switch keyboard layout globally" })

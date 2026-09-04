@@ -18,10 +18,10 @@
 },
 
 "custom/hyprpicker": {
-        "format": "   ",
-        "on-click": "hyprpicker | wl-copy",
-        "tooltip": true,
-        "tooltip-format": "Hyprpicker",
+	"format": "   ",
+	"on-click": "hyprpicker | wl-copy",
+	"tooltip": true,
+	"tooltip-format": "Hyprpicker",
 },
 
 "custom/file_manager": {
@@ -283,6 +283,25 @@
 "custom/arrow10": {
 	"format": "",
 	"tooltip": false
+},
+
+"custom/cpu#usage": {
+	"format": "{:>2}% 󰍛 ",
+	"exec": "~/.config/hypr/scripts/cpu-info.sh usage",
+	"interval": 1,
+	"min-length": 5
+},
+
+"custom/cpu#temp": {
+	"interval": 1,
+	"exec": "~/.config/hypr/scripts/cpu-info.sh temp",
+	"format": "{:>2}°C 󰈸"
+},
+
+"custom/cpu#frequency": {
+	"format": "{:>4}GHz 󰾆",
+    "exec": "~/.config/hypr/scripts/cpu-info.sh freq-ghz",
+    "interval": 1
 },
 
 "custom/gpu#usage": {
