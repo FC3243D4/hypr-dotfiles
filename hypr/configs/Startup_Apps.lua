@@ -53,6 +53,9 @@ hl.on("hyprland.start", function()
         --kded6 watcher
         "$HOME/.config/hypr/scripts/kded6-fix.sh",
 
+        --steam launch with tray refresh
+        os.getenv("HOME") .. "/.config/hypr/scripts/SteamRefreshTray.sh &",
+
         --setting primary display
         --"xrandr --output X --primary",
     }
