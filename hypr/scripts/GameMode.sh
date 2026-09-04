@@ -169,6 +169,7 @@ main() {
         notify-send -e -u low -i "$notif" "Gamemode: enabled" "${GAME_MODE_UNITS_DESC:-nothing to stop} off"
         sleep 10 && enable_notif_inhibit
     else
+        disable_notif_inhibit
         echo "false" > "${GAME_MODE_LOCATION}"
         powerprofilesctl set "$(cat "${PREVIOUS_POWER_PROFILE}")"
 
@@ -190,7 +191,6 @@ main() {
 
         $HOME/.config/WallpaperChanger/WallpaperApplicator.sh random
 
-        disable_notif_inhibit
         notify-send -e -u low -i "$notif" "Gamemode: disabled" "${GAME_MODE_UNITS_DESC:-nothing to start} on"
     fi
 }
