@@ -5,7 +5,7 @@
 
 set -uo pipefail
 
-ThemeRefresher="$HOME/.config/WallpaperChanger/ThemeRefresher.sh"
+themeRefresher="$HOME/.config/WallpaperChanger/ThemeRefresher.sh"
 debug="${DEBUG:-0}"
 
 log() { [[ "$debug" == "1" ]] && echo "[debug] $*" >&2; }
@@ -14,8 +14,8 @@ log() { [[ "$debug" == "1" ]] && echo "[debug] $*" >&2; }
 check_requirements() {
     command -v steam >/dev/null 2>&1 \
         || { echo "steam not found in PATH" >&2; exit 1; }
-    [[ -x "$ThemeRefresher" ]] \
-        || { echo "ThemeRefresher.sh missing or not executable: $ThemeRefresher" >&2; exit 1; }
+    [[ -x "$themeRefresher" ]] \
+        || { echo "ThemeRefresher.sh missing or not executable: $themeRefresher" >&2; exit 1; }
 }
 
 wait_for_steam_tray() {
@@ -65,5 +65,5 @@ echo "Steam started minimized (PID $steamPid). Waiting for tray icon..." >&2
 
 wait_for_steam_tray
 
-"$ThemeRefresher" --tray
+"$themeRefresher" --tray
 exit $?

@@ -5,38 +5,38 @@
 IFS=$'\n\t'
 
 # Define directories
-waybar_styles="$HOME/.config/waybar/style"
-waybar_style="$HOME/.config/waybar/style.css"
-SCRIPTSDIR="$HOME/.config/hypr/scripts"
-rofi_config="$HOME/.config/rofi/config-waybar-style.rasi"
+waybarStyles="$HOME/.config/waybar/style"
+waybarStyle="$HOME/.config/waybar/style.css"
+scriptsDir="$HOME/.config/hypr/scripts"
+rofiConfig="$HOME/.config/rofi/config-waybar-style.rasi"
 msg=' 🎌 NOTE: Some waybar STYLES NOT fully compatible with some LAYOUTS'
 
 # Apply selected style
 apply_style() {
-    ln -sf "$waybar_styles/$1.css" "$waybar_style"
+    ln -sf "$waybarStyles/$1.css" "$waybarStyle"
     systemctl --user restart waybar
     echo "Applied style: $1"
 }
 
 main() {
     # resolve current symlink and strip .css
-    current_target=$(readlink -f "$waybar_style")
-    current_name=$(basename "$current_target" .css)
+    currentTarget=$(readlink -f "$waybarStyle")
+    currentName=$(basename "$currentTarget" .css)
 
     # gather all style names (without .css) into an array
     mapfile -t options < <(
-        find -L "$waybar_styles" -maxdepth 1 -type f -name '*.css' \
+        find -L "$waybarStyles" -maxdepth 1 -type f -name '*.css' \
             -exec basename {} .css \; \
             | sort
     )
 
     # mark the active style and record its index
-    default_row=0
+    defaultRow=0
     MARKER="👉"
     for i in "${!options[@]}"; do
-        if [[ "${options[i]}" == "$current_name" ]]; then
+        if [[ "${options[i]}" == "$currentName" ]]; then
             options[i]="$MARKER ${options[i]}"
-            default_row=$i
+            defaultRow=$i
             break
         fi
     done
@@ -44,9 +44,9 @@ main() {
     # launch rofi with the annotated list and pre‑selected row
     choice=$(printf '%s\n' "${options[@]}" \
         | rofi -i -dmenu \
-               -config "$rofi_config" \
+               -config "$rofiConfig" \
                -mesg "$msg" \
-               -selected-row "$default_row"
+               -selected-row "$defaultRow"
     )
 
     [[ -z "$choice" ]] && { echo "No option selected. Exiting."; exit 0; }

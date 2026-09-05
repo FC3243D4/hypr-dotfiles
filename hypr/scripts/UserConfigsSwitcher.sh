@@ -2,19 +2,19 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Script to manage UserConfigs and UserConfigsBak
 
-HYPR_CONFIG_DIR="$HOME/.config/hypr"
-USER_CONFIGS="$HYPR_CONFIG_DIR/UserConfigs"
-USER_CONFIGS_BAK="$HYPR_CONFIG_DIR/UserConfigsBak"
+hyprConfigsDir="$HOME/.config/hypr"
+userConfigs="$hyprConfigsDir/UserConfigs"
+userConfigsBackup="$hyprConfigsDir/UserConfigsBak"
 
-if [ -d "$USER_CONFIGS" ] && [ ! -d "$USER_CONFIGS_BAK" ]; then
+if [ -d "$userConfigs" ] && [ ! -d "$userConfigsBackup" ]; then
   echo "Moving UserConfigs to UserConfigsBak..."
-  mv "$USER_CONFIGS" "$USER_CONFIGS_BAK"
+  mv "$userConfigs" "$userConfigsBackup"
   echo "Done. Your UserConfigs are now in UserConfigsBak."
-elif [ ! -d "$USER_CONFIGS" ] && [ -d "$USER_CONFIGS_BAK" ]; then
+elif [ ! -d "$userConfigs" ] && [ -d "$userConfigsBackup" ]; then
   echo "Moving UserConfigsBak to UserConfigs..."
-  mv "$USER_CONFIGS_BAK" "$USER_CONFIGS"
+  mv "$userConfigsBackup" "$userConfigs"
   echo "Done. Your backup has been restored to UserConfigs."
-elif [ -d "$USER_CONFIGS" ] && [ -d "$USER_CONFIGS_BAK" ]; then
+elif [ -d "$userConfigs" ] && [ -d "$userConfigsBackup" ]; then
   echo "Both UserConfigs and UserConfigsBak exist."
   echo "Please choose what to do:"
   PS3="Enter your choice: "
@@ -22,23 +22,23 @@ elif [ -d "$USER_CONFIGS" ] && [ -d "$USER_CONFIGS_BAK" ]; then
     case $REPLY in
     1)
       echo "Backing up UserConfigs..."
-      rm -rf "$USER_CONFIGS_BAK"
-      mv "$USER_CONFIGS" "$USER_CONFIGS_BAK"
+      rm -rf "$userConfigsBackup"
+      mv "$userConfigs" "$userConfigsBackup"
       echo "Done. UserConfigs moved to UserConfigsBak."
       break
       ;;
     2)
       echo "Restoring backup..."
-      rm -rf "$USER_CONFIGS"
-      mv "$USER_CONFIGS_BAK" "$USER_CONFIGS"
+      rm -rf "$userConfigs"
+      mv "$userConfigsBackup" "$userConfigs"
       echo "Done. UserConfigsBak moved to UserConfigs."
       break
       ;;
     3)
       echo "Swapping..."
-      mv "$USER_CONFIGS" "$HYPR_CONFIG_DIR/UserConfigs.tmp"
-      mv "$USER_CONFIGS_BAK" "$USER_CONFIGS"
-      mv "$HYPR_CONFIG_DIR/UserConfigs.tmp" "$USER_CONFIGS_BAK"
+      mv "$userConfigs" "$hyprConfigsDir/UserConfigs.tmp"
+      mv "$userConfigsBackup" "$userConfigs"
+      mv "$hyprConfigsDir/UserConfigs.tmp" "$userConfigsBackup"
       echo "Done. UserConfigs and UserConfigsBak have been swapped."
       break
       ;;

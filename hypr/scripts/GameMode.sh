@@ -27,32 +27,32 @@ unit_scope() {
 }
 
 variables_initialization() {
-    GAME_MODE_LOCATION="${HOME}/.config/hypr/scripts/gamemode_status"
-    PREVIOUS_POWER_PROFILE="${HOME}/.config/hypr/scripts/power_profile"
+    gameModeLocation="${HOME}/.config/hypr/scripts/gamemode_status"
+    previousPowerProfile="${HOME}/.config/hypr/scripts/power_profile"
     notif="$HOME/.local/share/icons/breeze-dark-accent/apps/scalable/gaming.svg"
     mkdir -p "${HOME}/.config/hypr/scripts"
-    GAME_MODE_UNITS=""        # system-scope units
-    GAME_MODE_USER_UNITS=""   # user-scope units
-    GAME_MODE_UNITS_DESC=""
+    gameModeUnits=""        # system-scope units
+    gameModeUserUnits=""    # user-scope units
+    gameModeUserUnitsDescending=""
 
     # Add new services here as "label:unit1,unit2" — units are comma-separated,
     # no spaces. Label is just what shows up in the notification text.
-    GAME_MODE_SERVICES=(
+    gameModeServices=(
         "docker:docker.socket,docker.service"
         "ollama:ollama.service"
         "waybar:waybar.service"
     )
 
     # Create the status file if it doesn't exist, defaulting to "false" (game mode off).
-    if [ ! -f "${GAME_MODE_LOCATION}" ]; then
-        echo "false" > "${GAME_MODE_LOCATION}"
+    if [ ! -f "${gameModeLocation}" ]; then
+        echo "false" > "${gameModeLocation}"
     fi
 
     # Populates current state
-    CURRENT_STATE=$(cat "${GAME_MODE_LOCATION}" 2>/dev/null || echo "false")
+    currentState=$(cat "${gameModeLocation}" 2>/dev/null || echo "false")
 
     # Populate the list of units to stop/start based on what actually exists on this system.
-    for entry in "${GAME_MODE_SERVICES[@]}"; do
+    for entry in "${gameModeServices[@]}"; do
         label="${entry%%:*}"
         units="${entry#*:}"
         found=false
@@ -62,18 +62,18 @@ variables_initialization() {
             scope=$(unit_scope "$u")
             case "$scope" in
                 user)
-                    GAME_MODE_USER_UNITS="${GAME_MODE_USER_UNITS}${GAME_MODE_USER_UNITS:+ }$u"
+                    gameModeUserUnits="${gameModeUserUnits}${gameModeUserUnits:+ }$u"
                     found=true
                     ;;
                 system)
-                    GAME_MODE_UNITS="${GAME_MODE_UNITS}${GAME_MODE_UNITS:+ }$u"
+                    gameModeUnits="${gameModeUnits}${gameModeUnits:+ }$u"
                     found=true
                     ;;
             esac
         done
 
         if [ "$found" = true ]; then
-            GAME_MODE_UNITS_DESC="${GAME_MODE_UNITS_DESC}${GAME_MODE_UNITS_DESC:+, }$label"
+            gameModeUserUnitsDescending="${gameModeUserUnitsDescending}${gameModeUserUnitsDescending:+, }$label"
         fi
     done
 }
@@ -101,39 +101,39 @@ disable_notif_inhibit() {
 
 # Polkit versions of the stop/start functions use pkexec to run systemctl as root. The user must have sudo privileges for the latter to work.
 stop_services_polkit() {
-    if [ -n "$GAME_MODE_UNITS" ]; then
-        pkexec systemctl stop $GAME_MODE_UNITS >/dev/null 2>&1
+    if [ -n "$gameModeUnits" ]; then
+        pkexec systemctl stop $gameModeUnits >/dev/null 2>&1
     fi
-    if [ -n "$GAME_MODE_USER_UNITS" ]; then
-        systemctl --user stop $GAME_MODE_USER_UNITS >/dev/null 2>&1
+    if [ -n "$gameModeUserUnits" ]; then
+        systemctl --user stop $gameModeUserUnits >/dev/null 2>&1
     fi
 }
 
 start_services_polkit() {
-    if [ -n "$GAME_MODE_UNITS" ]; then
-        pkexec systemctl start $GAME_MODE_UNITS >/dev/null 2>&1
+    if [ -n "$gameModeUnits" ]; then
+        pkexec systemctl start $gameModeUnits >/dev/null 2>&1
     fi
-    if [ -n "$GAME_MODE_USER_UNITS" ]; then
-        systemctl --user start $GAME_MODE_USER_UNITS >/dev/null 2>&1
+    if [ -n "$gameModeUserUnits" ]; then
+        systemctl --user start $gameModeUserUnits >/dev/null 2>&1
     fi
 }
 
 # No-polkit versions of the stop/start functions use sudo to run systemctl as root. The user must have sudo privileges for these to work.
 stop_services_no_polkit() {
-    if [ -n "$GAME_MODE_UNITS" ]; then
-        sudo systemctl stop $GAME_MODE_UNITS >/dev/null 2>&1
+    if [ -n "$gameModeUnits" ]; then
+        sudo systemctl stop $gameModeUnits >/dev/null 2>&1
     fi
-    if [ -n "$GAME_MODE_USER_UNITS" ]; then
-        systemctl --user stop $GAME_MODE_USER_UNITS >/dev/null 2>&1
+    if [ -n "$gameModeUserUnits" ]; then
+        systemctl --user stop $gameModeUserUnits >/dev/null 2>&1
     fi
 }
 
 start_services_no_polkit() {
-    if [ -n "$GAME_MODE_UNITS" ]; then
-        sudo systemctl start $GAME_MODE_UNITS >/dev/null 2>&1
+    if [ -n "$gameModeUnits" ]; then
+        sudo systemctl start $gameModeUnits >/dev/null 2>&1
     fi
-    if [ -n "$GAME_MODE_USER_UNITS" ]; then
-        systemctl --user start $GAME_MODE_USER_UNITS >/dev/null 2>&1
+    if [ -n "$gameModeUserUnits" ]; then
+        systemctl --user start $gameModeUserUnits >/dev/null 2>&1
     fi
 }
 
@@ -146,9 +146,9 @@ main() {
     fi
 
     variables_initialization
-    if [ "${CURRENT_STATE}" = "false" ]; then
-        echo "true" > "${GAME_MODE_LOCATION}"
-        echo "$(powerprofilesctl get)" > "${PREVIOUS_POWER_PROFILE}"
+    if [ "${currentState}" = "false" ]; then
+        echo "true" > "${gameModeLocation}"
+        echo "$(powerprofilesctl get)" > "${previousPowerProfile}"
         powerprofilesctl set performance
 
         if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
@@ -166,12 +166,12 @@ main() {
 
         awww kill
 
-        notify-send -e -u low -i "$notif" "Gamemode: enabled" "${GAME_MODE_UNITS_DESC:-nothing to stop} off"
+        notify-send -e -u low -i "$notif" "Gamemode: enabled" "${gameModeUserUnitsDescending:-nothing to stop} off"
         sleep 10 && enable_notif_inhibit
     else
         disable_notif_inhibit
-        echo "false" > "${GAME_MODE_LOCATION}"
-        powerprofilesctl set "$(cat "${PREVIOUS_POWER_PROFILE}")"
+        echo "false" > "${gameModeLocation}"
+        powerprofilesctl set "$(cat "${previousPowerProfile}")"
 
         if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
             hyprctl reload >/dev/null 2>&1
@@ -191,7 +191,7 @@ main() {
 
         $HOME/.config/WallpaperChanger/WallpaperApplicator.sh random
 
-        notify-send -e -u low -i "$notif" "Gamemode: disabled" "${GAME_MODE_UNITS_DESC:-nothing to start} on"
+        notify-send -e -u low -i "$notif" "Gamemode: disabled" "${gameModeUserUnitsDescending:-nothing to start} on"
     fi
 }
 

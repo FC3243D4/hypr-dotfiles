@@ -2,8 +2,8 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Script for Monitor backlights (if supported) using brightnessctl
 
-iDIR="$HOME/.config/swaync/icons"
-notification_timeout=1000
+iconsDir="$HOME/.config/swaync/icons"
+notificationTimeout=1000
 step=10  # INCREASE/DECREASE BY THIS VALUE
 
 # Get current brightness as an integer (without %)
@@ -18,19 +18,19 @@ get_icon_path() {
     if (( level > 100 )); then
         level=100
     fi
-    echo "$iDIR/brightness-${level}.svg"
+    echo "$iconsDir/brightness-${level}.svg"
 }
 
 # Send notification
 send_notification() {
     local brightness=$1
-    local icon_path=$2
+    local iconPath=$2
 
     notify-send -e \
         -h string:x-canonical-private-synchronous:brightness_notif \
         -h int:value:"$brightness" \
         -u low \
-        -i "$icon_path" \
+        -i "$iconPath" \
         "Screen" "Brightness: ${brightness}%"
 }
 

@@ -2,11 +2,11 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # This is for custom version of waybar idle_inhibitor which activates / deactivates hypridle instead
 
-PROCESS="hypridle"
+process="hypridle"
 
 if [[ "$1" == "status" ]]; then
     sleep 1
-    if pgrep -x "$PROCESS" >/dev/null; then
+    if pgrep -x "$process" >/dev/null; then
         echo '{"text": "󰷛 󱨥", "class": "active", "tooltip": "idle_inhibitor NOT ACTIVE\nLeft Click: Activate\nRight Click: Lock Screen"}'
     else
         echo '{"text": "󰷛 󱨦", "class": "notactive", "tooltip": "idle_inhibitor is ACTIVE\nLeft Click: Deactivate\nRight Click: Lock Screen"}'

@@ -2,8 +2,8 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Scripts for volume controls for audio and mic 
 
-iDIR="$HOME/.config/swaync/icons"
-sDIR="$HOME/.config/hypr/scripts"
+iconsDir="$HOME/.config/swaync/icons"
+scriptsDir="$HOME/.config/hypr/scripts"
 
 # Get Volume
 get_volume() {
@@ -19,13 +19,13 @@ get_volume() {
 get_icon() {
     current=$(get_volume)
     if [[ "$current" == "Muted" ]]; then
-        echo "$iDIR/volume-mute.svg"
+        echo "$iconsDir/volume-mute.svg"
     elif [[ "${current%\%}" -le 30 ]]; then
-        echo "$iDIR/volume-low.svg"
+        echo "$iconsDir/volume-low.svg"
     elif [[ "${current%\%}" -le 60 ]]; then
-        echo "$iDIR/volume-mid.svg"
+        echo "$iconsDir/volume-mid.svg"
     else
-        echo "$iDIR/volume-high.svg"
+        echo "$iconsDir/volume-high.svg"
     fi
 }
 
@@ -35,7 +35,7 @@ notify_user() {
         notify-send -e -h string:x-canonical-private-synchronous:volume_notif -h boolean:SWAYNC_BYPASS_DND:true -u low -i "$(get_icon)" " Volume:" " Muted"
     else
         notify-send -e -h int:value:"$(get_volume | sed 's/%//')" -h string:x-canonical-private-synchronous:volume_notif -h boolean:SWAYNC_BYPASS_DND:true -u low -i "$(get_icon)" " Volume Level:" " $(get_volume)" &&
-        "$sDIR/Sounds.sh" --volume
+        "$scriptsDir/Sounds.sh" --volume
     fi
 }
 
@@ -60,7 +60,7 @@ dec_volume() {
 # Toggle Mute
 toggle_mute() {
 	if [ "$(pamixer --get-mute)" == "false" ]; then
-		pamixer -m && notify-send -e -u low -h boolean:SWAYNC_BYPASS_DND:true -i "$iDIR/volume-mute.svg" " Mute"
+		pamixer -m && notify-send -e -u low -h boolean:SWAYNC_BYPASS_DND:true -i "$iconsDir/volume-mute.svg" " Mute"
 	elif [ "$(pamixer --get-mute)" == "true" ]; then
 		pamixer -u && notify-send -e -u low -h boolean:SWAYNC_BYPASS_DND:true -i "$(get_icon)" " Volume:" " Switched ON"
 	fi
@@ -69,18 +69,18 @@ toggle_mute() {
 # Toggle Mic
 toggle_mic() {
 	if [ "$(pamixer --default-source --get-mute)" == "false" ]; then
-		pamixer --default-source -m && notify-send -e -u low -h boolean:SWAYNC_BYPASS_DND:true -i "$iDIR/microphone-mute.svg" " Microphone:" " Switched OFF"
+		pamixer --default-source -m && notify-send -e -u low -h boolean:SWAYNC_BYPASS_DND:true -i "$iconsDir/microphone-mute.svg" " Microphone:" " Switched OFF"
 	elif [ "$(pamixer --default-source --get-mute)" == "true" ]; then
-		pamixer -u --default-source u && notify-send -e -u low -h boolean:SWAYNC_BYPASS_DND:true -i "$iDIR/microphone.svg" " Microphone:" " Switched ON"
+		pamixer -u --default-source u && notify-send -e -u low -h boolean:SWAYNC_BYPASS_DND:true -i "$iconsDir/microphone.svg" " Microphone:" " Switched ON"
 	fi
 }
 # Get Mic Icon
 get_mic_icon() {
     current=$(pamixer --default-source --get-volume)
     if [[ "$current" -eq "0" ]]; then
-        echo "$iDIR/microphone-mute.svg"
+        echo "$iconsDir/microphone-mute.svg"
     else
-        echo "$iDIR/microphone.svg"
+        echo "$iconsDir/microphone.svg"
     fi
 }
 

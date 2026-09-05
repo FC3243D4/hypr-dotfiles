@@ -5,7 +5,7 @@
 
 # This code is released in public domain by Dave Davenport <qball@gmpclient.org>
 
-iDIR="$HOME/.config/swaync/icons"
+iconsDir="$HOME/.config/swaync/icons"
 
 
 OS="linux"
@@ -35,20 +35,20 @@ then
     echo "Did not find 'notify-send', notifications won't work."
 fi
 
-TMP_CONFIG_FILE=$(${MKTEMP}).rasi
+tmpConfigFile=$(${MKTEMP}).rasi
 #rofi_theme_dir="${HOME}/.local/share/rofi/themes"
-rofi_config_file="${XDG_CONFIG_HOME:-${HOME}/.config}/rofi/config.rasi"
+rofiConfigFile="${XDG_CONFIG_HOME:-${HOME}/.config}/rofi/config.rasi"
 
 ##
 # Array with parts to the found themes.
 # And array with the printable name.
 ##
 declare -a themes
-declare -a theme_names
+declare -a themeNames
 
 ##
 # Function that tries to find all installed rofi themes.
-# This fills in #themes array and formats a displayable string #theme_names
+# This fills in #themes array and formats a displayable string #themeNames
 ##
 # Find themes in defined directories
 find_themes() {
@@ -60,7 +60,7 @@ find_themes() {
             for file in "$TD"/*.rasi; do
                 if [ -f "$file" ] && [ ! -L "$file" ]; then
                     themes+=("$file")
-                    theme_names+=("$(basename "${file%.*}")")
+                    themeNames+=("$(basename "${file%.*}")")
                 else
                     echo "Skipping symlink: $file"
                 fi
@@ -75,45 +75,45 @@ find_themes() {
 # Function to add or update theme in the config.rasi
 ##
 add_theme_to_config() {
-    local theme_name="$1"
-    local theme_path
+    local themeName="$1"
+    local themePath
 
     # Determine the correct path for the theme
-    if [[ -f "$HOME/.local/share/rofi/themes/$theme_name.rasi" ]]; then
-        theme_path="$HOME/.local/share/rofi/themes/$theme_name.rasi"
-    elif [[ -f "$HOME/.config/rofi/themes/$theme_name.rasi" ]]; then
-        theme_path="$HOME/.config/rofi/themes/$theme_name.rasi"
+    if [[ -f "$HOME/.local/share/rofi/themes/$themeName.rasi" ]]; then
+        themePath="$HOME/.local/share/rofi/themes/$themeName.rasi"
+    elif [[ -f "$HOME/.config/rofi/themes/$themeName.rasi" ]]; then
+        themePath="$HOME/.config/rofi/themes/$themeName.rasi"
     else
-        echo "Theme not found: $theme_name"
+        echo "Theme not found: $themeName"
         return 1
     fi
 
     # Resolve symlinks if present
-    if [[ -L "$theme_path" ]]; then
-        theme_path=$(readlink -f "$theme_path")
+    if [[ -L "$themePath" ]]; then
+        themePath=$(readlink -f "$themePath")
     fi
 
     # Convert path to use ~ for home directory
-    theme_path_with_tilde="~${theme_path#$HOME}"
+    themePathWithTilde="~${themePath#$HOME}"
 
     # Add or update @theme line in config
-    if ! grep -q '^\s*@theme' "$rofi_config_file"; then
-        echo -e "\n\n@theme \"$theme_path_with_tilde\"" >> "$rofi_config_file"
-        echo "Added @theme \"$theme_path_with_tilde\" to $rofi_config_file"
+    if ! grep -q '^\s*@theme' "$rofiConfigFile"; then
+        echo -e "\n\n@theme \"$themePathWithTilde\"" >> "$rofiConfigFile"
+        echo "Added @theme \"$themePathWithTilde\" to $rofiConfigFile"
     else
-        $SED -i "s/^\(\s*@theme.*\)/\/\/\1/" "$rofi_config_file"
-        echo -e "@theme \"$theme_path_with_tilde\"" >> "$rofi_config_file"
-        echo "Updated @theme line to $theme_path_with_tilde"
+        $SED -i "s/^\(\s*@theme.*\)/\/\/\1/" "$rofiConfigFile"
+        echo -e "@theme \"$themePathWithTilde\"" >> "$rofiConfigFile"
+        echo "Updated @theme line to $themePathWithTilde"
     fi
 
     # Limit the number of @theme lines to a maximum of 9
-    max_lines=9
-    total_lines=$(grep -c '^\s*//@theme' "$rofi_config_file")
+    maxLines=9
+    totalLines=$(grep -c '^\s*//@theme' "$rofiConfigFile")
 
-    if [ "$total_lines" -gt "$max_lines" ]; then
-        excess=$((total_lines - max_lines))
+    if [ "$totalLines" -gt "$maxLines" ]; then
+        excess=$((totalLines - maxLines))
         for i in $(seq 1 "$excess"); do
-            $SED -i '0,/^\s*\/\/@theme/ { /^\s*\/\/@theme/ {d; q; }}' "$rofi_config_file"
+            $SED -i '0,/^\s*\/\/@theme/ { /^\s*\/\/@theme/ {d; q; }}' "$rofiConfigFile"
         done
         echo "Removed excess //@theme lines"
     fi
@@ -124,9 +124,9 @@ add_theme_to_config() {
 ##
 create_config_copy()
 {
-    ${ROFI} -dump-config > "${TMP_CONFIG_FILE}"
+    ${ROFI} -dump-config > "${tmpConfigFile}"
     # remove theme entry.
-    ${SED} -i 's/^\s*theme:\s\+".*"\s*;//g' "${TMP_CONFIG_FILE}"
+    ${SED} -i 's/^\s*theme:\s\+".*"\s*;//g' "${tmpConfigFile}"
 }
 
 ###
@@ -136,7 +136,7 @@ create_theme_list()
 {
     OLDIFS=${IFS}
     IFS='|'
-    for themen in ${theme_names[@]}
+    for themen in ${themeNames[@]}
     do
         echo "${themen}"
     done
@@ -150,9 +150,9 @@ declare -i SELECTED
 
 select_theme()
 {
-    local MORE_FLAGS=(-dmenu -format i -no-custom -p "Theme" -markup -config "${TMP_CONFIG_FILE}" -i)
-    MORE_FLAGS+=(-kb-custom-1 "Alt-a")
-    MORE_FLAGS+=(-u 2,3 -a 4,5 )
+    local moreFlags=(-dmenu -format i -no-custom -p "Theme" -markup -config "${tmpConfigFile}" -i)
+    moreFlags+=(-kb-custom-1 "Alt-a")
+    moreFlags+=(-u 2,3 -a 4,5 )
     local CUR="default"
     while true
     do
@@ -164,12 +164,12 @@ select_theme()
 Current theme: <b>${CUR}</b>
 <span weight=\"bold\" size=\"xx-small\">When setting a new theme this will override previous theme settings.
 Please update your config file if you have local modifications.</span>"""
-        THEME_FLAG=
+        themeFlags=
         if [ -n "${SELECTED}" ]
         then
-            THEME_FLAG="-theme ${themes[${SELECTED}]}"
+            themeFlags="-theme ${themes[${SELECTED}]}"
         fi
-        RES=$( create_theme_list | ${ROFI} ${THEME_FLAG} ${MORE_FLAGS[@]} -cycle -selected-row "${SELECTED}" -mesg "${MESG}")
+        RES=$( create_theme_list | ${ROFI} ${themeFlags} ${moreFlags[@]} -cycle -selected-row "${SELECTED}" -mesg "${MESG}")
         RTR=$?
         if [ "${RTR}" = 10 ]
         then
@@ -181,7 +181,7 @@ Please update your config file if you have local modifications.</span>"""
         then
             return 1;
         fi
-        CUR=${theme_names[${RES}]}
+        CUR=${themeNames[${RES}]}
         SELECTED=${RES}
     done
 }
@@ -214,16 +214,16 @@ create_config_copy
 if select_theme && [ -n "${SELECTED}" ]
 then
     # Apply the selected theme
-    add_theme_to_config "${theme_names[${SELECTED}]}"
+    add_theme_to_config "${themeNames[${SELECTED}]}"
 
     # Send notification with the selected theme name
-    selection="${theme_names[${SELECTED}]}"
+    selection="${themeNames[${SELECTED}]}"
     if [ -n "$NOTIFY_SEND" ]; then
-        notify-send -u low -i "$iDIR/ok.svg"  "Rofi Theme applied:" "$selection"
+        notify-send -u low -i "$iconsDir/ok.svg"  "Rofi Theme applied:" "$selection"
     fi
 fi
 
 ##
 # Remove temp. config.
 ##
-rm -- "${TMP_CONFIG_FILE}"
+rm -- "${tmpConfigFile}"

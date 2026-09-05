@@ -2,11 +2,11 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # This is for changing kb_layouts. Set kb_layouts in "$HOME/.config/hypr/UserConfigs/UserSettings.conf"
 
-notif_icon="$HOME/.config/swaync/icons/ok.svg"
-SCRIPTSDIR="$HOME/.config/hypr/scripts"
+notifIcon="$HOME/.config/swaync/icons/ok.svg"
+scriptsDir="$HOME/.config/hypr/scripts"
 
 # Refined ignore list with patterns or specific device names
-ignore_patterns=(
+ignorePatterns=(
   "--(avrcp)"
   "Bluetooth Speaker"
   "Other Device 
@@ -20,9 +20,9 @@ get_keyboard_names() {
 
 # Function to check if a device matches any ignore pattern
 is_ignored() {
-  local device_name=$1
-  for pattern in "${ignore_patterns[@]}"; do
-    if [[ "$device_name" == *"$pattern"* ]]; then
+  local deviceName=$1
+  for pattern in "${ignorePatterns[@]}"; do
+    if [[ "$deviceName" == *"$pattern"* ]]; then
       return 0 # Device matches ignore pattern
     fi
   done
@@ -30,35 +30,35 @@ is_ignored() {
 }
 
 # Function to get current layout info
-# Stores values in layout_mapping, variant_mapping and layout_index
-get_current_layout_info() {
-  local found_kb=false
+# Stores values in layoutMapping, variantMapping and layoutIndex
+get_currentLayout_info() {
+  local foundKb=false
 
   # Read from the first non-ignored layout
   while read -r name; do
     if ! is_ignored "$name"; then
-      found_kb=true
-      local layout_mapping_str=$(hyprctl devices -j |
+      foundKb=true
+      local layoutMappingStr=$(hyprctl devices -j |
         jq -r --arg name "$name" '.keyboards[] | select(.name==$name).layout')
-      IFS="," read -r -a layout_mapping <<<"$layout_mapping_str"
+      IFS="," read -r -a layoutMapping <<<"$layoutMappingStr"
 
-      local variant_mapping_str=$(hyprctl devices -j |
+      local variantMappingStr=$(hyprctl devices -j |
         jq -r --arg name "$name" '.keyboards[] | select(.name==$name).variant')
-      IFS="," read -r -a variant_mapping <<<"$variant_mapping_str"
+      IFS="," read -r -a variantMapping <<<"$variantMappingStr"
 
-      layout_index=$(hyprctl devices -j |
-        jq -r --arg name "$name" '.keyboards[] | select(.name==$name).active_layout_index')
+      layoutIndex=$(hyprctl devices -j |
+        jq -r --arg name "$name" '.keyboards[] | select(.name==$name).active_layoutIndex')
       break
     fi
   done <<< "$(get_keyboard_names)"
 
-  $found_kb && return 0
+  $foundKb && return 0
   return 1
 }
 
 # Function to change keyboard layout
 change_layout() {
-  local error_found=false
+  local errorFound=false
 
   while read -r name; do
     if is_ignored "$name"; then
@@ -66,21 +66,21 @@ change_layout() {
       continue
     fi
 
-    echo "Switching layout for $name to $new_layout..."
-    hyprctl switchxkblayout "$name" "$next_index"
+    echo "Switching layout for $name to $newLayout..."
+    hyprctl switchxkblayout "$name" "$nextIndex"
     if [ $? -ne 0 ]; then
       echo "Error while switching layout for $name." >&2
-      error_found=true
+      errorFound=true
     fi
   done <<<"$(get_keyboard_names)"
 
-  $error_found && return 1
+  $errorFound && return 1
   return 0
 }
 
 
-# Stores values in layout_mapping, variant_mapping and layout_index
-if ! get_current_layout_info; then
+# Stores values in layoutMapping, variantMapping and layoutIndex
+if ! get_currentLayout_info; then
   echo "Could not get current layout information." >&2
   echo "There might not be any keyboards available, \
     or some were unnecessarily set as ignored." >&2
@@ -89,21 +89,21 @@ if ! get_current_layout_info; then
   exit 1
 fi
 
-current_layout=${layout_mapping[$layout_index]}
-current_variant=${variant_mapping[$layout_index]}
+currentLayout=${layoutMapping[$layoutIndex]}
+currentVariant=${variantMapping[$layoutIndex]}
 
 if [[ "$1" == "status" ]]; then
-  echo "$current_layout${current_variant:+($current_variant)}"
+  echo "$currentLayout${currentVariant:+($currentVariant)}"
 elif [[ "$1" == "switch" ]]; then
-  echo "Current layout: $current_layout($current_variant)"
+  echo "Current layout: $currentLayout($currentVariant)"
 
-  layout_count=${#layout_mapping[@]}
+  layout_count=${#layoutMapping[@]}
   echo "Number of layouts: $layout_count"
 
-  next_index=$(( (layout_index + 1) % layout_count ))
-  new_layout="${layout_mapping[$next_index]}"
-  new_variant="${variant_mapping[$next_index]}"
-  echo "Next layout: $new_layout"
+  nextIndex=$(( (layoutIndex + 1) % layout_count ))
+  newLayout="${layoutMapping[$nextIndex]}"
+  newVariant="${variantMapping[$nextIndex]}"
+  echo "Next layout: $newLayout"
 
   # Execute layout change and notify
   if ! change_layout; then
@@ -111,7 +111,7 @@ elif [[ "$1" == "switch" ]]; then
     echo "Layout change failed." >&2
     exit 1
   else
-    notify-send -u low -i "$notif_icon" " kb_layout: $new_layout${new_variant:+($new_variant)}"
+    notify-send -u low -i "$notifIcon" " kb_layout: $newLayout${newVariant:+($newVariant)}"
     echo "Layout change notification sent."
   fi
 else
