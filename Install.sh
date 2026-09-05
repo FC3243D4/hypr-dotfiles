@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# install.sh
+# Install.sh
 # Entry point for installing hypr-dotfiles. Runs dependency checks/installation,
 # then syncs configs into place.
 #
-# Usage: ./install.sh
+# Usage: ./Install.sh
 
 set -uo pipefail
 
@@ -21,7 +21,7 @@ fi
 # ─── Dependency check ─────────────────────────────────────────────────────────
 
 echo "=== Dependency check ==="
-source "$SUPPORT/dependency_check.sh"
+source "$SUPPORT/DependencyCheck.sh"
 if [ $? -ne 0 ]; then
     echo "Dependency check failed. Aborting install."
     exit 1
@@ -663,7 +663,7 @@ echo ""
 
 # ─── Millennium add-ons (Material theme + Extendium plugin) ───────────────────
 # Millennium itself is installed as a regular dependency via
-# dependency_check.sh/pkg_manager.sh (see the "millennium" entry there). This
+# DependencyCheck.sh/PkgManager.sh (see the "millennium" entry there). This
 # section only drops the actual theme/plugin content in place, by cloning
 # (or updating) each repo directly into Millennium's own content folders —
 # per its documented Linux file system layout:

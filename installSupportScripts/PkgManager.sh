@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# pkg_manager.sh
+# PkgManager.sh
 # Detects the package manager and provides install/sync abstractions.
-# Meant to be SOURCED by dependency_check.sh.
+# Meant to be SOURCED by DependencyCheck.sh.
 #
 # Exports:
 #   PKG_MANAGER   — detected package manager (pacman, apt, dnf, zypper)
@@ -20,7 +20,7 @@ else
 fi
 
 # ─── Package name map ────────────────────────────────────────────────────────
-# Maps every logical name used in dependency_check.sh to its distro-specific
+# Maps every logical name used in DependencyCheck.sh to its distro-specific
 # package name(s). Every logical name is listed explicitly for every distro —
 # nothing relies on the default passthrough case except genuinely unknown
 # future names.
@@ -286,7 +286,7 @@ _install_kde_apps() {
 #
 #   matugen         — cargo install
 #   awww            — git clone + cargo build (not on crates.io)
-#   nwg-displays    — git clone + upstream's own install.sh (repo-packaged on
+#   nwg-displays    — git clone + upstream's own Install.sh (repo-packaged on
 #                     Arch already; this is the non-Arch fallback)
 #   accurse         — pip install (on PyPI; always installed this way
 #                     regardless of distro, per upstream's own instructions)
@@ -297,7 +297,7 @@ _install_kde_apps() {
 #   topgrade        — cargo install (no official package on Debian/Ubuntu or
 #                     default openSUSE Tumbleweed repos; Arch uses AUR and
 #                     Fedora uses COPR instead, both via their normal paths)
-#   spicetify-cli   — upstream's own official install.sh (spicetify.app);
+#   spicetify-cli   — upstream's own official Install.sh (spicetify.app);
 #                     packaged in the AUR on Arch, not officially packaged
 #                     anywhere else
 #   vesktop         — Flatpak (dev.vencord.Vesktop); packaged in the AUR
@@ -307,7 +307,7 @@ _install_kde_apps() {
 #                     install call below — but it lives in this fallback
 #                     path for the same reason: no official repo package.
 #   millennium      — upstream's own official installer
-#                     (curl -fsSL https://steambrew.app/install.sh | bash);
+#                     (curl -fsSL https://steambrew.app/Install.sh | bash);
 #                     officially packaged in the AUR (plain "millennium",
 #                     not "millennium-git") on Arch, not officially packaged
 #                     anywhere else. Linux x86_64 only, and only supports a
@@ -393,7 +393,7 @@ _install_from_source() {
                 local tmp
                 tmp="$(mktemp -d)"
                 git clone https://github.com/nwg-piotr/nwg-displays "$tmp/nwg-displays" || { echo "Failed to clone nwg-displays."; rm -rf "$tmp"; return 1; }
-                (cd "$tmp/nwg-displays" && sudo ./install.sh) || { echo "Failed to build/install nwg-displays."; rm -rf "$tmp"; return 1; }
+                (cd "$tmp/nwg-displays" && sudo ./Install.sh) || { echo "Failed to build/install nwg-displays."; rm -rf "$tmp"; return 1; }
                 rm -rf "$tmp"
                 echo "nwg-displays installed successfully."
                 ;;
@@ -468,7 +468,7 @@ _install_from_source() {
                     echo "curl is required to install spicetify-cli but is not installed."
                     return 1
                 fi
-                if ! curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh; then
+                if ! curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/Install.sh | sh; then
                     echo "Failed to install spicetify-cli via the official script. Please install it"
                     echo "manually (see https://spicetify.app) and re-run this script."
                     return 1
@@ -476,7 +476,7 @@ _install_from_source() {
                 # The official installer places the binary under ~/.spicetify and
                 # updates shell rc files itself, but that PATH change won't be
                 # visible in THIS already-running script — export it directly so
-                # the rest of install.sh (the Configure Spicetify section) can
+                # the rest of Install.sh (the Configure Spicetify section) can
                 # actually find the binary without requiring a new shell.
                 if ! command -v spicetify &>/dev/null; then
                     if [ -x "$HOME/.spicetify/spicetify" ]; then
@@ -511,7 +511,7 @@ _install_from_source() {
                 fi
                 echo "Vesktop installed successfully via Flatpak."
                 echo "NOTE: Flatpak's config path differs from a native install — the"
-                echo "'Configure Vesktop' section later in install.sh accounts for this."
+                echo "'Configure Vesktop' section later in Install.sh accounts for this."
                 ;;
             millennium)
                 echo "Installing Millennium via the official installer (steambrew.app)..."
@@ -535,7 +535,7 @@ _install_from_source() {
                     echo "Close Steam and re-run this script to install Millennium."
                     continue
                 fi
-                if ! curl -fsSL "https://steambrew.app/install.sh" | bash; then
+                if ! curl -fsSL "https://steambrew.app/Install.sh" | bash; then
                     echo "Failed to install Millennium via the official script. Please install it"
                     echo "manually (see https://docs.steambrew.app) and re-run this script."
                     return 1
