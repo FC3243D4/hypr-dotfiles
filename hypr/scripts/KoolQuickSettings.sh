@@ -2,7 +2,7 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Rofi menu for KooL Hyprland Quick Settings (SUPER SHIFT E)
 
-DEFAULTS_LUA="$HOME/.config/hypr/UserConfigs/01-UserDefaults.lua"
+DEFAULTS_LUA="$HOME/.config/hypr/UserConfigs/UserDefaults.lua"
 READER="$HOME/.config/hypr/scripts/read_lua_defaults.py"
 
 read_default() {
@@ -64,7 +64,7 @@ main() {
 
     case "$choice" in
         # ── User config files ─────────────────────────────────────────────────
-        "Edit User Defaults")                  file="$UserConfigs/01-UserDefaults.lua" ;;
+        "Edit User Defaults")                  file="$UserConfigs/UserDefaults.lua" ;;
         "Edit User ENV variables")             file="$UserConfigs/ENVariables.lua" ;;
         "Edit User Keybinds")                  file="$UserConfigs/UserKeybinds.lua" ;;
         "Edit User Startup Apps (overlay)")    file="$UserConfigs/Startup_Apps.lua" ;;

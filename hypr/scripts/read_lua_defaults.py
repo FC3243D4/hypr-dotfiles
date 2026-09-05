@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-read_lua_defaults.py — extract simple variable assignments from 01-UserDefaults.lua
+read_lua_defaults.py — extract simple variable assignments from UserDefaults.lua
 Usage: python3 read_lua_defaults.py <varname> [lua_file]
 Prints the value (unquoted) to stdout, exits 1 if not found.
 
@@ -34,7 +34,7 @@ if len(sys.argv) < 2:
 
 varname  = sys.argv[1]
 lua_file = sys.argv[2] if len(sys.argv) > 2 else \
-           os.path.expanduser("~/.config/hypr/UserConfigs/01-UserDefaults.lua")
+           os.path.expanduser("~/.config/hypr/UserConfigs/UserDefaults.lua")
 
 val = extract(lua_file, varname)
 if val is None:

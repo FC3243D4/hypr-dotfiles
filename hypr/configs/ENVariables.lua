@@ -1,4 +1,4 @@
--- Set your defaults editor through ENV in ~/.config/hypr/UserConfigs/01-UserDefaults.lua
+-- Set your defaults editor through ENV in ~/.config/hypr/UserConfigs/UserDefaults.lua
 
 -----------------------------------
 ---- Toolkit Backend Variables ----

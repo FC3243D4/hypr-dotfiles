@@ -127,13 +127,13 @@ echo ""
 
 # ─── Hyprland user preferences (primary display, workspaces, layout) ──────────
 # Detects the primary display and asks for a couple of layout preferences,
-# writing them into 01-UserDefaults.lua via hl.env(...). Moved here (out of
+# writing them into UserDefaults.lua via hl.env(...). Moved here (out of
 # Wallpaper-changer's own install-Linux.sh) since none of this is
 # wallpaper-specific — it's general dotfiles configuration.
 
 echo "=== Configuring Hyprland user preferences ==="
 
-USERDEFAULTS_LUA="$CONFIG_HOME/hypr/UserConfigs/01-UserDefaults.lua"
+USERDEFAULTS_LUA="$CONFIG_HOME/hypr/UserConfigs/UserDefaults.lua"
 STARTUPAPPS_LUA="$CONFIG_HOME/hypr/configs/Startup_Apps.lua"
 
 _ensure_hl_env() {

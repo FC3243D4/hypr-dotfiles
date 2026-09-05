@@ -24,7 +24,7 @@ local wsKeyCodes = {
 ---------------------------------------------------------------------------------------------------
 ---- settings for User defaults apps - set your default terminal and file manager on this file ----
 ---------------------------------------------------------------------------------------------------
-require("UserConfigs/01-UserDefaults") -- Set your defaults editor through ENV in ~/.config/hypr/UserConfigs/01-UserDefaults.lua
+require("UserConfigs/UserDefaults") -- Set your defaults editor through ENV in ~/.config/hypr/UserConfigs/UserDefaults.lua
 
 -----------------------
 ---- STANDARD APPS ----

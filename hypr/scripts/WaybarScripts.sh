@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
-# Waybar modules script — reads defaults from 01-UserDefaults.lua
+# Waybar modules script — reads defaults from UserDefaults.lua
 
-DEFAULTS_LUA="$HOME/.config/hypr/UserConfigs/01-UserDefaults.lua"
+DEFAULTS_LUA="$HOME/.config/hypr/UserConfigs/UserDefaults.lua"
 READER="$HOME/.config/hypr/scripts/read_lua_defaults.py"
 
 read_default() {

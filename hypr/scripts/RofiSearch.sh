@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
-# For searching via web browsers — reads Search_Engine from 01-UserDefaults.lua
+# For searching via web browsers — reads Search_Engine from UserDefaults.lua
 
-DEFAULTS_LUA="$HOME/.config/hypr/UserConfigs/01-UserDefaults.lua"
+DEFAULTS_LUA="$HOME/.config/hypr/UserConfigs/UserDefaults.lua"
 READER="$HOME/.config/hypr/scripts/read_lua_defaults.py"
 
 read_default() {
