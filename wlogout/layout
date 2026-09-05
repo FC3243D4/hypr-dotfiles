@@ -18,7 +18,7 @@
 }
 {
     "label" : "logout",
-    "action": "$HOME/.config/hypr/scripts/wlogout-logout.sh",
+    "action": "$HOME/.config/hypr/scripts/WlogoutLogout.sh",
     "text" : "Logout",
     "keybind" : "e"
 }

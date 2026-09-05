@@ -48,7 +48,7 @@
 "custom/settings": {
 	"format": " ",
 	"on-click": "com.ml4w.hyprlandsettings",
-	"on-click-right": "$HOME/.config/hypr/scripts/Kool_Quick_Settings.sh",
+	"on-click-right": "$HOME/.config/hypr/scripts/KoolQuickSettings.sh",
 	"tooltip": true,
 	"tooltip-format": "Left Click: ML4W Hyprland Settings\nRight Click: Launch KooL Hyprland Settings Menu",
 },
@@ -195,7 +195,7 @@
 	"interval": 3600, // (Arch Linux will try to check 1 hrs interval only
 	"signal": 8,
 	//"on-click": "$HOME/.config/hypr/scripts/Distro_update.sh",
-	"on-click": "kitty -T update bash -c $HOME/.config/hypr/scripts/update-and-fix.sh",
+	"on-click": "kitty -T update bash -c $HOME/.config/hypr/scripts/UpdateAndFix.sh",
 	"tooltip": true,
 	"tooltip-format": "Left Click\nUpdate System with topgrade",
 },
@@ -287,45 +287,45 @@
 
 "custom/cpu#usage": {
 	"format": "{:>2}% 󰍛 ",
-	"exec": "~/.config/hypr/scripts/cpu-info.sh usage",
+	"exec": "~/.config/hypr/scripts/CpuInfo.sh usage",
 	"interval": 1,
 	"min-length": 5
 },
 
 "custom/cpu#temp": {
 	"interval": 1,
-	"exec": "~/.config/hypr/scripts/cpu-info.sh temp",
+	"exec": "~/.config/hypr/scripts/CpuInfo.sh temp",
 	"format": "{:>2}°C 󰈸"
 },
 
 "custom/cpu#frequency": {
 	"format": "{:>4}GHz 󰾆",
-    "exec": "~/.config/hypr/scripts/cpu-info.sh freq-ghz",
+    "exec": "~/.config/hypr/scripts/CpuInfo.sh freq-ghz",
     "interval": 1
 },
 
 "custom/gpu#usage": {
     "format": "{:>2}% 󰾲 ",
-    "exec": "~/.config/hypr/scripts/gpu-info.sh usage",
+    "exec": "~/.config/hypr/scripts/GpuInfo.sh usage",
     "interval": 1,
     "on-click-right": "rocm-smi"
 },
 
 "custom/gpu#temp": {
     "format": "{:>2}°C 󰾲",
-    "exec": "~/.config/hypr/scripts/gpu-info.sh temp",
+    "exec": "~/.config/hypr/scripts/GpuInfo.sh temp",
     "interval": 1
 },
 
 "custom/gpu#memory": {
     "format": "{:>2}% ",
-    "exec": "~/.config/hypr/scripts/gpu-info.sh memory",
+    "exec": "~/.config/hypr/scripts/GpuInfo.sh memory",
     "interval": 1
 },
 
 "custom/gpu#frequency": {
     "format": "{:>4}MHz 󰾆",
-    "exec": "~/.config/hypr/scripts/gpu-info.sh freq",
+    "exec": "~/.config/hypr/scripts/GpuInfo.sh freq",
     "interval": 1
 },
 
@@ -338,13 +338,13 @@
 },
 
 "custom/keylocks#numlock": {
-    "exec": "/home/fc3243d4/.config/hypr/scripts/numlock_status.sh",
+    "exec": "/home/fc3243d4/.config/hypr/scripts/NumlockStatus.sh",
     "interval": 0.5,
     "format": "{}",
 },
 
 "custom/keylocks#capslock": {
-    "exec": "/home/fc3243d4/.config/hypr/scripts/capslock_status.sh",
+    "exec": "/home/fc3243d4/.config/hypr/scripts/CapslockStatus.sh",
     "interval": 0.5,
     "format": "{}",
 },

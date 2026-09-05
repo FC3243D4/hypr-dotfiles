@@ -82,13 +82,13 @@ main() {
 
         # ── Tool launchers ────────────────────────────────────────────────────
         "Choose Kitty Terminal Theme")
-            "$scriptsDir/Kitty_themes.sh"; return ;;
+            "$scriptsDir/KittyThemes.sh"; return ;;
         "Configure Monitors (nwg-displays)"|"Configure Workspace Rules (nwg-displays)")
             command -v nwg-displays &>/dev/null || { notify-send -i "$iDIR/error.svg" "E-R-R-O-R" "Install nwg-displays first"; exit 1; }
             nwg-displays; return ;;
         "Choose Hyprland Animations") "$scriptsDir/Animations.sh";       return ;;
         "Choose Monitor Profiles")    "$scriptsDir/MonitorProfiles.sh";   return ;;
-        "Choose Rofi Themes")         "$scriptsDir/RofiThemeSelector.sh"; return ;;
+        "Choose Rofi Themes")         "$scriptsDir/RofiThemeSelectorModified.sh"; return ;;
         "Search for Keybinds")        "$scriptsDir/KeyBinds.sh";          return ;;
         "Toggle Game Mode")           "$scriptsDir/GameMode.sh";          return ;;
         *) return ;;

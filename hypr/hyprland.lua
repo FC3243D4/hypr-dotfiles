@@ -17,8 +17,8 @@ require("configs/Keybinds") -- Pre-configured keybinds
 require("UserConfigs/UserKeybinds") -- Put your own keybinds here
 
 -- Load defaults, then user additions/overrides
-require("configs/Startup_Apps") -- Pre-configured startup applications
-require("UserConfigs/Startup_Apps") -- User-defined startup applications
+require("configs/StartupApps") -- Pre-configured startup applications
+require("UserConfigs/StartupApps") -- User-defined startup applications
 
 require("configs/ENVariables") -- Environment variables (defaults)
 require("UserConfigs/ENVariables") -- Environment variables (user)
@@ -52,5 +52,5 @@ require("workspaces") -- User-defined workspace settings
 
 -- hypr-dynamic-cursors
 if hl.plugin.dynamic_cursors then 
-    require("hypr-dynamic-cursor")
+    require("configs/HyprDynamicCursor")
 end

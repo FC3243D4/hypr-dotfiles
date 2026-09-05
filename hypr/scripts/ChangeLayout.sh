@@ -10,7 +10,6 @@ case $LAYOUT in
 "master")
     hyprctl eval 'hl.config({ general = { layout = "dwindle" } })'
     # SUPER+O togglesplit only makes sense in dwindle; add it at runtime via Lua eval
-    # SUPER+J/K are global and managed by KeybindsLayoutInit.sh
     hyprctl eval 'hl.bind("SUPER + O", hl.dsp.layout("togglesplit"), { description = "Toggle split (Dwindle)" })'
     notify-send -e -u low -i "$notif" " Dwindle Layout"
     ;;

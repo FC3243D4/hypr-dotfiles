@@ -66,7 +66,7 @@ hl.bind(mainMod .. " + CTRL + SPACE",   hl.dsp.exec_cmd(scriptsDir .. "/SwitchKe
 ---- SETTINGS ----
 ------------------
 hl.bind(mainMod .. " + ALT + O",            hl.dsp.exec_cmd(scriptsDir .. "/ChangeBlur.sh"),                                                    { description = "toggle blur" })
-hl.bind(mainMod .. " + CTRL + ALT + R",     hl.dsp.exec_cmd("pkill rofi || true && " .. scriptsDir .. "/RofiThemeSelector-modified.sh"),        { description = "rofi theme selector " })
+hl.bind(mainMod .. " + CTRL + ALT + R",     hl.dsp.exec_cmd("pkill rofi || true && " .. scriptsDir .. "/RofiThemeSelectorModified.sh"),        { description = "rofi theme selector " })
 hl.bind(mainMod .. " + CTRL + A",           hl.dsp.exec_cmd(scriptsDir .. "/Animations.sh"),                                                    { description = "animations menu" })
 
 ------------------------------
@@ -207,7 +207,7 @@ hl.bind(mainMod .. " + CTRL + ALT + SHIFT + Tab",       hl.dsp.group.prev(),    
 ----------------------------------
 hl.bind(mainMod .. " + O",                  hl.dsp.window.set_prop({ prop = "opaque", value = "toggle" }),              { description = "toggle active window opacity" })
 hl.bind(mainMod .. " + SHIFT + Q",          hl.dsp.exec_cmd(scriptsDir .. "/KillActiveProcess.sh"),                     { description = "terminate active process" })
-hl.bind(mainMod .. " + CTRL + Escape",      hl.dsp.exec_cmd(scriptsDir .. "/Kool_Quick_Settings.sh"),                   { description = "quick settings menu" })
+hl.bind(mainMod .. " + CTRL + Escape",      hl.dsp.exec_cmd(scriptsDir .. "/KoolQuickSettings.sh"),                   { description = "quick settings menu" })
 
 -----------------
 ---- LAYOUTS ----
