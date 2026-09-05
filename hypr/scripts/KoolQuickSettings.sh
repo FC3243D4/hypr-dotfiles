@@ -2,7 +2,7 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Rofi menu for KooL Hyprland Quick Settings (SUPER SHIFT E)
 
-defaultsLua="$HOME/.config/hypr/userConfigs/UserDefaults.lua"
+defaultsLua="$HOME/.config/hypr/UserConfigs/UserDefaults.lua"
 reader="$HOME/.config/hypr/scripts/read_lua_defaults.py"
 
 read_default() {
