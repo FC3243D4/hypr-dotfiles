@@ -8,7 +8,7 @@
 #   [templates.spotify]
 #   input_path = 'path/to/spicetify-color-template.ini'
 #   output_path = '~/.config/spicetify/Themes/Sleek/color.ini'
-#   post_hook = '~/.config/WallpaperChanger/themeRefresherSupportScripts/appPatchers/spicetifyPostHook.sh'
+#   post_hook = '~/.config/WallpaperChanger/ThemeRefresherSupportScripts/appPatchers/spicetifyPostHook.sh'
 #
 # Always exits 0 when Spotify/spicetify aren't usable (a skip, not a
 # failure) so matugen doesn't log/treat it as a broken hook.

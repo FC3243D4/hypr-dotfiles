@@ -65,7 +65,7 @@ The repo includes a `.desktop` file to autostart the awww daemon under a **KDE P
 
 ## Icons
 
-`iconPatcher.sh` and the per-app patcher scripts (`vscodePatcher.sh`, `discordPatcher.sh`, `ferdiumIconPatcher.sh`, `spicetifyPostHook.sh`, browser patchers, etc.) recolor a shared set of monochrome SVG icons to match the matugen-derived accent color, then push the result out to each app's icon lookup path. Icons are recolored via their `currentColor` stroke/fill (or, for a handful of flat-hex legacy icons, a direct hex substitution), then dropped into place per app — a local `file://` icon override for Ferdium's recipes, the app's own resource directory for VS Code, and so on.
+`IconPatcher.sh` and the per-app patcher scripts (`VscodePatcher.sh`, `DiscordPatcher.sh`, `FerdiumIconPatcher.sh`, `SpicetifyPostHook.sh`, browser patchers, etc.) recolor a shared set of monochrome SVG icons to match the matugen-derived accent color, then push the result out to each app's icon lookup path. Icons are recolored via their `currentColor` stroke/fill (or, for a handful of flat-hex legacy icons, a direct hex substitution), then dropped into place per app — a local `file://` icon override for Ferdium's recipes, the app's own resource directory for VS Code, and so on.
 
 The icon set itself lives in the [Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) repo (installed alongside this one — see step 12 above), not in this repo. It's a mix of [Tabler Icons](https://tabler.io/icons) (MIT licensed) for general/category icons and custom icons for specific app/game overrides. See that repo for the icon files and license details.
 

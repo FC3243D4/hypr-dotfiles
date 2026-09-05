@@ -87,9 +87,9 @@ hl.bind(mainMod .. " + SHIFT + ALT + W",        hl.dsp.exec_cmd(WallpapersScript
 ------------------------------
 ---- THEMING / REFRESHING ----
 ------------------------------
-hl.bind(mainMod .. " + R",              hl.dsp.exec_cmd(WallpapersScripts .."/themeRefresher.sh --full"),           { description = "Refresh Bar, Menus and Apps" })
-hl.bind(mainMod .. " + CTRL + R",       hl.dsp.exec_cmd(WallpapersScripts .."/themeRefresher.sh --softrun"),        { description = "Refresh Bar, Menus and Apps without restarting them" })
-hl.bind(mainMod .. " + ALT + R",        hl.dsp.exec_cmd(WallpapersScripts .."/themeRefresher.sh --rgb"),            { description = "Refreshes RGB led" })
+hl.bind(mainMod .. " + R",              hl.dsp.exec_cmd(WallpapersScripts .."/ThemeRefresher.sh --full"),           { description = "Refresh Bar, Menus and Apps" })
+hl.bind(mainMod .. " + CTRL + R",       hl.dsp.exec_cmd(WallpapersScripts .."/ThemeRefresher.sh --softrun"),        { description = "Refresh Bar, Menus and Apps without restarting them" })
+hl.bind(mainMod .. " + ALT + R",        hl.dsp.exec_cmd(WallpapersScripts .."/ThemeRefresher.sh --rgb"),            { description = "Refreshes RGB led" })
 
 ---------------------
 ---- SCREENSHOTS ----
