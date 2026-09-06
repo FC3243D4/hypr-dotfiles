@@ -13,8 +13,8 @@ fi
 # 0..7 → ▁▂▃▄▅▆▇█
 bar="▁▂▃▄▅▆▇█"
 dict="s/;//g"
-bar_length=${#bar}
-for ((i = 0; i < bar_length; i++)); do
+barLength=${#bar}
+for ((i = 0; i < barLength; i++)); do
   dict+=";s/$i/${bar:$i:1}/g"
 done
 
@@ -31,11 +31,11 @@ fi
 printf '%d' $$ >"$pidfile"
 
 # Unique temp config + cleanup on exit
-config_file="$(mktemp "$RUNTIME_DIR/waybar-cava.XXXXXX.conf")"
-cleanup() { rm -f "$config_file" "$pidfile"; }
+configFiles="$(mktemp "$RUNTIME_DIR/waybar-cava.XXXXXX.conf")"
+cleanup() { rm -f "$configFiles" "$pidfile"; }
 trap cleanup EXIT INT TERM
 
-cat >"$config_file" <<EOF
+cat >"$configFiles" <<EOF
 [general]
 framerate = 30
 bars = 100
@@ -52,4 +52,4 @@ ascii_max_range = 7
 EOF
 
 # Stream cava output and translate digits 0..7 to bar glyphs
-exec cava -p "$config_file" | sed -u "$dict"
+exec cava -p "$configFiles" | sed -u "$dict"

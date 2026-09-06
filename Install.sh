@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# install.sh
+# Install.sh
 # Entry point for installing hypr-dotfiles. Runs dependency checks/installation,
 # then syncs configs into place.
 #
-# Usage: ./install.sh
+# Usage: ./Install.sh
 
 set -uo pipefail
 
@@ -21,7 +21,7 @@ fi
 # ─── Dependency check ─────────────────────────────────────────────────────────
 
 echo "=== Dependency check ==="
-source "$SUPPORT/dependency_check.sh"
+source "$SUPPORT/DependencyCheck.sh"
 if [ $? -ne 0 ]; then
     echo "Dependency check failed. Aborting install."
     exit 1
@@ -127,13 +127,13 @@ echo ""
 
 # ─── Hyprland user preferences (primary display, workspaces, layout) ──────────
 # Detects the primary display and asks for a couple of layout preferences,
-# writing them into 01-UserDefaults.lua via hl.env(...). Moved here (out of
+# writing them into UserDefaults.lua via hl.env(...). Moved here (out of
 # Wallpaper-changer's own install-Linux.sh) since none of this is
 # wallpaper-specific — it's general dotfiles configuration.
 
 echo "=== Configuring Hyprland user preferences ==="
 
-USERDEFAULTS_LUA="$CONFIG_HOME/hypr/UserConfigs/01-UserDefaults.lua"
+USERDEFAULTS_LUA="$CONFIG_HOME/hypr/UserConfigs/UserDefaults.lua"
 STARTUPAPPS_LUA="$CONFIG_HOME/hypr/configs/Startup_Apps.lua"
 
 _ensure_hl_env() {
@@ -663,7 +663,7 @@ echo ""
 
 # ─── Millennium add-ons (Material theme + Extendium plugin) ───────────────────
 # Millennium itself is installed as a regular dependency via
-# dependency_check.sh/pkg_manager.sh (see the "millennium" entry there). This
+# DependencyCheck.sh/PkgManager.sh (see the "millennium" entry there). This
 # section only drops the actual theme/plugin content in place, by cloning
 # (or updating) each repo directly into Millennium's own content folders —
 # per its documented Linux file system layout:

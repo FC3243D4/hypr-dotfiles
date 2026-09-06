@@ -6,9 +6,6 @@ hl.on("hyprland.start", function()
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP",
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP",
 
-        -- Init scripts
-        "scripts/KeybindsLayoutInit.sh",
-
         -- Drop-down terminal
         -- See Bug#810 https://github.com/JaKooLit/Hyprland-Dots/issues/810#issuecomment-3351947644
         os.getenv("HOME") .. "/.config/hypr/scripts/Dropterminal.sh kitty &",
@@ -33,7 +30,7 @@ hl.on("hyprland.start", function()
         "hypridle",
 
         -- Disabled extras:
-        -- "scripts/Polkit-NixOS.sh",   -- Gnome polkit for NixOS
+        -- "scripts/PolkitNixOS.sh",    -- Gnome polkit for NixOS
         -- "scripts/PortalHyprland.sh", -- force-start xdg-desktop-portal-hyprland
 
         --reload hyprland to enable plugins
@@ -44,14 +41,17 @@ hl.on("hyprland.start", function()
         "systemctl --user import-environment PRIMARY_DISPLAY && dbus-update-activation-environment --systemd PRIMARY_DISPLAY",
 
         -- for dolphin apps menu
-        "$HOME/.config/hypr/scripts/login-kde-apps.sh",
+        "$HOME/.config/hypr/scripts/LoginKdeApps.sh",
 
         --wallpaper stuff
         "awww-daemon",
         "sh -c 'sleep 2 && $HOME/.config/WallpaperChanger/WallpaperApplicator.sh random'", --select random wallpaper on startup, delay to ensure symlink update is done
 
         --kded6 watcher
-        "$HOME/.config/hypr/scripts/kded6-fix.sh",
+        "$HOME/.config/hypr/scripts/Kded6Fix.sh",
+
+        --steam launch with tray refresh
+        os.getenv("HOME") .. "/.config/hypr/scripts/SteamRefreshTray.sh &",
 
         --setting primary display
         --"xrandr --output X --primary",

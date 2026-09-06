@@ -5,9 +5,9 @@
 notif="$HOME/.config/swaync/images/ja.png"
 
 # Check if any wireless device is blocked
-wifi_blocked=$(rfkill list wifi | grep -o "Soft blocked: yes")
+wifiBlocked=$(rfkill list wifi | grep -o "Soft blocked: yes")
 
-if [ -n "$wifi_blocked" ]; then
+if [ -n "$wifiBlocked" ]; then
     rfkill unblock wifi
     notify-send -u low -i "$notif" " Airplane" " mode: OFF"
 else

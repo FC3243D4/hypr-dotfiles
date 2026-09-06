@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 
-# GDK BACKEND. Change to either wayland or x11 if having issues
-BACKEND=wayland
+# GDK backend. Change to either wayland or x11 if having issues
+backend=wayland
 
 # Check if rofi or yad is running and kill them if they are
 if pidof rofi > /dev/null; then
@@ -14,17 +14,17 @@ if pidof yad > /dev/null; then
 fi
 
 # Launch yad with calculated width and height
-# NOTE: under Wayland (GDK_BACKEND=wayland) yad's window autosize routine
+# NOTE: under Wayland (GdkBackend=wayland) yad's window autosize routine
 # doesn't reliably measure the --list content, so it can collapse to a
 # tiny sliver. Force an explicit size instead of relying on autosize.
-WIDTH=1000
-HEIGHT=750
+width=1000
+height=750
 
-GDK_BACKEND=$BACKEND yad \
+GdkBackend=$backend yad \
     --center \
     --title="KooL Quick Cheat Sheet" \
-    --width="$WIDTH" \
-    --height="$HEIGHT" \
+    --width="$width" \
+    --height="$height" \
     --no-buttons \
     --list \
     --column=Key: \

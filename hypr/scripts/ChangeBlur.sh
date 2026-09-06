@@ -2,16 +2,16 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Script for changing blurs on the fly
 
-iDIR="$HOME/.config/swaync/icons"
+iconsDir="$HOME/.config/swaync/icons"
 
-STATE=$(hyprctl -j getoption decoration:blur:passes | jq ".int")
+state=$(hyprctl -j getoption decoration:blur:passes | jq ".int")
 
-if [ "${STATE}" == "2" ]; then
+if [ "${state}" == "2" ]; then
 	hyprctl keyword decoration:blur:size 2
 	hyprctl keyword decoration:blur:passes 1
- 	notify-send -e -u low -i "$iDIR/note.svg" " Less Blur"
+ 	notify-send -e -u low -i "$iconsDir/note.svg" " Less Blur"
 else
 	hyprctl keyword decoration:blur:size 5
 	hyprctl keyword decoration:blur:passes 2
-  	notify-send -e -u low -i "$iDIR/ok.svg" " Normal Blur"
+  	notify-send -e -u low -i "$iconsDir/ok.svg" " Normal Blur"
 fi

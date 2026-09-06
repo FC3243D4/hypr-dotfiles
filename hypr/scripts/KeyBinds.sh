@@ -10,45 +10,45 @@ if pidof rofi > /dev/null; then
 fi
 
 # Paths
-HYPR_DIR="$HOME/.config/hypr"
-SCRIPTS_DIR="$HYPR_DIR/scripts"
-PARSER="$SCRIPTS_DIR/keybinds_parser.py"
-rofi_theme="$HOME/.config/rofi/config-keybinds.rasi"
+hyprDirectory="$HOME/.config/hypr"
+scriptsDirectory="$hyprDirectory/scripts"
+parser="$scriptsDirectory/keybinds_parser.py"
+rofiTheme="$HOME/.config/rofi/config-keybinds.rasi"
 msg='☣️ NOTE ☣️: Clicking with Mouse or Pressing ENTER will have NO function'
 
 # Config files to parse (order matters: last file = user overrides)
-keybinds_lua="$HYPR_DIR/configs/Keybinds.lua"
-user_keybinds_lua="$HYPR_DIR/UserConfigs/UserKeybinds.lua"
-laptop_lua="$HYPR_DIR/UserConfigs/Laptops.lua"
+keybindsLua="$hyprDirectory/configs/Keybinds.lua"
+userKeybindsLua="$hyprDirectory/UserConfigs/UserKeybinds.lua"
+laptopLua="$hyprDirectory/UserConfigs/Laptops.lua"
 
-files=("$keybinds_lua" "$user_keybinds_lua")
-[[ -f "$laptop_lua" ]] && files+=("$laptop_lua")
+files=("$keybindsLua" "$userKeybindsLua")
+[[ -f "$laptopLua" ]] && files+=("$laptopLua")
 
 # Verify parser exists
-if [[ ! -f "$PARSER" ]]; then
-    notify-send -u critical "KeyBinds.sh" "keybinds_parser.py not found at $PARSER"
+if [[ ! -f "$parser" ]]; then
+    notify-send -u critical "KeyBinds.sh" "keybinds_parser.py not found at $parser"
     exit 1
 fi
 
 # Run parser — stdout = formatted keybind lines for rofi
-display_keybinds=$(python3 "$PARSER" "${files[@]}")
+displayKeybinds=$(python3 "$parser" "${files[@]}")
 
-if [[ -z "$display_keybinds" || "$display_keybinds" == "no keybinds found." ]]; then
+if [[ -z "$displayKeybinds" || "$displayKeybinds" == "no keybinds found." ]]; then
     notify-send -u normal "KeyBinds" "No keybinds found. Check your Lua config files."
     exit 1
 fi
 
 # Append missing-unbind suggestions count to rofi message if any were found
-suggestions_path_file="/tmp/hypr_keybind_suggestions_file"
-if [[ -f "$suggestions_path_file" ]]; then
-    suggestions_file="$(cat "$suggestions_path_file")"
-    if [[ -f "$suggestions_file" ]]; then
-        count=$(grep -c 'hl.unbind' "$suggestions_file" 2>/dev/null || echo 0)
+suggestionsPathFile="/tmp/hypr_keybind_suggestions_file"
+if [[ -f "$suggestionsPathFile" ]]; then
+    suggestionsFile="$(cat "$suggestionsPathFile")"
+    if [[ -f "$suggestionsFile" ]]; then
+        count=$(grep -c 'hl.unbind' "$suggestionsFile" 2>/dev/null || echo 0)
         if (( count > 0 )); then
-            msg="$msg | ⚠ $count override(s) missing hl.unbind() — see $suggestions_file"
+            msg="$msg | ⚠ $count override(s) missing hl.unbind() — see $suggestionsFile"
         fi
     fi
 fi
 
 # Display in rofi
-printf '%s\n' "$display_keybinds" | rofi -dmenu -i -config "$rofi_theme" -mesg "$msg"
+printf '%s\n' "$displayKeybinds" | rofi -dmenu -i -config "$rofiTheme" -mesg "$msg"

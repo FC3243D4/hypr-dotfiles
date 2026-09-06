@@ -24,7 +24,7 @@ local wsKeyCodes = {
 ---------------------------------------------------------------------------------------------------
 ---- settings for User defaults apps - set your default terminal and file manager on this file ----
 ---------------------------------------------------------------------------------------------------
-require("UserConfigs/01-UserDefaults") -- Set your defaults editor through ENV in ~/.config/hypr/UserConfigs/01-UserDefaults.lua
+require("UserConfigs/UserDefaults") -- Set your defaults editor through ENV in ~/.config/hypr/UserConfigs/UserDefaults.lua
 
 -----------------------
 ---- STANDARD APPS ----
@@ -66,7 +66,7 @@ hl.bind(mainMod .. " + CTRL + SPACE",   hl.dsp.exec_cmd(scriptsDir .. "/SwitchKe
 ---- SETTINGS ----
 ------------------
 hl.bind(mainMod .. " + ALT + O",            hl.dsp.exec_cmd(scriptsDir .. "/ChangeBlur.sh"),                                                    { description = "toggle blur" })
-hl.bind(mainMod .. " + CTRL + ALT + R",     hl.dsp.exec_cmd("pkill rofi || true && " .. scriptsDir .. "/RofiThemeSelector-modified.sh"),        { description = "rofi theme selector " })
+hl.bind(mainMod .. " + CTRL + ALT + R",     hl.dsp.exec_cmd("pkill rofi || true && " .. scriptsDir .. "/RofiThemeSelectorModified.sh"),        { description = "rofi theme selector " })
 hl.bind(mainMod .. " + CTRL + A",           hl.dsp.exec_cmd(scriptsDir .. "/Animations.sh"),                                                    { description = "animations menu" })
 
 ------------------------------
@@ -87,9 +87,9 @@ hl.bind(mainMod .. " + SHIFT + ALT + W",        hl.dsp.exec_cmd(WallpapersScript
 ------------------------------
 ---- THEMING / REFRESHING ----
 ------------------------------
-hl.bind(mainMod .. " + R",              hl.dsp.exec_cmd(WallpapersScripts .."/themeRefresher.sh --full"),           { description = "Refresh Bar, Menus and Apps" })
-hl.bind(mainMod .. " + CTRL + R",       hl.dsp.exec_cmd(WallpapersScripts .."/themeRefresher.sh --softrun"),        { description = "Refresh Bar, Menus and Apps without restarting them" })
-hl.bind(mainMod .. " + ALT + R",        hl.dsp.exec_cmd(WallpapersScripts .."/themeRefresher.sh --rgb"),            { description = "Refreshes RGB led" })
+hl.bind(mainMod .. " + R",              hl.dsp.exec_cmd(WallpapersScripts .."/ThemeRefresher.sh --full"),           { description = "Refresh Bar, Menus and Apps" })
+hl.bind(mainMod .. " + CTRL + R",       hl.dsp.exec_cmd(WallpapersScripts .."/ThemeRefresher.sh --softrun"),        { description = "Refresh Bar, Menus and Apps without restarting them" })
+hl.bind(mainMod .. " + ALT + R",        hl.dsp.exec_cmd(WallpapersScripts .."/ThemeRefresher.sh --rgb"),            { description = "Refreshes RGB led" })
 
 ---------------------
 ---- SCREENSHOTS ----
@@ -207,7 +207,7 @@ hl.bind(mainMod .. " + CTRL + ALT + SHIFT + Tab",       hl.dsp.group.prev(),    
 ----------------------------------
 hl.bind(mainMod .. " + O",                  hl.dsp.window.set_prop({ prop = "opaque", value = "toggle" }),              { description = "toggle active window opacity" })
 hl.bind(mainMod .. " + SHIFT + Q",          hl.dsp.exec_cmd(scriptsDir .. "/KillActiveProcess.sh"),                     { description = "terminate active process" })
-hl.bind(mainMod .. " + CTRL + Escape",      hl.dsp.exec_cmd(scriptsDir .. "/Kool_Quick_Settings.sh"),                   { description = "quick settings menu" })
+hl.bind(mainMod .. " + CTRL + Escape",      hl.dsp.exec_cmd(scriptsDir .. "/KoolQuickSettings.sh"),                   { description = "quick settings menu" })
 
 -----------------
 ---- LAYOUTS ----

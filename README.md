@@ -11,8 +11,8 @@ Hyprland dotfiles for a hybrid KDE Plasma / Hyprland setup, dual-booted alongsid
 - **wlogout** config (`wlogout/`)
 - **matugen** config and templates (`matugen/`) — generates the accent-color theming from your wallpaper and pushes it out to Waybar, Hyprland, Kitty, Rofi, GTK, KDE color schemes, Spicetify, Vesktop (Midnight Discord), VS Code, and a few other per-app patchers
 - **Icon patchers** — recolor the icon set (a mix of Tabler Icons and custom icons) shipped in the [Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) repo to match the current accent color and push them out per-app (VS Code, Ferdium service recipes, browsers, Discord, etc.) — see [Icons](#icons) below
-- `install.sh` — dependency check + install, config sync, GPU-aware env toggling, Hyprland/Waybar preferences, monitor setup, cursor theme build, Spicetify/Vesktop theming setup, and companion tool installation
-- `installSupportScripts/` — package-manager abstraction (`pkg_manager.sh`) and dependency checking (`dependency_check.sh`) used by `install.sh`
+- `Install.sh` — dependency check + install, config sync, GPU-aware env toggling, Hyprland/Waybar preferences, monitor setup, cursor theme build, Spicetify/Vesktop theming setup, and companion tool installation
+- `installSupportScripts/` — package-manager abstraction (`PkgManager.sh`) and dependency checking (`DependencyCheck.sh`) used by `Install.sh`
 
 ## Credit
 
@@ -26,23 +26,23 @@ Most of the matugen templates themselves (Waybar, Hyprland/hyprlock, Kitty, Rofi
 - `git`
 - `sudo` access (the installer installs system packages)
 
-Everything else is checked and installed automatically by `install.sh`. See [Dependencies](#dependencies) below for the full list and what each one is for.
+Everything else is checked and installed automatically by `Install.sh`. See [Dependencies](#dependencies) below for the full list and what each one is for.
 
 ## Installation
 
 ```sh
 git clone https://github.com/FC3243D4/hypr-dotfiles
 cd hypr-dotfiles
-chmod +x install.sh
-./install.sh
+chmod +x Install.sh
+./Install.sh
 ```
 
-`install.sh` runs through the following steps, in order:
+`Install.sh` runs through the following steps, in order:
 
 1. **Dependency check** — detects your package manager (`pacman`, `apt`, `dnf`, or `zypper`) and installs anything missing. `openrgb` is checked but optional — you'll get a warning, not a failure, if it's absent.
 2. **Config sync** — `rsync`'s `hypr/`, `matugen/`, `rofi/`, `waybar/`, `swaync/`, and `wlogout/` into `~/.config/`. This is additive (no `--delete`), so nothing you've added locally to those folders gets removed on a re-run. Anything already present at those paths that wasn't put there by this script gets backed up once, to `<name>.bak`, before the first sync.
 3. **GPU env toggle** — detects whether an NVIDIA GPU is present via `lspci` and comments/uncomments the NVIDIA block in `~/.config/hypr/ENVariables.lua` accordingly. Idempotent — safe to re-run on the same or different hardware.
-4. **Hyprland user preferences** — interactively sets a handful of `hl.env(...)` values in `01-UserDefaults.lua`: your primary display (picked from every output `xrandr` reports as connected), number of persistent workspaces, default Hyprland layout (`master`/`dwindle`/`scrolling`), and default editor (detected from whatever's actually installed among `nano`/`vim`/`nvim`/`code`/`micro`/`emacs`/`hx`/`kate`/`gedit`, defaulting to `nano`).
+4. **Hyprland user preferences** — interactively sets a handful of `hl.env(...)` values in `UserDefaults.lua`: your primary display (picked from every output `xrandr` reports as connected), number of persistent workspaces, default Hyprland layout (`master`/`dwindle`/`scrolling`), and default editor (detected from whatever's actually installed among `nano`/`vim`/`nvim`/`code`/`micro`/`emacs`/`hx`/`kate`/`gedit`, defaulting to `nano`).
 5. **Waybar layout selection** — lets you choose between three Waybar layouts (desktop, laptop, or desktop-primary-display-only) by repointing the `config` symlink in `~/.config/waybar/`.
 6. **Waybar systemd service** — installs a user systemd unit so Waybar restarts on crash instead of relying on Hyprland's `exec-once`, and adds a KDE autostart entry to stop it when logging into Plasma instead.
 7. **Monitor config** — if you're in an active Hyprland session, launches `nwg-displays` so you can arrange your outputs and generate `~/.config/hypr/monitors.conf` and `workspaces.conf`. If you run the installer from KDE (or before your first Hyprland login), this step is skipped with instructions to run it manually later — `nwg-displays` only supports sway/Hyprland/Niri and can't run under Plasma.
@@ -53,11 +53,11 @@ chmod +x install.sh
 12. **Wallpaper-changer** — clones (or updates) [FC3243D4/Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) as a sibling directory next to this repo and runs its own installer.
 13. **KDE autostart entry for awww-daemon** — adds the `.desktop` file so the wallpaper daemon starts under a KDE Plasma session (see [Wallpapers](#wallpapers-awww) below for the desktop-icon caveat).
 
-Re-running `install.sh` is safe — it'll pick up dependency and config changes without clobbering local edits or reinstalling things that are already present.
+Re-running `Install.sh` is safe — it'll pick up dependency and config changes without clobbering local edits or reinstalling things that are already present.
 
 ## Wallpapers (awww)
 
-Wallpapers are set and managed via [awww](https://codeberg.org/LGFae/awww), driven by the [Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) scripts that `install.sh` clones and installs alongside this repo. matugen reads the active wallpaper to generate the accent-color theme, so awww is the thing actually driving the whole theming pipeline, not just wallpaper display.
+Wallpapers are set and managed via [awww](https://codeberg.org/LGFae/awww), driven by the [Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) scripts that `Install.sh` clones and installs alongside this repo. matugen reads the active wallpaper to generate the accent-color theme, so awww is the thing actually driving the whole theming pipeline, not just wallpaper display.
 
 The repo includes a `.desktop` file to autostart the awww daemon under a **KDE Plasma** session, since Plasma doesn't pick up Hyprland's own `exec-once` autostart mechanism.
 
@@ -65,7 +65,7 @@ The repo includes a `.desktop` file to autostart the awww daemon under a **KDE P
 
 ## Icons
 
-`iconPatcher.sh` and the per-app patcher scripts (`vscodePatcher.sh`, `discordPatcher.sh`, `ferdiumIconPatcher.sh`, `spicetifyPostHook.sh`, browser patchers, etc.) recolor a shared set of monochrome SVG icons to match the matugen-derived accent color, then push the result out to each app's icon lookup path. Icons are recolored via their `currentColor` stroke/fill (or, for a handful of flat-hex legacy icons, a direct hex substitution), then dropped into place per app — a local `file://` icon override for Ferdium's recipes, the app's own resource directory for VS Code, and so on.
+`IconPatcher.sh` and the per-app patcher scripts (`VscodePatcher.sh`, `DiscordPatcher.sh`, `FerdiumIconPatcher.sh`, `SpicetifyPostHook.sh`, browser patchers, etc.) recolor a shared set of monochrome SVG icons to match the matugen-derived accent color, then push the result out to each app's icon lookup path. Icons are recolored via their `currentColor` stroke/fill (or, for a handful of flat-hex legacy icons, a direct hex substitution), then dropped into place per app — a local `file://` icon override for Ferdium's recipes, the app's own resource directory for VS Code, and so on.
 
 The icon set itself lives in the [Wallpaper-changer](https://github.com/FC3243D4/Wallpaper-changer) repo (installed alongside this one — see step 12 above), not in this repo. It's a mix of [Tabler Icons](https://tabler.io/icons) (MIT licensed) for general/category icons and custom icons for specific app/game overrides. See that repo for the icon files and license details.
 
@@ -98,7 +98,7 @@ Base set carried over from JaKooLit's Hyprland-Dots: `cliphist`, `curl`, `grim`,
 
 `cliphist` and `topgrade` are installed via `go install`/`cargo install` respectively where not natively packaged (Debian/Ubuntu for `cliphist`; everywhere except Arch's AUR and Fedora's COPR for `topgrade`, which has no official package on any of the four supported distros). `gvfs-mtp` pulls in extra companion packages on Debian/Ubuntu (`gvfs-backends`) and openSUSE (`gvfs-backend`, `mtpfs`, `mtp-tools`, `libmtp-runtime`) since MTP support is split across several packages on those distros.
 
-Package names are resolved per-distro in `installSupportScripts/pkg_manager.sh`. This is primarily developed and tested on **CachyOS (Arch-based)** — the Debian/Fedora/openSUSE mappings are provided for portability and are verified against upstream package listings, with one exception: `hyprpolkitagent`'s source-build fallback for Debian/Ubuntu (it's not packaged there) is untested and may need manual dependency installation if `build.sh` fails.
+Package names are resolved per-distro in `installSupportScripts/PkgManager.sh`. This is primarily developed and tested on **CachyOS (Arch-based)** — the Debian/Fedora/openSUSE mappings are provided for portability and are verified against upstream package listings, with one exception: `hyprpolkitagent`'s source-build fallback for Debian/Ubuntu (it's not packaged there) is untested and may need manual dependency installation if `build.sh` fails.
 
 ## Gamemode
 

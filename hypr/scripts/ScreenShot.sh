@@ -7,40 +7,40 @@ time=$(date "+%d-%b_%H-%M-%S")
 dir="$(xdg-user-dir PICTURES)/Screenshots"
 file="Screenshot_${time}_${RANDOM}.png"
 
-iDIR="$HOME/.config/swaync/icons"
-sDIR="$HOME/.config/hypr/scripts"
+iconsDir="$HOME/.config/swaync/icons"
+scriptsDir="$HOME/.config/hypr/scripts"
 
-active_window_class=$(hyprctl -j activewindow | jq -r '(.class)')
-active_window_file="Screenshot_${time}_${active_window_class}.png"
-active_window_path="${dir}/${active_window_file}"
+activeWindowClass=$(hyprctl -j activewindow | jq -r '(.class)')
+activeWindowFile="Screenshot_${time}_${activeWindowClass}.png"
+activeWindowPath="${dir}/${activeWindowFile}"
 
-notify_cmd_base="notify-send -t 10000 -A action1=Open -A action2=Delete -h string:x-canonical-private-synchronous:shot-notify"
-notify_cmd_shot="${notify_cmd_base} -i ${iDIR}/picture.svg "
-notify_cmd_shot_win="${notify_cmd_base} -i ${iDIR}/picture.svg "
-notify_cmd_NOT="notify-send -u low -i ${iDIR}/note.svg "
+notifyCmdBase="notify-send -t 10000 -A action1=Open -A action2=Delete -h string:x-canonical-private-synchronous:shot-notify"
+notifyCmdShot="${notifyCmdBase} -i ${iconsDir}/picture.svg "
+notifyCmdShot_win="${notifyCmdBase} -i ${iconsDir}/picture.svg "
+notifyCmdNot="notify-send -u low -i ${iconsDir}/note.svg "
 
 # notify and view screenshot
 notify_view() {
     if [[ "$1" == "active" ]]; then
-        if [[ -e "${active_window_path}" ]]; then
-			"${sDIR}/Sounds.sh" --screenshot        
-            resp=$(timeout 5 ${notify_cmd_shot_win} " Screenshot of:" " ${active_window_class} Saved.")
+        if [[ -e "${activeWindowPath}" ]]; then
+			"${scriptsDir}/Sounds.sh" --screenshot        
+            resp=$(timeout 5 ${notifyCmdShot_win} " Screenshot of:" " ${activeWindowClass} Saved.")
             case "$resp" in
 				action1)
-					xdg-open "${active_window_path}" &
+					xdg-open "${activeWindowPath}" &
 					;;
 				action2)
-					rm "${active_window_path}" &
+					rm "${activeWindowPath}" &
 					;;
 			esac
         else
-            ${notify_cmd_NOT} " Screenshot of:" " ${active_window_class} NOT Saved."
-            "${sDIR}/Sounds.sh" --error
+            ${notifyCmdNot} " Screenshot of:" " ${activeWindowClass} NOT Saved."
+            "${scriptsDir}/Sounds.sh" --error
         fi
 
     elif [[ "$1" == "swappy" ]]; then
-		"${sDIR}/Sounds.sh" --screenshot
-		resp=$(${notify_cmd_shot} " Screenshot:" " Captured by Swappy")
+		"${scriptsDir}/Sounds.sh" --screenshot
+		resp=$(${notifyCmdShot} " Screenshot:" " Captured by Swappy")
 		case "$resp" in
 			action1)
 				swappy -f - <"$tmpfile"
@@ -51,21 +51,21 @@ notify_view() {
 		esac
 
     else
-        local check_file="${dir}/${file}"
-        if [[ -e "$check_file" ]]; then
-            "${sDIR}/Sounds.sh" --screenshot
-            resp=$(timeout 5 ${notify_cmd_shot} " Screenshot" " Saved")
+        local checkFile="${dir}/${file}"
+        if [[ -e "$checkFile" ]]; then
+            "${scriptsDir}/Sounds.sh" --screenshot
+            resp=$(timeout 5 ${notifyCmdShot} " Screenshot" " Saved")
 			case "$resp" in
 				action1)
-					xdg-open "${check_file}" &
+					xdg-open "${checkFile}" &
 					;;
 				action2)
-					rm "${check_file}" &
+					rm "${checkFile}" &
 					;;
 			esac
         else
-            ${notify_cmd_NOT} " Screenshot" " NOT Saved"
-            "${sDIR}/Sounds.sh" --error
+            ${notifyCmdNot} " Screenshot" " NOT Saved"
+            "${scriptsDir}/Sounds.sh" --error
         fi
     fi
 }
@@ -73,7 +73,7 @@ notify_view() {
 # countdown
 countdown() {
 	for sec in $(seq $1 -1 1); do
-		notify-send -h string:x-canonical-private-synchronous:shot-notify -t 1000 -i "$iDIR"/timer.svg  " Taking shot" " in: $sec secs"
+		notify-send -h string:x-canonical-private-synchronous:shot-notify -t 1000 -i "$iconsDir"/timer.svg  " Taking shot" " in: $sec secs"
 		sleep 1
 	done
 }
@@ -99,9 +99,9 @@ shot10() {
 }
 
 shotwin() {
-	w_pos=$(hyprctl activewindow | grep 'at:' | cut -d':' -f2 | tr -d ' ' | tail -n1)
-	w_size=$(hyprctl activewindow | grep 'size:' | cut -d':' -f2 | tr -d ' ' | tail -n1 | sed s/,/x/g)
-	cd ${dir} && grim -g "$w_pos $w_size" - | tee "$file" | wl-copy
+	windowPos=$(hyprctl activewindow | grep 'at:' | cut -d':' -f2 | tr -d ' ' | tail -n1)
+	windowSize=$(hyprctl activewindow | grep 'size:' | cut -d':' -f2 | tr -d ' ' | tail -n1 | sed s/,/x/g)
+	cd ${dir} && grim -g "$windowPos $windowSize" - | tee "$file" | wl-copy
 	notify_view
 }
 
@@ -118,11 +118,11 @@ shotarea() {
 }
 
 shotactive() {
-    active_window_class=$(hyprctl -j activewindow | jq -r '(.class)')
-    active_window_file="Screenshot_${time}_${active_window_class}.png"
-    active_window_path="${dir}/${active_window_file}"
+    activeWindowClass=$(hyprctl -j activewindow | jq -r '(.class)')
+    activeWindowFile="Screenshot_${time}_${activeWindowClass}.png"
+    activeWindowPath="${dir}/${activeWindowFile}"
 
-    hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | grim -g - "${active_window_path}"
+    hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | grim -g - "${activeWindowPath}"
 	sleep 1
     notify_view "active"
 }

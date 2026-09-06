@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# spicetifyPostHook.sh
+# SpicetifyPostHook.sh
 # Wraps the spicetify "reload" post_hook so matugen's [templates.spotify]
 # entry doesn't hang/error out the whole matugen run when Spotify isn't
 # installed, or when spicetify's own stored spotify_path is stale/wrong.
@@ -8,7 +8,7 @@
 #   [templates.spotify]
 #   input_path = 'path/to/spicetify-color-template.ini'
 #   output_path = '~/.config/spicetify/Themes/Sleek/color.ini'
-#   post_hook = '~/.config/WallpaperChanger/themeRefresherSupportScripts/appPatchers/spicetifyPostHook.sh'
+#   post_hook = '~/.config/matugen/scripts/SpicetifyPostHook.sh'
 #
 # Always exits 0 when Spotify/spicetify aren't usable (a skip, not a
 # failure) so matugen doesn't log/treat it as a broken hook.
@@ -41,13 +41,13 @@ _find_spotify_path() {
 }
 
 if ! command -v spicetify &>/dev/null; then
-    echo "spicetifyPostHook: spicetify not found on PATH, skipping."
+    echo "SpicetifyPostHook: spicetify not found on PATH, skipping."
     exit 0
 fi
 
 spotify_dir="$(_find_spotify_path)"
 if [ -z "$spotify_dir" ]; then
-    echo "spicetifyPostHook: couldn't find a native Spotify install (checked PATH,"
+    echo "SpicetifyPostHook: couldn't find a native Spotify install (checked PATH,"
     echo "/opt/spotify, /usr/share/spotify, /usr/lib/spotify-client). If you're on"
     echo "Flatpak/Snap Spotify, spicetify needs manual setup for that — see"
     echo "https://spicetify.app for your install method. Skipping."
@@ -64,7 +64,7 @@ fi
 # has opened Spotify at least once.
 SPOTIFY_PREFS="$HOME/.config/spotify/prefs"
 if [ ! -f "$SPOTIFY_PREFS" ]; then
-    echo "spicetifyPostHook: Spotify is installed but has never been launched"
+    echo "SpicetifyPostHook: Spotify is installed but has never been launched"
     echo "(no $SPOTIFY_PREFS yet). Open Spotify once, then re-run to enable theming."
     exit 0
 fi
@@ -74,7 +74,7 @@ if pgrep -x spotify &>/dev/null; then
     # while Spotify is running is the actual source of the "lots of issues"
     # behavior — not just a missing-Spotify problem. Skip rather than risk a
     # half-applied patch.
-    echo "spicetifyPostHook: Spotify is currently running, skipping spicetify reload."
+    echo "SpicetifyPostHook: Spotify is currently running, skipping spicetify reload."
     echo "Close Spotify and run 'spicetify apply' manually to pick up the new colors."
     exit 0
 fi
@@ -84,11 +84,11 @@ fi
 # causing "/opt/spotify is not a valid path" — a stale/wrong stored value,
 # not merely Spotify being absent).
 if ! spicetify config spotify_path "$spotify_dir" &>/dev/null; then
-    echo "spicetifyPostHook: 'spicetify config spotify_path $spotify_dir' failed. Skipping."
+    echo "SpicetifyPostHook: 'spicetify config spotify_path $spotify_dir' failed. Skipping."
     exit 0
 fi
 if ! spicetify config prefs_path "$SPOTIFY_PREFS" &>/dev/null; then
-    echo "spicetifyPostHook: 'spicetify config prefs_path $SPOTIFY_PREFS' failed. Skipping."
+    echo "SpicetifyPostHook: 'spicetify config prefs_path $SPOTIFY_PREFS' failed. Skipping."
     exit 0
 fi
 
@@ -106,8 +106,8 @@ timeout 30 spicetify apply
 status=$?
 if [ "$status" -ne 0 ]; then
     if [ "$status" -eq 124 ]; then
-        echo "spicetifyPostHook: 'spicetify apply' timed out after 30s — skipping."
+        echo "SpicetifyPostHook: 'spicetify apply' timed out after 30s — skipping."
     else
-        echo "spicetifyPostHook: 'spicetify apply' failed (exit $status) — skipping."
+        echo "SpicetifyPostHook: 'spicetify apply' failed (exit $status) — skipping."
     fi
 fi

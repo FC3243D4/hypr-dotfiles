@@ -5,36 +5,36 @@
 IFS=$'\n\t'
 
 # Define directories
-waybar_layouts="$HOME/.config/waybar/configs"
-waybar_config="$HOME/.config/waybar/config"
-SCRIPTSDIR="$HOME/.config/hypr/scripts"
-rofi_config="$HOME/.config/rofi/config-waybar-layout.rasi"
+waybarLayouts="$HOME/.config/waybar/configs"
+waybarConfigs="$HOME/.config/waybar/config"
+scriptsDir="$HOME/.config/hypr/scripts"
+rofiConfig="$HOME/.config/rofi/config-waybar-layout.rasi"
 msg=' 🎌 NOTE: Some waybar LAYOUT NOT fully compatible with some STYLES'
 
 # Apply selected configuration
 apply_config() {
-    ln -sf "$waybar_layouts/$1" "$waybar_config"
+    ln -sf "$waybarLayouts/$1" "$waybarConfigs"
     systemctl --user restart waybar
     echo "Applied layout: $1"
 }
 
 main() {
     # Resolve current symlink target and basename
-    current_target=$(readlink -f "$waybar_config")
-    current_name=$(basename "$current_target")
+    currentTarget=$(readlink -f "$waybarConfigs")
+    currentName=$(basename "$currentTarget")
 
     # Build sorted list of available layouts
     mapfile -t options < <(
-        find -L "$waybar_layouts" -maxdepth 1 -type f -printf '%f\n' | sort
+        find -L "$waybarLayouts" -maxdepth 1 -type f -printf '%f\n' | sort
     )
 
     # Mark and locate the active layout
-    default_row=0
+    defaultRow=0
     MARKER="👉"
     for i in "${!options[@]}"; do
-        if [[ "${options[i]}" == "$current_name" ]]; then
+        if [[ "${options[i]}" == "$currentName" ]]; then
             options[i]="$MARKER ${options[i]}"
-            default_row=$i
+            defaultRow=$i
             break
         fi
     done
@@ -42,9 +42,9 @@ main() {
     # Launch rofi with the annotated list, pre‑selecting the active row
     choice=$(printf '%s\n' "${options[@]}" \
         | rofi -i -dmenu \
-               -config "$rofi_config" \
+               -config "$rofiConfig" \
                -mesg "$msg" \
-               -selected-row "$default_row"
+               -selected-row "$defaultRow"
     )
 
     # Exit if nothing chosen

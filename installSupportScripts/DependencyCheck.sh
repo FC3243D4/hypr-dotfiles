@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# dependency_check.sh
+# DependencyCheck.sh
 # Checks for required dependencies and installs any that are missing.
-# Meant to be SOURCED from install.sh (not executed) so that
+# Meant to be SOURCED from Install.sh (not executed) so that
 # UseXrandr / UseWayland are visible to the caller.
 #
 # Returns 0 on success, 1 on failure (caller should check $? and stop).
 
-source "$SUPPORT/pkg_manager.sh" || return 1
+source "$SUPPORT/PkgManager.sh" || return 1
 
 packageList=()
 
@@ -106,7 +106,7 @@ _check_deps "${cursorDeps[@]}"
 # Only checks for the spicetify CLI itself — it does NOT check for Spotify,
 # since Spotify isn't packaged consistently enough across distros/AUR/flatpak/
 # snap for a single command -v check to be reliable. See the dedicated
-# "Configure Spicetify" section in install.sh, which does its own best-effort
+# "Configure Spicetify" section in Install.sh, which does its own best-effort
 # Spotify detection before trying to apply anything.
 spicetifyDeps=(
     "command -v spicetify|spicetify-cli"
@@ -162,7 +162,8 @@ _check_deps "${hyprpmBuildDeps[@]}"
 if ! command -v hyprpm &>/dev/null; then
     echo "hyprpm not found — it ships with Hyprland itself, so this usually means"
     echo "Hyprland isn't installed yet, or your build of it omitted hyprpm."
-    echo "The dynamic-cursors plugin install step in install.sh will be skipped."
+    echo "The dynamic-cursors plugin install step in I
+nstall.sh will be skipped."
     echo ""
 fi
 

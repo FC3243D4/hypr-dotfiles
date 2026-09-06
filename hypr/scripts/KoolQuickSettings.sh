@@ -2,15 +2,15 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Rofi menu for KooL Hyprland Quick Settings (SUPER SHIFT E)
 
-DEFAULTS_LUA="$HOME/.config/hypr/UserConfigs/01-UserDefaults.lua"
-READER="$HOME/.config/hypr/scripts/read_lua_defaults.py"
+defaultsLua="$HOME/.config/hypr/UserConfigs/UserDefaults.lua"
+reader="$HOME/.config/hypr/scripts/read_lua_defaults.py"
 
 read_default() {
-    python3 "$READER" "$1" "$DEFAULTS_LUA" 2>/dev/null || true
+    python3 "$reader" "$1" "$defaultsLua" 2>/dev/null || true
 }
 
-if [[ ! -f "$DEFAULTS_LUA" ]]; then
-    notify-send -u critical "Quick Settings" "$DEFAULTS_LUA not found"
+if [[ ! -f "$defaultsLua" ]]; then
+    notify-send -u critical "Quick Settings" "$defaultsLua not found"
     exit 1
 fi
 
@@ -18,16 +18,16 @@ term=$(read_default term)
 edit=$(read_default EDITOR)
 
 if [[ -z "$term" || -z "$edit" ]]; then
-    notify-send -u critical "Quick Settings" "Could not read term/EDITOR from $DEFAULTS_LUA"
+    notify-send -u critical "Quick Settings" "Could not read term/EDITOR from $defaultsLua"
     exit 1
 fi
 
 # Variables
 configs="$HOME/.config/hypr/configs"
-UserConfigs="$HOME/.config/hypr/UserConfigs"
-rofi_theme="$HOME/.config/rofi/config-edit.rasi"
+userConfigs="$HOME/.config/hypr/UserConfigs"
+rofiTheme="$HOME/.config/rofi/config-edit.rasi"
 msg=' ⁉️ Choose what to do ⁉️'
-iDIR="$HOME/.config/swaync/icons"
+iconsDirectory="$HOME/.config/swaync/icons"
 scriptsDir="$HOME/.config/hypr/scripts"
 
 menu() {
@@ -60,19 +60,19 @@ MENU
 }
 
 main() {
-    choice=$(menu | rofi -i -dmenu -config "$rofi_theme" -mesg "$msg")
+    choice=$(menu | rofi -i -dmenu -config "$rofiTheme" -mesg "$msg")
 
     case "$choice" in
         # ── User config files ─────────────────────────────────────────────────
-        "Edit User Defaults")                  file="$UserConfigs/01-UserDefaults.lua" ;;
-        "Edit User ENV variables")             file="$UserConfigs/ENVariables.lua" ;;
-        "Edit User Keybinds")                  file="$UserConfigs/UserKeybinds.lua" ;;
-        "Edit User Startup Apps (overlay)")    file="$UserConfigs/Startup_Apps.lua" ;;
-        "Edit User Window Rules (overlay)")    file="$UserConfigs/WindowRules.lua" ;;
-        "Edit User Settings")                  file="$UserConfigs/UserSettings.lua" ;;
-        "Edit User Decorations")               file="$UserConfigs/UserDecorations.lua" ;;
-        "Edit User Animations")                file="$UserConfigs/UserAnimations.lua" ;;
-        "Edit User Laptop Settings")           file="$UserConfigs/Laptops.lua" ;;
+        "Edit User Defaults")                  file="$userConfigs/UserDefaults.lua" ;;
+        "Edit User ENV variables")             file="$userConfigs/ENVariables.lua" ;;
+        "Edit User Keybinds")                  file="$userConfigs/UserKeybinds.lua" ;;
+        "Edit User Startup Apps (overlay)")    file="$userConfigs/Startup_Apps.lua" ;;
+        "Edit User Window Rules (overlay)")    file="$userConfigs/WindowRules.lua" ;;
+        "Edit User Settings")                  file="$userConfigs/UserSettings.lua" ;;
+        "Edit User Decorations")               file="$userConfigs/UserDecorations.lua" ;;
+        "Edit User Animations")                file="$userConfigs/UserAnimations.lua" ;;
+        "Edit User Laptop Settings")           file="$userConfigs/Laptops.lua" ;;
 
         # ── System default config files ───────────────────────────────────────
         "Edit System Default Keybinds")        file="$configs/Keybinds.lua" ;;
@@ -82,13 +82,13 @@ main() {
 
         # ── Tool launchers ────────────────────────────────────────────────────
         "Choose Kitty Terminal Theme")
-            "$scriptsDir/Kitty_themes.sh"; return ;;
+            "$scriptsDir/KittyThemes.sh"; return ;;
         "Configure Monitors (nwg-displays)"|"Configure Workspace Rules (nwg-displays)")
-            command -v nwg-displays &>/dev/null || { notify-send -i "$iDIR/error.svg" "E-R-R-O-R" "Install nwg-displays first"; exit 1; }
+            command -v nwg-displays &>/dev/null || { notify-send -i "$iconsDirectory/error.svg" "E-R-R-O-R" "Install nwg-displays first"; exit 1; }
             nwg-displays; return ;;
         "Choose Hyprland Animations") "$scriptsDir/Animations.sh";       return ;;
         "Choose Monitor Profiles")    "$scriptsDir/MonitorProfiles.sh";   return ;;
-        "Choose Rofi Themes")         "$scriptsDir/RofiThemeSelector.sh"; return ;;
+        "Choose Rofi Themes")         "$scriptsDir/RofiThemeSelectorModified.sh"; return ;;
         "Search for Keybinds")        "$scriptsDir/KeyBinds.sh";          return ;;
         "Toggle Game Mode")           "$scriptsDir/GameMode.sh";          return ;;
         *) return ;;

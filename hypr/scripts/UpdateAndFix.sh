@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 topgrade && patch-grub
 echo "checking code folder for writing permission"
-TARGETS=(
+targets=(
     "/usr/share/code/resources/app/out/media"           # VSCode icons
     "/usr/lib/OneDriveGUI/resources/images"             # OneDriveGUI
     "/usr/share/nativmix/assets"                        # NativMix
@@ -14,7 +14,7 @@ TARGETS=(
     "/opt/betterbird/chrome/icons/default/"             # BetterBird
 )
 firstFind=true
-for target in "${TARGETS[@]}"
+for target in "${targets[@]}"
 do
     if [ -d $target ]; then
         # Check if any file inside is not writable

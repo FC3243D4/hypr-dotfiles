@@ -4,17 +4,17 @@
 
 
 get_temp() {
-    CPU_VENDOR=$(awk -F: '/vendor_id/{gsub(/ /,"",$2); print $2; exit}' /proc/cpuinfo)
-    if [[ "$CPU_VENDOR" == "GenuineIntel" ]]; then
-        CPU_VENDOR="Intel"
+    cpuVendor=$(awk -F: '/vendor_id/{gsub(/ /,"",$2); print $2; exit}' /proc/cpuinfo)
+    if [[ "$cpuVendor" == "GenuineIntel" ]]; then
+        cpuVendor="Intel"
         probe=$(grep -l coretemp /sys/class/hwmon/hwmon*/name 2>/dev/null | head -1)
         probe=${probe%/name}
-    elif [[ "$CPU_VENDOR" == "AuthenticAMD" ]]; then
-        CPU_VENDOR="AMD"
+    elif [[ "$cpuVendor" == "AuthenticAMD" ]]; then
+        cpuVendor="AMD"
         probe=$(grep -l k10temp /sys/class/hwmon/hwmon*/name 2>/dev/null | head -1)
         probe=${probe%/name}
     else
-        echo "Unknown CPU vendor: $CPU_VENDOR" >&2
+        echo "Unknown CPU vendor: $cpuVendor" >&2
         exit 1
     fi
 

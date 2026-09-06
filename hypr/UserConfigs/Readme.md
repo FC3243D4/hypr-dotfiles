@@ -1,0 +1,7 @@
+1. Suggest not to rename any files in this directory. As this is connected and being sourced from hyprland.lua in ~/.config/hypr
+
+2. However, if hyprland has a big change in settings, i.e., blur section is moved into another group, you should managed the change yourself.
+
+3. Guidance on the keybinds. Suggest NOT to assign a keybind which I set on the default Keybinds. Else will conflict. Once Hyprland decided to have a global keybinds, then I will adjust.
+
+4. If you think that the default keybinds SHOULD be adjusted, open an issue on my github page and present me a valid argument. Like conflicting to GLOBAL keybinds, etc etc etc.

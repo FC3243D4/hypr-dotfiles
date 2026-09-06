@@ -8,38 +8,38 @@ if pidof rofi > /dev/null; then
 fi
 
 # Variables
-iDIR="$HOME/.config/swaync/icons"
-SCRIPTSDIR="$HOME/.config/hypr/scripts"
-monitor_dir="$HOME/.config/hypr/Monitor_Profiles"
+iconsDir="$HOME/.config/swaync/icons"
+scriptsDir="$HOME/.config/hypr/scripts"
+monitorDir="$HOME/.config/hypr/Monitor_Profiles"
 target="$HOME/.config/hypr/UserConfigs/monitors.lua"
-rofi_theme="$HOME/.config/rofi/config-Monitors.rasi"
+rofiTheme="$HOME/.config/rofi/config-Monitors.rasi"
 msg="❗NOTE:❗ This will overwrite $target"
 
 # Files to ignore in the listing
-ignore_files=("README")
+ignoreFiles=("README")
 
 # List of profiles: strip extension, sort numerically then alphabetically
-mon_profiles_list=$(find -L "$monitor_dir" -maxdepth 1 -type f \( -name "*.lua" -o -name "*.conf" \) \
+monitorProfilesList=$(find -L "$monitorDir" -maxdepth 1 -type f \( -name "*.lua" -o -name "*.conf" \) \
     | sed 's/.*\///' | sed 's/\.\(lua\|conf\)$//' | sort -V)
 
-for ignored_file in "${ignore_files[@]}"; do
-    mon_profiles_list=$(echo "$mon_profiles_list" | grep -v -E "^$ignored_file$")
+for ignored_file in "${ignoreFiles[@]}"; do
+    monitorProfilesList=$(echo "$monitorProfilesList" | grep -v -E "^$ignored_file$")
 done
 
 # Rofi menu
-chosen_file=$(echo "$mon_profiles_list" | rofi -i -dmenu -config "$rofi_theme" -mesg "$msg")
+chosenFile=$(echo "$monitorProfilesList" | rofi -i -dmenu -config "$rofiTheme" -mesg "$msg")
 
-if [[ -n "$chosen_file" ]]; then
+if [[ -n "$chosenFile" ]]; then
     # Prefer .lua, fall back to .conf for legacy profiles
-    if [[ -f "$monitor_dir/$chosen_file.lua" ]]; then
-        full_path="$monitor_dir/$chosen_file.lua"
+    if [[ -f "$monitorDir/$chosenFile.lua" ]]; then
+        fullPath="$monitorDir/$chosenFile.lua"
     else
-        full_path="$monitor_dir/$chosen_file.conf"
+        fullPath="$monitorDir/$chosenFile.conf"
     fi
 
-    cp "$full_path" "$target"
-    notify-send -u low -i "$iDIR/ok.svg" "$chosen_file" "Monitor Profile Loaded"
+    cp "$fullPath" "$target"
+    notify-send -u low -i "$iconsDir/ok.svg" "$chosenFile" "Monitor Profile Loaded"
 fi
 
 sleep 1
-"${SCRIPTSDIR}/RefreshNoWaybar.sh" &
+"${scriptsDir}/RefreshNoWaybar.sh" &

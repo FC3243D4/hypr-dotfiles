@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
-# Waybar modules script — reads defaults from 01-UserDefaults.lua
+# Waybar modules script — reads defaults from UserDefaults.lua
 
-DEFAULTS_LUA="$HOME/.config/hypr/UserConfigs/01-UserDefaults.lua"
-READER="$HOME/.config/hypr/scripts/read_lua_defaults.py"
+defaultLua="$HOME/.config/hypr/UserConfigs/UserDefaults.lua"
+reader="$HOME/.config/hypr/scripts/read_lua_defaults.py"
 
 read_default() {
-    python3 "$READER" "$1" "$DEFAULTS_LUA" 2>/dev/null || true
+    python3 "$reader" "$1" "$defaultLua" 2>/dev/null || true
 }
 
-if [[ ! -f "$DEFAULTS_LUA" ]]; then
-    echo "Error: $DEFAULTS_LUA not found!" >&2
+if [[ ! -f "$defaultLua" ]]; then
+    echo "Error: $defaultLua not found!" >&2
     exit 1
 fi
 
@@ -18,7 +18,7 @@ term=$(read_default term)
 files=$(read_default files)
 
 if [[ -z "$term" ]]; then
-    echo "Error: \$term is not set in $DEFAULTS_LUA" >&2
+    echo "Error: \$term is not set in $defaultLua" >&2
     exit 1
 fi
 

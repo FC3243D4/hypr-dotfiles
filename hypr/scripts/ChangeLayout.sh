@@ -4,13 +4,12 @@
 
 notif="$HOME/.config/swaync/icons/ok.svg"
 
-LAYOUT=$(hyprctl -j getoption general:layout | jq '.str' | sed 's/"//g')
+layout=$(hyprctl -j getoption general:layout | jq '.str' | sed 's/"//g')
 
-case $LAYOUT in
+case $layout in
 "master")
     hyprctl eval 'hl.config({ general = { layout = "dwindle" } })'
     # SUPER+O togglesplit only makes sense in dwindle; add it at runtime via Lua eval
-    # SUPER+J/K are global and managed by KeybindsLayoutInit.sh
     hyprctl eval 'hl.bind("SUPER + O", hl.dsp.layout("togglesplit"), { description = "Toggle split (Dwindle)" })'
     notify-send -e -u low -i "$notif" " Dwindle Layout"
     ;;
