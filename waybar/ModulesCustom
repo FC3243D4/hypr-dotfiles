@@ -295,11 +295,11 @@
 "custom/cpu#temp": {
 	"interval": 1,
 	"exec": "~/.config/hypr/scripts/CpuInfo.sh temp",
-	"format": "{:>2}°C 󰈸"
+	"format": "{:>2}°C 󰈸 "
 },
 
 "custom/cpu#frequency": {
-	"format": "{:>4}GHz 󰾆",
+	"format": "{:>4}GHz 󰾆 ",
     "exec": "~/.config/hypr/scripts/CpuInfo.sh freq-ghz",
     "interval": 1
 },
@@ -312,19 +312,19 @@
 },
 
 "custom/gpu#temp": {
-    "format": "{:>2}°C 󰾲",
+    "format": "{:>2}°C 󰾲 ",
     "exec": "~/.config/hypr/scripts/GpuInfo.sh temp",
     "interval": 1
 },
 
 "custom/gpu#memory": {
-    "format": "{:>2}% ",
+    "format": "{:>2}%  ",
     "exec": "~/.config/hypr/scripts/GpuInfo.sh memory",
     "interval": 1
 },
 
 "custom/gpu#frequency": {
-    "format": "{:>4}MHz 󰾆",
+    "format": "{:>4}MHz 󰾆 ",
     "exec": "~/.config/hypr/scripts/GpuInfo.sh freq",
     "interval": 1
 },
