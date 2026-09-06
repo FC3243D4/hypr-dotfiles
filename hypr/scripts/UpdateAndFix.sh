@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-topgrade && patch-grub
+topgrade
+
+if command -v patch-grub &>/dev/null; then
+    patch-grub
+fi
+
 echo "checking code folder for writing permission"
 targets=(
     "/usr/share/code/resources/app/out/media"           # VSCode icons
