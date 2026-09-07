@@ -30,6 +30,10 @@ msg=' ⁉️ Choose what to do ⁉️'
 iconsDirectory="$HOME/.config/swaync/icons"
 scriptsDir="$HOME/.config/hypr/scripts"
 
+# Scale window width / column count to the focused monitor's aspect ratio
+source "$scriptsDir/RofiWidthScale.sh"
+IFS=' ' read -r rofiWidth rofiColumns <<< "$(rofi_scaled_width_and_columns)"
+
 menu() {
     cat <<MENU
 --- USER CUSTOMIZATIONS ---
@@ -60,7 +64,8 @@ MENU
 }
 
 main() {
-    choice=$(menu | rofi -i -dmenu -config "$rofiTheme" -mesg "$msg")
+    choice=$(menu | rofi -i -dmenu -config "$rofiTheme" -mesg "$msg" \
+        -theme-str "window { width: ${rofiWidth}%; } listview { columns: ${rofiColumns}; }")
 
     case "$choice" in
         # ── User config files ─────────────────────────────────────────────────
@@ -102,5 +107,9 @@ main() {
 if pidof rofi > /dev/null; then
     pkill rofi
 fi
+
+# Don't ask for more columns than the item count can actually fill
+itemCount=$(menu | wc -l)
+rofiColumns=$(rofi_cap_columns "$rofiColumns" "$itemCount" 6)
 
 main

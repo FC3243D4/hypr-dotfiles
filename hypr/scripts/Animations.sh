@@ -17,8 +17,17 @@ msg='❗NOTE:❗ This will copy animations into UserAnimations.lua'
 # list of animation files, sorted alphabetically with numbers first
 animationList=$(find -L "$animationsDir" -maxdepth 1 -type f | sed 's/.*\///' | sed 's/\.lua$//' | sort -V)
 
+# Scale window width / column count to the focused monitor's aspect ratio
+source "$scriptsDir/RofiWidthScale.sh"
+IFS=' ' read -r rofiWidth rofiColumns <<< "$(rofi_scaled_width_and_columns)"
+
+# Don't ask for more columns than the item count can actually fill
+itemCount=$(printf '%s\n' "$animationList" | wc -l)
+rofiColumns=$(rofi_cap_columns "$rofiColumns" "$itemCount" 7)
+
 # Rofi Menu
-chosenFile=$(echo "$animationList" | rofi -i -dmenu -config $rofiTheme -mesg "$msg")
+chosenFile=$(echo "$animationList" | rofi -i -dmenu -config $rofiTheme -mesg "$msg" \
+    -theme-str "window { width: ${rofiWidth}%; } listview { columns: ${rofiColumns}; }")
 
 # Check if a file was selected
 if [[ -n "$chosenFile" ]]; then

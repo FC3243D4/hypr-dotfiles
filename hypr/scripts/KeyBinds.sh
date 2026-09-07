@@ -50,5 +50,14 @@ if [[ -f "$suggestionsPathFile" ]]; then
     fi
 fi
 
+# Scale window width / column count to the focused monitor's aspect ratio
+source "$scriptsDirectory/RofiWidthScale.sh"
+IFS=' ' read -r rofiWidth rofiColumns <<< "$(rofi_scaled_width_and_columns)"
+
+# Don't ask for more columns than the item count can actually fill
+itemCount=$(printf '%s\n' "$displayKeybinds" | wc -l)
+rofiColumns=$(rofi_cap_columns "$rofiColumns" "$itemCount" 8)
+
 # Display in rofi
-printf '%s\n' "$displayKeybinds" | rofi -dmenu -i -config "$rofiTheme" -mesg "$msg"
+printf '%s\n' "$displayKeybinds" | rofi -dmenu -i -config "$rofiTheme" -mesg "$msg" \
+    -theme-str "window { width: ${rofiWidth}%; } listview { columns: ${rofiColumns}; }"
