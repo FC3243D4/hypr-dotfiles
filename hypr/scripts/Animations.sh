@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # For applying Animations from different users
 
 # Check if rofi is already running
@@ -13,7 +12,7 @@ scriptsDir="$HOME/.config/hypr/scripts"
 animationsDir="$HOME/.config/hypr/animations"
 UserConfigs="$HOME/.config/hypr/UserConfigs"
 rofiTheme="$HOME/.config/rofi/config-Animations.rasi"
-msg='❗NOTE:❗ This will copy animations into UserAnimations.lua'
+msg='This will copy animations into UserAnimations.lua'
 # list of animation files, sorted alphabetically with numbers first
 animationList=$(find -L "$animationsDir" -maxdepth 1 -type f | sed 's/.*\///' | sed 's/\.lua$//' | sort -V)
 

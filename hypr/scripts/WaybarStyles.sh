@@ -9,7 +9,7 @@ waybarStyles="$HOME/.config/waybar/style"
 waybarStyle="$HOME/.config/waybar/style.css"
 scriptsDir="$HOME/.config/hypr/scripts"
 rofiConfig="$HOME/.config/rofi/config-waybar-style.rasi"
-msg=' 🎌 NOTE: Some waybar STYLES NOT fully compatible with some LAYOUTS'
+msg='Some waybar STYLES ARE NOT fully compatible with some LAYOUTS'
 
 # Scale window width / column count to the focused monitor's aspect ratio
 source "$scriptsDir/RofiWidthScale.sh"

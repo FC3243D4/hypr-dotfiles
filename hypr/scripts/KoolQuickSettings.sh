@@ -26,7 +26,7 @@ fi
 configs="$HOME/.config/hypr/configs"
 userConfigs="$HOME/.config/hypr/UserConfigs"
 rofiTheme="$HOME/.config/rofi/config-edit.rasi"
-msg=' ⁉️ Choose what to do ⁉️'
+msg='Click or Return to choose'
 iconsDirectory="$HOME/.config/swaync/icons"
 scriptsDir="$HOME/.config/hypr/scripts"
 

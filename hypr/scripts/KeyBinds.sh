@@ -14,7 +14,7 @@ hyprDirectory="$HOME/.config/hypr"
 scriptsDirectory="$hyprDirectory/scripts"
 parser="$scriptsDirectory/keybinds_parser.py"
 rofiTheme="$HOME/.config/rofi/config-keybinds.rasi"
-msg='☣️ NOTE ☣️: Clicking with Mouse or Pressing ENTER will have NO function'
+msg='Clicking with Mouse or Pressing ENTER will have NO function'
 
 # Config files to parse (order matters: last file = user overrides)
 keybindsLua="$hyprDirectory/configs/Keybinds.lua"

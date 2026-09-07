@@ -125,7 +125,7 @@ while true; do
     rofi -dmenu -i \
       -format 'i' \
       -p "Rofi Theme" \
-      -mesg "‼️ **note** ‼️ Enter: Preview || Ctrl+S: Apply &amp; Exit || Esc: Cancel" \
+      -mesg "Enter: Preview || Ctrl+S: Apply &amp; Exit || Esc: Cancel" \
       -config "$RofiThemeForThisScript" \
       -selected-row "$currentSelectionIndex" \
       -kb-custom-1 "Control+s")

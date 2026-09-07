@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Clipboard Manager. This script uses cliphist, rofi, and wl-copy.
 
 # Variables
 scriptsDir="$HOME/.config/hypr/scripts"
 rofiTheme="$HOME/.config/rofi/config-clipboard.rasi"
-msg='👀 **note**  CTRL DEL = cliphist del (entry)   or   ALT DEL - cliphist wipe (all)'
+msg='CTRL DEL = cliphist del (entry)   or   ALT DEL - cliphist wipe (all)'
 # Actions:
 # CTRL Del to delete an entry
 # ALT Del to wipe clipboard contents
