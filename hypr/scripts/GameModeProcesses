@@ -1,0 +1,34 @@
+# GameMode process list
+#
+# One entry per line. Blank lines and lines starting with # are ignored.
+# Trailing "# comment" after an entry is also stripped.
+#
+# Three entry types are supported:
+#
+#   unit:label:unit1,unit2,...
+#       systemd units (user- or system-scope, auto-detected). Comma-separated,
+#       no spaces. Only units that actually exist on the system are touched,
+#       so it's safe to list units you don't have installed.
+#
+#   docker:label:container1,container2,...
+#       Plain containers, stopped/started directly by name via
+#       `docker stop`/`docker start` — works regardless of how the
+#       container was created, but doesn't recreate anything, so this is
+#       only for containers you don't need `compose up` semantics for.
+#
+#   compose:label:/absolute/path/to/docker-compose.yml:service1,service2,...
+#       Containers managed by a specific compose file, stopped/started via
+#       `docker compose -f <file> stop/start <service>`. Use this for
+#       containers that live in a stack with other services you want left
+#       running, or where the compose file's env/network context matters.
+#
+# label is just what shows up in the gamemode-toggle notification.
+#
+# This file is generated automatically with these same defaults on first
+# run if ~/.config/hypr/scripts/GameModeProcesses doesn't exist yet — copy
+# this .example instead if you'd rather start from a tracked, documented
+# version and customize from there.
+
+unit:docker:docker.socket,docker.service
+unit:ollama:ollama.service
+unit:waybar:waybar.service
