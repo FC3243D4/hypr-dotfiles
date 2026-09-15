@@ -29,6 +29,7 @@ rofiTheme="$HOME/.config/rofi/config-edit.rasi"
 msg='Click or Return to choose'
 iconsDirectory="$HOME/.config/swaync/icons"
 scriptsDir="$HOME/.config/hypr/scripts"
+wallpaperChangerDir="$HOME/.config/WallpaperChanger"
 
 # Scale window width / column count to the focused monitor's aspect ratio
 source "$scriptsDir/RofiWidthScale.sh"
@@ -53,6 +54,7 @@ Edit System Default Window Rules
 Edit System Default Settings
 Edit Game Mode Services/Containers
 --- UTILITIES ---
+Configure WallpaperChanger icons override
 Choose Kitty Terminal Theme
 Configure Monitors (nwg-displays)
 Configure Workspace Rules (nwg-displays)
@@ -88,6 +90,7 @@ main() {
         "Edit Game Mode Services/Containers")   file="$scriptsDir/GameModeProcesses" ;;
 
         # ── Tool launchers ────────────────────────────────────────────────────
+        "Configure WallpaperChanger icons override") file="$wallpaperChangerDir/themeRefresherSupportScripts/icon-overrides.conf" ;;
         "Choose Kitty Terminal Theme")
             "$scriptsDir/KittyThemes.sh"; return ;;
         "Configure Monitors (nwg-displays)"|"Configure Workspace Rules (nwg-displays)")
