@@ -25,7 +25,7 @@ do
         # Check if any file inside is not writable
         if find "$target" -not -writable | grep -q .; then
             if [ "$firstFind" == "true" ]; then
-                notify-send -i "$HOME/.config/swaync/icons/note.svg" "Ownership issues found" "please enter the password for sudo to fix"
+                notify-send -i "$HOME/.config/swaync/icons/note.svg" "Ownership issues found"
                 firstFind=false
             fi
             echo "Found non-writable files inside $target, fixing ownership..."
