@@ -238,3 +238,9 @@ hl.window_rule({ match = { title = "^(wind.*)" },       no_initial_focus = true 
 hl.layer_rule({ match = { namespace = "rofi" },                blur = true, ignore_alpha = 0 })
 hl.layer_rule({ match = { namespace = "notifications" },       blur = true, ignore_alpha = 0 })
 hl.layer_rule({ match = { namespace = "quickshell:overview" }, blur = true, ignore_alpha = 0.5 })
+
+-- ── KITTY FIX ─────────────────────────────────────────────────────────────────
+hl.window_rule({
+  ["fullscreen_state"] = "0 0",
+  ["match"] = { ["class"] = "kitty" }
+})
