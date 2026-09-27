@@ -34,10 +34,10 @@ hl.window_rule({ match = { class = "^(org.mozilla.Thunderbird|org.gnome.Evolutio
 hl.window_rule({ match = { class = "^(eu.betterbird.Betterbird)$" },            tag = "+email" })
 
 -- projects
-hl.window_rule({ match = { class = "^(codium|codium-url-handler|VSCodium)$" }, tag = "+projects" })
-hl.window_rule({ match = { class = "^(VSCode|code|code-url-handler)$" },       tag = "+projects" })
-hl.window_rule({ match = { class = "^(jetbrains-.+)$" },                       tag = "+projects" }) -- JetBrains IDEs
-hl.window_rule({ match = { class = "^([Gg]lint)$" },                           tag = "+projects" })
+hl.window_rule({ match = { class = "^(codium|codium-url-handler|VSCodium)$" },                      tag = "+projects" })
+hl.window_rule({ match = { class = "^(VSCode|code|code-url-handler|com.microsoft.VSCode)$" },       tag = "+projects" })
+hl.window_rule({ match = { class = "^(jetbrains-.+)$" },                                            tag = "+projects" }) -- JetBrains IDEs
+hl.window_rule({ match = { class = "^([Gg]lint)$" },                                                tag = "+projects" })
 
 -- IM
 hl.window_rule({ match = { class = "^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$" },                      tag = "+im" })
