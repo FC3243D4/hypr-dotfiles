@@ -95,6 +95,7 @@ hl.window_rule({ match = { class = "^([Bb]lender)$" },      tag = "+threeD" })
 hl.window_rule({ match = { class = "^(orca-slicer)$" },     tag = "+threeD" })
 hl.window_rule({ match = { class = "^([Ff]reecad)$" },      tag = "+threeD" })
 hl.window_rule({ match = { class = "^(fusion360.exe)$" },   tag = "+threeD" })
+hl.window_rule({ match = { title = "^(Autodesk Fusion)$"},  tag = "+threeD" })
 hl.window_rule({ match = { class = "^([Ll]ycheeSlicer)$" }, tag = "+threeD" })
 
 
