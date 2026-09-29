@@ -45,36 +45,12 @@
 	"tooltip-format": "Launch Browser",
 },
 
-"custom/settings": {
-	"format": " ",
-	"on-click": "com.ml4w.hyprlandsettings",
-	"on-click-right": "$HOME/.config/hypr/scripts/KoolQuickSettings.sh",
-	"tooltip": true,
-	"tooltip-format": "Left Click: ML4W Hyprland Settings\nRight Click: Launch KooL Hyprland Settings Menu",
-},
-
-"custom/cycle_wall": {
-	"format": " ",
-	"on-click": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
-	"on-click-right": "$HOME/.config/hypr/UserScripts/WallpaperRandom.sh",
-	"on-click-middle": "$HOME/.config/hypr/scripts/WaybarStyles.sh",
-	"tooltip": true,
-	"tooltip-format": "Left Click: Wallpaper Menu\nMiddle Click: Random wallpaper\nRight Click: Waybar Styles Menu",
-},
-
 "custom/hint": {
 	"format": "Binds",
 	"on-click": "$HOME/.config/hypr/scripts/KeyHints.sh",
 	"on-click-right": "$HOME/.config/hypr/scripts/KeyBinds.sh",
 	"tooltip": true,
 	"tooltip-format": "Left Click: Quick Tips\nRight Click: Keybinds",
-},
-
-"custom/dot_update": {
-	"format": " 󰁈 ",
-	"on-click": "$HOME/.config/hypr/scripts/KooLsDotsUpdate.sh",
-	"tooltip": true,
-	"tooltip-format": "Check KooL Dots update\nIf available",
 },
 
 // Hypridle inhibitor
@@ -99,15 +75,6 @@
 	"on-click": "$HOME/.config/hypr/scripts/SwitchKeyboardLayout.sh",
 },
 
-"custom/light_dark": {
-	"format": "󰔎 ",
-	"on-click": "$HOME/.config/hypr/scripts/DarkLight.sh",
-	"on-click-right": "$HOME/.config/hypr/scripts/WaybarStyles.sh",
-	"on-click-middle": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
-	"tooltip": true,
-	"tooltip-format": "Left Click: Switch Dark-Light Themes\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Styles Menu",
-},
-
 "custom/lock": {
 	"format": "󰌾",
 	"on-click": "$HOME/.config/hypr/scripts/LockScreen.sh",
@@ -115,14 +82,6 @@
 	"tooltip-format": "󰷛 Screen Lock",
 },
 
-"custom/menu": {
-	"format": "  ",
-	"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
-	"on-click-middle": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
-	"on-click-right": "$HOME/.config/hypr/scripts/WaybarLayout.sh",
-	"tooltip": true,
-	"tooltip-format": "Left Click: Rofi Menu\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Layout Menu",
-},
 // This is a custom cava visualizer
 "custom/cava_mviz": {
 	"exec": "$HOME/.config/hypr/scripts/WaybarCava.sh",
@@ -295,12 +254,14 @@
 "custom/cpu#temp": {
 	"interval": 1,
 	"exec": "~/.config/hypr/scripts/CpuInfo.sh temp",
+	"tooltip": false, 
 	"format": "{:>2}°C 󰈸 "
 },
 
 "custom/cpu#frequency": {
 	"format": "{:>4}GHz 󰾆 ",
     "exec": "~/.config/hypr/scripts/CpuInfo.sh freq-ghz",
+	"tooltip": false, 
     "interval": 1
 },
 
@@ -308,24 +269,28 @@
     "format": "{:>2}% 󰾲 ",
     "exec": "~/.config/hypr/scripts/GpuInfo.sh usage",
     "interval": 1,
+	"tooltip": false, 
     "on-click-right": "rocm-smi"
 },
 
 "custom/gpu#temp": {
     "format": "{:>2}°C 󰾲 ",
     "exec": "~/.config/hypr/scripts/GpuInfo.sh temp",
+	"tooltip": false, 
     "interval": 1
 },
 
 "custom/gpu#memory": {
     "format": "{:>2}%  ",
     "exec": "~/.config/hypr/scripts/GpuInfo.sh memory",
+	"tooltip": false, 
     "interval": 1
 },
 
 "custom/gpu#frequency": {
     "format": "{:>4}MHz 󰾆 ",
     "exec": "~/.config/hypr/scripts/GpuInfo.sh freq",
+	"tooltip": false, 
     "interval": 1
 },
 
@@ -340,12 +305,14 @@
 "custom/keylocks#numlock": {
     "exec": "/home/fc3243d4/.config/hypr/scripts/NumlockStatus.sh",
     "interval": 0.5,
+	"tooltip": false, 
     "format": "{}",
 },
 
 "custom/keylocks#capslock": {
     "exec": "/home/fc3243d4/.config/hypr/scripts/CapslockStatus.sh",
     "interval": 0.5,
+	"tooltip": false, 
     "format": "{}",
 },
 

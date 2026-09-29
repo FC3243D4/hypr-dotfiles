@@ -26,9 +26,14 @@ fi
 configs="$HOME/.config/hypr/configs"
 userConfigs="$HOME/.config/hypr/UserConfigs"
 rofiTheme="$HOME/.config/rofi/config-edit.rasi"
-msg=' ⁉️ Choose what to do ⁉️'
+msg='Click or Return to choose'
 iconsDirectory="$HOME/.config/swaync/icons"
 scriptsDir="$HOME/.config/hypr/scripts"
+wallpaperChangerDir="$HOME/.config/WallpaperChanger"
+
+# Scale window width / column count to the focused monitor's aspect ratio
+source "$scriptsDir/RofiWidthScale.sh"
+IFS=' ' read -r rofiWidth rofiColumns <<< "$(rofi_scaled_width_and_columns)"
 
 menu() {
     cat <<MENU
@@ -47,7 +52,9 @@ Edit System Default Keybinds
 Edit System Default Startup Apps
 Edit System Default Window Rules
 Edit System Default Settings
+Edit Game Mode Services/Containers
 --- UTILITIES ---
+Configure WallpaperChanger icons override
 Choose Kitty Terminal Theme
 Configure Monitors (nwg-displays)
 Configure Workspace Rules (nwg-displays)
@@ -60,37 +67,40 @@ MENU
 }
 
 main() {
-    choice=$(menu | rofi -i -dmenu -config "$rofiTheme" -mesg "$msg")
+    choice=$(menu | rofi -i -dmenu -config "$rofiTheme" -mesg "$msg" \
+        -theme-str "window { width: ${rofiWidth}%; } listview { columns: ${rofiColumns}; }")
 
     case "$choice" in
         # ── User config files ─────────────────────────────────────────────────
-        "Edit User Defaults")                  file="$userConfigs/UserDefaults.lua" ;;
-        "Edit User ENV variables")             file="$userConfigs/ENVariables.lua" ;;
-        "Edit User Keybinds")                  file="$userConfigs/UserKeybinds.lua" ;;
-        "Edit User Startup Apps (overlay)")    file="$userConfigs/Startup_Apps.lua" ;;
-        "Edit User Window Rules (overlay)")    file="$userConfigs/WindowRules.lua" ;;
-        "Edit User Settings")                  file="$userConfigs/UserSettings.lua" ;;
-        "Edit User Decorations")               file="$userConfigs/UserDecorations.lua" ;;
-        "Edit User Animations")                file="$userConfigs/UserAnimations.lua" ;;
-        "Edit User Laptop Settings")           file="$userConfigs/Laptops.lua" ;;
+        "Edit User Defaults")                   file="$userConfigs/UserDefaults.lua" ;;
+        "Edit User ENV variables")              file="$userConfigs/ENVariables.lua" ;;
+        "Edit User Keybinds")                   file="$userConfigs/UserKeybinds.lua" ;;
+        "Edit User Startup Apps (overlay)")     file="$userConfigs/Startup_Apps.lua" ;;
+        "Edit User Window Rules (overlay)")     file="$userConfigs/WindowRules.lua" ;;
+        "Edit User Settings")                   file="$userConfigs/UserSettings.lua" ;;
+        "Edit User Decorations")                file="$userConfigs/UserDecorations.lua" ;;
+        "Edit User Animations")                 file="$userConfigs/UserAnimations.lua" ;;
+        "Edit User Laptop Settings")            file="$userConfigs/Laptops.lua" ;;
 
         # ── System default config files ───────────────────────────────────────
-        "Edit System Default Keybinds")        file="$configs/Keybinds.lua" ;;
-        "Edit System Default Startup Apps")    file="$configs/Startup_Apps.lua" ;;
-        "Edit System Default Window Rules")    file="$configs/WindowRules.lua" ;;
-        "Edit System Default Settings")        file="$configs/SystemSettings.lua" ;;
+        "Edit System Default Keybinds")         file="$configs/Keybinds.lua" ;;
+        "Edit System Default Startup Apps")     file="$configs/Startup_Apps.lua" ;;
+        "Edit System Default Window Rules")     file="$configs/WindowRules.lua" ;;
+        "Edit System Default Settings")         file="$configs/SystemSettings.lua" ;;
+        "Edit Game Mode Services/Containers")   file="$scriptsDir/GameModeProcesses" ;;
 
         # ── Tool launchers ────────────────────────────────────────────────────
+        "Configure WallpaperChanger icons override") file="$wallpaperChangerDir/themeRefresherSupportScripts/icon-overrides.conf" ;;
         "Choose Kitty Terminal Theme")
             "$scriptsDir/KittyThemes.sh"; return ;;
         "Configure Monitors (nwg-displays)"|"Configure Workspace Rules (nwg-displays)")
             command -v nwg-displays &>/dev/null || { notify-send -i "$iconsDirectory/error.svg" "E-R-R-O-R" "Install nwg-displays first"; exit 1; }
             nwg-displays; return ;;
-        "Choose Hyprland Animations") "$scriptsDir/Animations.sh";       return ;;
-        "Choose Monitor Profiles")    "$scriptsDir/MonitorProfiles.sh";   return ;;
-        "Choose Rofi Themes")         "$scriptsDir/RofiThemeSelectorModified.sh"; return ;;
-        "Search for Keybinds")        "$scriptsDir/KeyBinds.sh";          return ;;
-        "Toggle Game Mode")           "$scriptsDir/GameMode.sh";          return ;;
+        "Choose Hyprland Animations")           "$scriptsDir/Animations.sh";       return ;;
+        "Choose Monitor Profiles")              "$scriptsDir/MonitorProfiles.sh";   return ;;
+        "Choose Rofi Themes")                   "$scriptsDir/RofiThemeSelectorModified.sh"; return ;;
+        "Search for Keybinds")                  "$scriptsDir/KeyBinds.sh";          return ;;
+        "Toggle Game Mode")                     "$scriptsDir/GameMode.sh";          return ;;
         *) return ;;
     esac
 
@@ -102,5 +112,9 @@ main() {
 if pidof rofi > /dev/null; then
     pkill rofi
 fi
+
+# Don't ask for more columns than the item count can actually fill
+itemCount=$(menu | wc -l)
+rofiColumns=$(rofi_cap_columns "$rofiColumns" "$itemCount" 6)
 
 main

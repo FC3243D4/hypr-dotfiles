@@ -22,7 +22,7 @@ if [[ -z "$SearchEngine" ]]; then
 fi
 
 rofiTheme="$HOME/.config/rofi/config-search.rasi"
-msg='‼️ **note** ‼️ search via default web browser'
+msg='search via default web browser'
 
 if pgrep -x "rofi" >/dev/null; then
     pkill rofi

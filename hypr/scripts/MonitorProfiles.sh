@@ -13,7 +13,7 @@ scriptsDir="$HOME/.config/hypr/scripts"
 monitorDir="$HOME/.config/hypr/Monitor_Profiles"
 target="$HOME/.config/hypr/UserConfigs/monitors.lua"
 rofiTheme="$HOME/.config/rofi/config-Monitors.rasi"
-msg="❗NOTE:❗ This will overwrite $target"
+msg="This will overwrite $target"
 
 # Files to ignore in the listing
 ignoreFiles=("README")

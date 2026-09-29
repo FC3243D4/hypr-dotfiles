@@ -22,7 +22,7 @@ height=750
 
 GdkBackend=$backend yad \
     --center \
-    --title="KooL Quick Cheat Sheet" \
+    --title="Quick Cheat Sheet" \
     --width="$width" \
     --height="$height" \
     --no-buttons \
@@ -33,7 +33,7 @@ GdkBackend=$backend yad \
     --timeout-indicator=bottom \
 "ESC" "close this app" "" " = " "SUPER KEY (Windows Key Button)" "(SUPER KEY)" \
 " K" "Searchable Keybinds" "(Search all Keybinds via rofi)" \
-" CTRL Esc" "KooL Hyprland Settings Menu" "" \
+" CTRL Esc" "Hyprland Settings Menu" "" \
 "" "" "" \
 " enter" "Terminal" "(kitty)" \
 " Shift enter" "DropDown Terminal" " Q to close" \

@@ -34,10 +34,10 @@ hl.window_rule({ match = { class = "^(org.mozilla.Thunderbird|org.gnome.Evolutio
 hl.window_rule({ match = { class = "^(eu.betterbird.Betterbird)$" },            tag = "+email" })
 
 -- projects
-hl.window_rule({ match = { class = "^(codium|codium-url-handler|VSCodium)$" }, tag = "+projects" })
-hl.window_rule({ match = { class = "^(VSCode|code|code-url-handler)$" },       tag = "+projects" })
-hl.window_rule({ match = { class = "^(jetbrains-.+)$" },                       tag = "+projects" }) -- JetBrains IDEs
-hl.window_rule({ match = { class = "^([Gg]lint)$" },                           tag = "+projects" })
+hl.window_rule({ match = { class = "^(codium|codium-url-handler|VSCodium)$" },                      tag = "+projects" })
+hl.window_rule({ match = { class = "^(VSCode|code|code-url-handler|com.microsoft.VSCode)$" },       tag = "+projects" })
+hl.window_rule({ match = { class = "^(jetbrains-.+)$" },                                            tag = "+projects" }) -- JetBrains IDEs
+hl.window_rule({ match = { class = "^([Gg]lint)$" },                                                tag = "+projects" })
 
 -- IM
 hl.window_rule({ match = { class = "^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$" },                      tag = "+im" })
@@ -238,3 +238,9 @@ hl.window_rule({ match = { title = "^(wind.*)" },       no_initial_focus = true 
 hl.layer_rule({ match = { namespace = "rofi" },                blur = true, ignore_alpha = 0 })
 hl.layer_rule({ match = { namespace = "notifications" },       blur = true, ignore_alpha = 0 })
 hl.layer_rule({ match = { namespace = "quickshell:overview" }, blur = true, ignore_alpha = 0.5 })
+
+-- ── KITTY FIX ─────────────────────────────────────────────────────────────────
+hl.window_rule({
+  ["fullscreen_state"] = "0 0",
+  ["match"] = { ["class"] = "kitty" }
+})
