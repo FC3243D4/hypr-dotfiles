@@ -95,6 +95,7 @@ hl.window_rule({ match = { class = "^([Bb]lender)$" },      tag = "+threeD" })
 hl.window_rule({ match = { class = "^(orca-slicer)$" },     tag = "+threeD" })
 hl.window_rule({ match = { class = "^([Ff]reecad)$" },      tag = "+threeD" })
 hl.window_rule({ match = { class = "^(fusion360.exe)$" },   tag = "+threeD" })
+hl.window_rule({ match = { title = "^(Autodesk Fusion)$"},  tag = "+threeD" })
 hl.window_rule({ match = { class = "^([Ll]ycheeSlicer)$" }, tag = "+threeD" })
 
 
@@ -189,7 +190,7 @@ hl.window_rule({ match = { title = "^(SDDM Background)$" }, float = true, center
 
 -- ── OPACITY ──────────────────────────────────────────────────────────────────
 
-hl.window_rule({ match = { tag = "browser*" },                                  opacity = "1.0 override 1.0 override" })
+hl.window_rule({ match = { tag = "browser*" },                                  opacity = "1.0 override 1.0 override",    no_dim = true })
 hl.window_rule({ match = { tag = "projects*" },                                 opacity = "0.95 override 0.8 override" })
 hl.window_rule({ match = { tag = "im*" },                                       opacity = "0.94 override 0.86 override" })
 hl.window_rule({ match = { tag = "multimedia*" },                               opacity = "0.9 override 0.5 override" })

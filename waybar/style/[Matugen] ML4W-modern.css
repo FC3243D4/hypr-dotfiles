@@ -372,6 +372,21 @@ window#waybar.empty #window {
     -gtk-icon-effect: highlight;
 }
 
+#custom-keychron_battery {
+    background-color: @backgroundlight;
+    color: @textcolor2;
+    border-radius: 5px 5px 5px 5px;
+    padding: 0px 5px 0px 5px;
+    margin: 3px 10px 3px 10px;
+}
+#custom-keychron_battery.empty {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    font-size: 0;
+}
+
 #hardware-cpu,
 #hardware-gpu,
 #hardware-memory {
@@ -431,3 +446,4 @@ window#waybar.empty #window {
 #hardware-memory #massExt4 {
     color: @textcolor2;
 }
+

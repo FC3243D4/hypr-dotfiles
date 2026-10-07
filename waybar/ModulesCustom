@@ -316,6 +316,14 @@
     "format": "{}",
 },
 
+"custom/keychron_battery": {
+	"exec": "cat /sys/class/power_supply/keychron_mouse/capacity",
+	"interval": 1,
+	"tooltip": false,
+	"hide-empty-text": true,
+	"format": " 󰍽 {}% ",
+},
+
 "custom/hypridle_widget": {
     "exec": "/home/fc3243d4/.config/hypr/scripts/Hypridle.sh status",
     "return-type": "json",
