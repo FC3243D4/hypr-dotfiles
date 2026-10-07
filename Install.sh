@@ -128,7 +128,7 @@ echo ""
 # ─── Hyprland user preferences (primary display, workspaces, layout) ──────────
 # Detects the primary display and asks for a couple of layout preferences,
 # writing them into UserDefaults.lua via hl.env(...). Moved here (out of
-# Wallpaper-changer's own install-Linux.sh) since none of this is
+# Wallpaper-changer's own Install-Linux.sh) since none of this is
 # wallpaper-specific — it's general dotfiles configuration.
 
 echo "=== Configuring Hyprland user preferences ==="
@@ -750,11 +750,11 @@ elif ! git clone https://github.com/FC3243D4/Wallpaper-changer "$WALLPAPER_CHANG
     WALLPAPER_CHANGER_DIR=""
 fi
 
-if [ -n "$WALLPAPER_CHANGER_DIR" ] && [ -f "$WALLPAPER_CHANGER_DIR/install-Linux.sh" ]; then
-    chmod +x "$WALLPAPER_CHANGER_DIR/install-Linux.sh"
-    (cd "$WALLPAPER_CHANGER_DIR" && ./install-Linux.sh --install) || echo "Warning: Wallpaper-changer's install-Linux.sh exited with an error."
+if [ -n "$WALLPAPER_CHANGER_DIR" ] && [ -f "$WALLPAPER_CHANGER_DIR/Install-Linux.sh" ]; then
+    chmod +x "$WALLPAPER_CHANGER_DIR/Install-Linux.sh"
+    (cd "$WALLPAPER_CHANGER_DIR" && ./Install-Linux.sh --install) || echo "Warning: Wallpaper-changer's Install-Linux.sh exited with an error."
 elif [ -n "$WALLPAPER_CHANGER_DIR" ]; then
-    echo "Error: install-Linux.sh not found in $WALLPAPER_CHANGER_DIR — repo layout may have changed."
+    echo "Error: Install-Linux.sh not found in $WALLPAPER_CHANGER_DIR — repo layout may have changed."
 fi
 
 echo ""
