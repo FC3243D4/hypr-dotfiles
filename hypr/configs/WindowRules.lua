@@ -101,6 +101,7 @@ hl.window_rule({ match = { class = "^([Ll]ycheeSlicer)$" }, tag = "+threeD" })
 
 -- git
 hl.window_rule({ match = { class = "^(SourceGit)$" }, tag = "+git" })
+hl.window_rule({ match = { class = "^(gitcomet)$" }, tag = "+git" })
 
 -- Creative-tools
 hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" },           tag = "+creative-tools" })

@@ -56,6 +56,10 @@ diff_added_fg = { color = "#4CAF50", blend = false }
 input_path = '~/.config/matugen/templates/sourceGit-theme.json'
 output_path = '~/.sourcegit/matugen-theme.json'
 
+[templates.gitcomet]
+input_path = '~/.config/matugen/templates/gitcomet-theme.json'
+output_path = '~/.local/share/gitcomet/themes/matugen-theme.json'
+
 [templates.heroic]
 input_path = '~/.config/matugen/templates/heroic-game-launcher.css'
 output_path = '~/.config/heroic/custom-themes/matugen.css'
