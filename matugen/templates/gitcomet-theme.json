@@ -46,9 +46,9 @@
         },
         "status": {
           "info": { "foreground": "{{ colors.primary.default.hex }}", "background": "{{ palettes.primary._20.hex }}", "border": "{{ colors.primary.default.hex }}" },
-          "success": { "foreground": "{{ colors.diff_added_fg.default.hex }}", "background": "{{ colors.diff_added_bg.default.hex }}", "border": "{{ colors.diff_added_fg.default.hex }}" },
+          "success": { "foreground": "{{ palettes.primary._80.hex }}", "background": "{{ palettes.neutral._20.hex }}", "border": "{{ palettes.primary._80.hex }}" },
           "warning": { "foreground": "{{ colors.tertiary.default.hex }}", "background": "{{ palettes.tertiary._20.hex }}", "border": "{{ colors.tertiary.default.hex }}" },
-          "danger": { "foreground": "{{ colors.error.default.hex }}", "background": "{{ colors.error_container.default.hex }}", "border": "{{ colors.error.default.hex }}" }
+          "danger": { "foreground": "{{ colors.error.default.hex }}", "background": "{{ palettes.neutral._20.hex }}", "border": "{{ colors.error.default.hex }}" }
         },
         "editor": {
           "background": "{{ palettes.neutral._10.hex }}",
@@ -63,9 +63,24 @@
           "indent_guide": "#ffffff14"
         },
         "diff": {
-          "added": { "foreground": "{{ colors.diff_added_fg.default.hex }}", "background": "{{ colors.diff_added_bg.default.hex }}", "word_background": "{{ colors.diff_added_bg.default.hex }}", "focused_background": "{{ colors.diff_added_bg.default.hex }}" },
-          "removed": { "foreground": "{{ colors.error.default.hex }}", "background": "{{ colors.error_container.default.hex }}", "word_background": "{{ colors.error_container.default.hex }}", "focused_background": "{{ colors.error_container.default.hex }}" },
-          "modified": { "foreground": "{{ colors.tertiary.default.hex }}", "background": "{{ palettes.tertiary._20.hex }}", "word_background": "{{ palettes.tertiary._20.hex }}", "focused_background": "{{ palettes.tertiary._20.hex }}" }
+          "added": { 
+            "foreground": "{{ palettes.primary._80.hex }}", 
+            "background": "#12261b", 
+            "word_background": "#1b3a2a", 
+            "focused_background": "#152e21" 
+          },
+          "removed": { 
+            "foreground": "{{ colors.error.default.hex }}", 
+            "background": "#331818", 
+            "word_background": "#4d2424", 
+            "focused_background": "#3d1d1d" 
+          },
+          "modified": { 
+            "foreground": "{{ colors.tertiary.default.hex }}", 
+            "background": "#182633", 
+            "word_background": "#24384d", 
+            "focused_background": "#1d2e3d" 
+          }
         },
         "tooltip": { "background": "{{ palettes.neutral._10.hex }}", "foreground": "{{ colors.on_surface.default.hex }}" },
         "scrollbar": {
