@@ -79,10 +79,10 @@
         },
         "editor": {
           "background": "#232629ff",
-          "foreground": "{{ colors.on_surface.default.hex }}ff",
+          "foreground": "#fcfcfcff",
           "gutter_background": "#232629ff",
           "line_number": "{{ colors.on_surface_variant.default.hex }}ff",
-          "cursor": "{{ colors.on_surface.default.hex }}ff",
+          "cursor": "#fcfcfcff",
           "selection_background": {
             "hex": "{{ colors.primary.default.hex }}ff",
             "alpha": 0.28
