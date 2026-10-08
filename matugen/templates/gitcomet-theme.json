@@ -1,204 +1,100 @@
 {
   "schema_version": 2,
-  "name": "Matugen GitComet \u2014 Breeze Dark",
+  "name": "Matugen Standard Gray Theme",
+  "author": "Matugen",
   "themes": [
     {
-      "key": "matugen_dark",
-      "name": "Matugen GitComet \u2014 Breeze Dark",
+      "key": "matugen_standard_gray_dark",
+      "name": "Matugen Standard Gray Dark",
       "appearance": "dark",
       "colors": {
         "surface": {
-          "canvas": "#232629ff",
-          "chrome": "#202326ff",
-          "panel": "#272b2eff",
-          "raised": "#2f3438ff",
-          "input": "#31363bff"
+          "canvas": "{{ palettes.neutral._10.hex }}",
+          "chrome": "{{ palettes.neutral._15.hex }}",
+          "panel": "{{ palettes.neutral._15.hex }}",
+          "raised": "{{ palettes.neutral._20.hex }}",
+          "input": "{{ palettes.neutral._25.hex }}"
         },
         "foreground": {
-          "primary": "#fcfcfcff",
-          "secondary": "#bdc3c7ff",
-          "disabled": "#7f8c8dff",
-          "placeholder": "#7f8c8dff",
-          "emphasis": "#ffffffff"
+          "primary": "{{ colors.on_surface.default.hex }}",
+          "secondary": "{{ colors.on_surface_variant.default.hex }}",
+          "disabled": { "hex": "{{ colors.on_surface_variant.default.hex }}", "alpha": 0.62 },
+          "placeholder": "#ffffff59",
+          "emphasis": "{{ colors.on_surface.default.hex }}"
         },
         "stroke": {
-          "subtle": {
-            "hex": "{{ colors.outline_variant.default.hex }}ff",
-            "alpha": 0.55
-          },
-          "default": "{{ colors.outline_variant.default.hex }}ff",
-          "control": "{{ colors.outline.default.hex }}ff"
+          "subtle": "#ffffff14",
+          "default": "{{ palettes.neutral_variant._30.hex }}",
+          "control": "{{ palettes.neutral_variant._50.hex }}"
         },
         "interaction": {
-          "hover_overlay": {
-            "hex": "{{ colors.on_surface.default.hex }}ff",
-            "alpha": 0.06
-          },
-          "pressed_overlay": {
-            "hex": "{{ colors.on_surface.default.hex }}ff",
-            "alpha": 0.1
-          },
-          "hover_background": "#2f3438ff",
-          "pressed_background": "#383e43ff",
-          "selected_background": "{{ colors.primary_container.default.hex }}ff",
-          "selected_foreground": "{{ colors.on_primary_container.default.hex }}ff",
-          "selected_indicator": "{{ colors.primary.default.hex }}ff",
-          "focus_ring": "{{ colors.primary.default.hex }}ff",
-          "focus_background": {
-            "hex": "{{ colors.primary.default.hex }}ff",
-            "alpha": 0.16
-          }
+          "hover_overlay": { "hex": "{{ colors.on_surface.default.hex }}", "alpha": 0.07 },
+          "pressed_overlay": { "hex": "{{ colors.on_surface.default.hex }}", "alpha": 0.11 },
+          "hover_background": "{{ palettes.neutral._25.hex }}",
+          "pressed_background": "{{ palettes.neutral._35.hex }}",
+          "selected_background": "{{ palettes.neutral._20.hex }}",
+          "selected_foreground": "{{ colors.on_surface.default.hex }}",
+          "selected_indicator": "{{ colors.primary.default.hex }}",
+          "focus_ring": "{{ colors.primary.default.hex }}",
+          "focus_background": { "hex": "{{ colors.primary.default.hex }}", "alpha": 0.16 }
         },
         "accent": {
-          "foreground": "{{ colors.primary.default.hex }}ff",
-          "solid": "{{ colors.primary.default.hex }}ff",
-          "on_solid": "{{ colors.on_primary.default.hex }}ff",
-          "subtle_background": "{{ colors.primary_container.default.hex }}ff"
+          "foreground": "{{ colors.primary.default.hex }}",
+          "solid": "{{ colors.primary.default.hex }}",
+          "on_solid": "{{ colors.on_primary.default.hex }}",
+          "subtle_background": "{{ palettes.primary._20.hex }}"
         },
         "status": {
-          "info": {
-            "foreground": "{{ colors.primary.default.hex }}ff",
-            "background": "{{ colors.primary_container.default.hex }}ff",
-            "border": "{{ colors.primary.default.hex }}ff"
-          },
-          "success": {
-            "foreground": "{{ colors.secondary.default.hex }}ff",
-            "background": "{{ colors.secondary_container.default.hex }}ff",
-            "border": "{{ colors.secondary.default.hex }}ff"
-          },
-          "warning": {
-            "foreground": "{{ colors.tertiary.default.hex }}ff",
-            "background": "{{ colors.tertiary_container.default.hex }}ff",
-            "border": "{{ colors.tertiary.default.hex }}ff"
-          },
-          "danger": {
-            "foreground": "{{ colors.error.default.hex }}ff",
-            "background": "{{ colors.error_container.default.hex }}ff",
-            "border": "{{ colors.error.default.hex }}ff"
-          }
+          "info": { "foreground": "{{ colors.primary.default.hex }}", "background": "{{ palettes.primary._20.hex }}", "border": "{{ colors.primary.default.hex }}" },
+          "success": { "foreground": "{{ colors.diff_added_fg.default.hex }}", "background": "{{ colors.diff_added_bg.default.hex }}", "border": "{{ colors.diff_added_fg.default.hex }}" },
+          "warning": { "foreground": "{{ colors.tertiary.default.hex }}", "background": "{{ palettes.tertiary._20.hex }}", "border": "{{ colors.tertiary.default.hex }}" },
+          "danger": { "foreground": "{{ colors.error.default.hex }}", "background": "{{ colors.error_container.default.hex }}", "border": "{{ colors.error.default.hex }}" }
         },
         "editor": {
-          "background": "#232629ff",
-          "foreground": "#fcfcfcff",
-          "gutter_background": "#232629ff",
-          "line_number": "{{ colors.on_surface_variant.default.hex }}ff",
-          "cursor": "#fcfcfcff",
-          "selection_background": {
-            "hex": "{{ colors.primary.default.hex }}ff",
-            "alpha": 0.28
-          },
-          "search_match_background": "{{ colors.tertiary_container.default.hex }}ff",
-          "search_match_foreground": "{{ colors.on_tertiary_container.default.hex }}ff",
-          "bracket_match_background": {
-            "hex": "{{ colors.on_surface.default.hex }}ff",
-            "alpha": 0.15
-          },
-          "occurrence_highlight_background": {
-            "hex": "{{ colors.primary.default.hex }}ff",
-            "alpha": 0.13
-          },
-          "indent_guide": {
-            "hex": "{{ colors.outline_variant.default.hex }}ff",
-            "alpha": 0.55
-          }
+          "background": "{{ palettes.neutral._10.hex }}",
+          "foreground": "{{ colors.on_surface.default.hex }}",
+          "gutter_background": "{{ palettes.neutral._10.hex }}",
+          "line_number": "{{ colors.on_surface_variant.default.hex }}",
+          "cursor": "{{ colors.on_surface.default.hex }}",
+          "selection_background": "{{ palettes.primary._30.hex }}",
+          "search_match_background": "{{ palettes.tertiary._30.hex }}",
+          "search_match_foreground": "{{ colors.tertiary.default.hex }}",
+          "bracket_match_background": "#ffffff26",
+          "indent_guide": "#ffffff14"
         },
         "diff": {
-          "added": {
-            "foreground": "#b9f2c0ff",
-            "background": "#163322ff",
-            "word_background": "#b9f2c038",
-            "focused_background": "#b9f2c033"
-          },
-          "removed": {
-            "foreground": "#ffc4ccff",
-            "background": "#40171dff",
-            "word_background": "#ffc4cc38",
-            "focused_background": "#ffc4cc33"
-          },
-          "modified": {
-            "foreground": "#ffc06aff",
-            "background": "#3b2d1bff",
-            "word_background": "#ffc06a38",
-            "focused_background": "#ffc06a33"
-          }
+          "added": { "foreground": "{{ colors.diff_added_fg.default.hex }}", "background": "{{ colors.diff_added_bg.default.hex }}", "word_background": "{{ colors.diff_added_bg.default.hex }}", "focused_background": "{{ colors.diff_added_bg.default.hex }}" },
+          "removed": { "foreground": "{{ colors.error.default.hex }}", "background": "{{ colors.error_container.default.hex }}", "word_background": "{{ colors.error_container.default.hex }}", "focused_background": "{{ colors.error_container.default.hex }}" },
+          "modified": { "foreground": "{{ colors.tertiary.default.hex }}", "background": "{{ palettes.tertiary._20.hex }}", "word_background": "{{ palettes.tertiary._20.hex }}", "focused_background": "{{ palettes.tertiary._20.hex }}" }
         },
-        "tooltip": {
-          "background": "#1c1f22ff",
-          "foreground": "{{ colors.on_surface.default.hex }}ff"
-        },
+        "tooltip": { "background": "{{ palettes.neutral._10.hex }}", "foreground": "{{ colors.on_surface.default.hex }}" },
         "scrollbar": {
-          "thumb": {
-            "hex": "{{ colors.on_surface_variant.default.hex }}ff",
-            "alpha": 0.3
-          },
-          "thumb_hover": {
-            "hex": "{{ colors.on_surface_variant.default.hex }}ff",
-            "alpha": 0.45
-          },
-          "thumb_pressed": {
-            "hex": "{{ colors.on_surface_variant.default.hex }}ff",
-            "alpha": 0.58
-          }
+          "thumb": { "hex": "{{ colors.on_surface_variant.default.hex }}", "alpha": 0.30 },
+          "thumb_hover": { "hex": "{{ colors.on_surface_variant.default.hex }}", "alpha": 0.42 },
+          "thumb_pressed": { "hex": "{{ colors.on_surface_variant.default.hex }}", "alpha": 0.52 }
+        },
+        "notice": {
+          "background": { "hex": "{{ colors.primary.default.hex }}", "alpha": 0.13 },
+          "border": { "hex": "{{ colors.primary.default.hex }}", "alpha": 0.30 },
+          "foreground": "{{ colors.on_surface.default.hex }}",
+          "secondary": "{{ colors.on_surface_variant.default.hex }}"
         },
         "shadow": "#000000ff",
-        "graph_lane_hues": [
-          0.00,
-          0.08,
-          0.16,
-          0.25,
-          0.33,
-          0.42,
-          0.50,
-          0.58,
-          0.67,
-          0.75,
-          0.83,
-          0.92
+        "graph_lane_palette": [
+          "{{ colors.primary.default.hex }}",
+          "{{ colors.secondary.default.hex }}",
+          "{{ colors.tertiary.default.hex }}",
+          "{{ colors.error.default.hex }}",
+          "{{ palettes.primary._60.hex }}",
+          "{{ palettes.secondary._60.hex }}",
+          "{{ palettes.tertiary._60.hex }}",
+          "{{ palettes.primary._80.hex }}",
+          "{{ palettes.secondary._80.hex }}",
+          "{{ palettes.tertiary._80.hex }}",
+          "{{ palettes.primary._40.hex }}",
+          "{{ palettes.secondary._40.hex }}",
+          "{{ palettes.tertiary._40.hex }}"
         ]
-      },
-      "syntax": {
-        "comment": "{{ colors.on_surface_variant.default.hex }}ff",
-        "comment_doc": "{{ colors.secondary.default.hex }}ff",
-        "string": "{{ colors.tertiary.default.hex }}ff",
-        "string_escape": "{{ colors.secondary.default.hex }}ff",
-        "string_regex": "{{ colors.error.default.hex }}ff",
-        "string_special": "{{ colors.tertiary.default.hex }}ff",
-        "keyword": "{{ colors.primary.default.hex }}ff",
-        "keyword_control": "{{ colors.primary.default.hex }}ff",
-        "preproc": "{{ colors.secondary.default.hex }}ff",
-        "number": "{{ colors.tertiary.default.hex }}ff",
-        "boolean": "{{ colors.tertiary.default.hex }}ff",
-        "function": "{{ colors.primary.default.hex }}ff",
-        "function_method": "{{ colors.primary.default.hex }}ff",
-        "function_special": "{{ colors.secondary.default.hex }}ff",
-        "constructor": "{{ colors.secondary.default.hex }}ff",
-        "type": "{{ colors.tertiary.default.hex }}ff",
-        "type_builtin": "{{ colors.tertiary.default.hex }}ff",
-        "type_interface": "{{ colors.tertiary.default.hex }}ff",
-        "namespace": "{{ colors.secondary.default.hex }}ff",
-        "variable": "{{ colors.on_surface.default.hex }}ff",
-        "variable_parameter": "{{ colors.on_surface_variant.default.hex }}ff",
-        "variable_special": "{{ colors.primary.default.hex }}ff",
-        "variable_builtin": "{{ colors.secondary.default.hex }}ff",
-        "property": "{{ colors.primary.default.hex }}ff",
-        "label": "{{ colors.tertiary.default.hex }}ff",
-        "constant": "{{ colors.secondary.default.hex }}ff",
-        "constant_builtin": "{{ colors.secondary.default.hex }}ff",
-        "operator": "{{ colors.on_surface_variant.default.hex }}ff",
-        "punctuation": "{{ colors.on_surface_variant.default.hex }}ff",
-        "punctuation_bracket": "{{ colors.on_surface_variant.default.hex }}ff",
-        "punctuation_delimiter": "{{ colors.on_surface_variant.default.hex }}ff",
-        "punctuation_special": "{{ colors.primary.default.hex }}ff",
-        "punctuation_list_marker": "{{ colors.error.default.hex }}ff",
-        "tag": "{{ colors.tertiary.default.hex }}ff",
-        "attribute": "{{ colors.primary.default.hex }}ff",
-        "markup_heading": "{{ colors.primary.default.hex }}ff",
-        "markup_link": "{{ colors.primary.default.hex }}ff",
-        "text_literal": "{{ colors.tertiary.default.hex }}ff",
-        "diff_plus": "{{ colors.diff_added_fg.default.hex }}ff",
-        "diff_minus": "{{ colors.error.default.hex }}ff",
-        "diff_delta": "{{ colors.primary.default.hex }}ff",
-        "lifetime": "{{ colors.secondary.default.hex }}ff"
       },
       "radii": {
         "panel": 12.0,
