@@ -79,7 +79,7 @@ hl.bind(mainMod .. " + ALT + B",        hl.dsp.exec_cmd(scriptsDir .. "/WaybarLa
 --------------------
 ---- WALLPAPERS ----
 --------------------
-hl.bind(mainMod .. " + W",                      hl.dsp.exec_cmd(WallpapersScripts .."/WallpaperMenu.sh"),                           { description = "Select Wallpaper" })
+hl.bind(mainMod .. " + W",                      hl.dsp.exec_cmd("python3 " .. WallpapersScripts .. "/WallpaperGui.py"),                           { description = "Select Wallpaper" })
 hl.bind(mainMod .. " + SHIFT + W",              hl.dsp.exec_cmd(WallpapersScripts .."/WallpaperApplicator.sh random"),              { description = "Random Wallpaper" })
 hl.bind(mainMod .. " + SHIFT + CTRL + W",       hl.dsp.exec_cmd(WallpapersScripts .."/WallpaperApplicator.sh random sfw"),          { description = "Random SFW Wallpaper" })
 hl.bind(mainMod .. " + SHIFT + ALT + W",        hl.dsp.exec_cmd(WallpapersScripts .."/WallpaperApplicator.sh random nsfw"),         { description = "Random NSFW Wallpaper" })
