@@ -51,6 +51,9 @@ output_path = '~/.cache/matugen/vscode-colors.json'
 [config.custom_colors]
 diff_added_bg = { color = "#143620", blend = false }
 diff_added_fg = { color = "#4CAF50", blend = false }
+diff_added    = { color = "#4caf50", blend = true }
+diff_removed  = { color = "#f44336", blend = true }
+diff_modified = { color = "#2196f3", blend = true }
 
 [templates.sourcegit]
 input_path = '~/.config/matugen/templates/sourceGit-theme.json'
