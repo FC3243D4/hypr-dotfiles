@@ -63,7 +63,7 @@ hl.window_rule({ match = { class = "^(app.drey.Warp)$" },                       
 
 -- wallpaper
 hl.window_rule({ match = { class = "^([Ww]aytrogen)$" }, tag = "+wallpaper" })
-hl.window_rule({ match = { title = "^(Wallpaper Selector)$" }, tag = "+wallpaper" })
+hl.window_rule({ match = { class = "wallpaper-selector" }, tag = "+wallpaper" })
 
 -- multimedia
 hl.window_rule({ match = { class = "^([Aa]udacious)$" }, tag = "+multimedia" })
