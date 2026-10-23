@@ -63,6 +63,7 @@ hl.window_rule({ match = { class = "^(app.drey.Warp)$" },                       
 
 -- wallpaper
 hl.window_rule({ match = { class = "^([Ww]aytrogen)$" }, tag = "+wallpaper" })
+hl.window_rule({ match = { class = "wallpaper-selector" }, tag = "+wallpaper" })
 
 -- multimedia
 hl.window_rule({ match = { class = "^([Aa]udacious)$" }, tag = "+multimedia" })
@@ -101,6 +102,7 @@ hl.window_rule({ match = { class = "^([Ll]ycheeSlicer)$" }, tag = "+threeD" })
 
 -- git
 hl.window_rule({ match = { class = "^(SourceGit)$" }, tag = "+git" })
+hl.window_rule({ match = { class = "^(gitcomet)$" }, tag = "+git" })
 
 -- Creative-tools
 hl.window_rule({ match = { class = "^(org.gimp.GIMP)$" },           tag = "+creative-tools" })
@@ -199,7 +201,7 @@ hl.window_rule({ match = { tag = "terminal*" },                                 
 hl.window_rule({ match = { tag = "terminal*", workspace = 1 },                  opacity = "0.9 override 0 override" })
 hl.window_rule({ match = { tag = "settings*" },                                 opacity = "0.9 override 0.7 override" })
 hl.window_rule({ match = { tag = "viewer*" },                                   opacity = "0.82 override 0.75 override" })
-hl.window_rule({ match = { tag = "wallpaper*" },                                opacity = "0.9 override 0.7 override" })
+hl.window_rule({ match = { tag = "wallpaper*" },                                opacity = "1 override 0.7 override" })
 hl.window_rule({ match = { class = "^(gedit|org.gnome.TextEditor|mousepad)$" }, opacity = "0.8 override 0.7 override" })
 hl.window_rule({ match = { class = "^(deluge)$" },                              opacity = "0.9 override 0.8 override" })
 hl.window_rule({ match = { class = "^(seahorse)$" },                            opacity = "0.9 override 0.8 override" }) -- gnome-keyring gui
