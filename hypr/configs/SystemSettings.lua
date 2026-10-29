@@ -9,7 +9,7 @@ hl.config({
         -- pseudotile = true,   -- removed in 0.55
         preserve_split = true,
         -- smart_split = true,
-        special_scale_factor = 0.8,
+        -- special_scale_factor = 0.8,
     },
 
     master = {
