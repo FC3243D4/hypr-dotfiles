@@ -125,8 +125,7 @@ hl.window_rule({ match = { class = "^(cohesion)$" }, tag = "+notes" })
 
 -- Office
 hl.window_rule({ match = { class = "^(ONLYOFFICE)$" }, tag = "+office" })
-
-
+hl.window_rule({ match = { class = "^(libreoffice-calc|libreoffice-writer|libreoffice-impress)$" }, tag = "+office" })
 -- ── POSITION ─────────────────────────────────────────────────────────────────
 
 -- warning: center on floating:1 causes menus to float and center too — left disabled
