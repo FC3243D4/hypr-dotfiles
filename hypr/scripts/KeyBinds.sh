@@ -1,19 +1,11 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
-# Searchable keybinds using rofi — delegates all parsing to keybinds_parser.py
+# Searchable keybinds using vicinae — delegates all parsing to keybinds_parser.py
 # which understands the Lua hl.bind() syntax.
-
-# Kill anything that would interfere
-pkill yad || true
-if pidof rofi > /dev/null; then
-    pkill rofi
-fi
 
 # Paths
 hyprDirectory="$HOME/.config/hypr"
 scriptsDirectory="$hyprDirectory/scripts"
 parser="$scriptsDirectory/keybinds_parser.py"
-rofiTheme="$HOME/.config/rofi/config-keybinds.rasi"
 msg='Clicking with Mouse or Pressing ENTER will have NO function'
 
 # Config files to parse (order matters: last file = user overrides)
@@ -30,7 +22,7 @@ if [[ ! -f "$parser" ]]; then
     exit 1
 fi
 
-# Run parser — stdout = formatted keybind lines for rofi
+# Run parser — stdout = formatted keybind lines
 displayKeybinds=$(python3 "$parser" "${files[@]}")
 
 if [[ -z "$displayKeybinds" || "$displayKeybinds" == "no keybinds found." ]]; then
@@ -38,7 +30,7 @@ if [[ -z "$displayKeybinds" || "$displayKeybinds" == "no keybinds found." ]]; th
     exit 1
 fi
 
-# Append missing-unbind suggestions count to rofi message if any were found
+# Append missing-unbind suggestions count to message if any were found
 suggestionsPathFile="/tmp/hypr_keybind_suggestions_file"
 if [[ -f "$suggestionsPathFile" ]]; then
     suggestionsFile="$(cat "$suggestionsPathFile")"
@@ -50,14 +42,6 @@ if [[ -f "$suggestionsPathFile" ]]; then
     fi
 fi
 
-# Scale window width / column count to the focused monitor's aspect ratio
-source "$scriptsDirectory/RofiWidthScale.sh"
-IFS=' ' read -r rofiWidth rofiColumns <<< "$(rofi_scaled_width_and_columns)"
 
-# Don't ask for more columns than the item count can actually fill
-itemCount=$(printf '%s\n' "$displayKeybinds" | wc -l)
-rofiColumns=$(rofi_cap_columns "$rofiColumns" "$itemCount" 8)
-
-# Display in rofi
-printf '%s\n' "$displayKeybinds" | rofi -dmenu -i -config "$rofiTheme" -mesg "$msg" \
-    -theme-str "window { width: ${rofiWidth}%; } listview { columns: ${rofiColumns}; }"
+# Display
+printf '%s\n' "$displayKeybinds" | vicinae dmenu

@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 
 # GDK backend. Change to either wayland or x11 if having issues
 backend=wayland
-
-# Check if rofi or yad is running and kill them if they are
-if pidof rofi > /dev/null; then
-  pkill rofi
-fi
 
 if pidof yad > /dev/null; then
   pkill yad
@@ -32,16 +26,16 @@ GdkBackend=$backend yad \
     --column=Command: \
     --timeout-indicator=bottom \
 "ESC" "close this app" "" " = " "SUPER KEY (Windows Key Button)" "(SUPER KEY)" \
-" K" "Searchable Keybinds" "(Search all Keybinds via rofi)" \
+" K" "Searchable Keybinds" "(Search all Keybinds via vicinae)" \
 " CTRL Esc" "Hyprland Settings Menu" "" \
 "" "" "" \
 " enter" "Terminal" "(kitty)" \
 " Shift enter" "DropDown Terminal" " Q to close" \
 " B" "Launch Browser" "(Default browser)" \
 " CTRL Tab" "Desktop Overview" "(AGS - if opted to install)" \
-" D" "Application Launcher" "(rofi-wayland)" \
+" D" "Application Launcher" "(vicinae)" \
 " F" "Open File Manager" "" \
-" S" "Google Search using rofi" "(rofi)" \
+" S" "Google Search using vicinae" "(vicinae)" \
 " Q" "close active window" "(not kill)" \
 " Shift Q " "kills an active window" "(kill)" \
 " V" "Clipboard Manager" "(cliphist)" \
@@ -63,8 +57,7 @@ GdkBackend=$backend yad \
 " ALT L" "Toggle Dwindle | Master Layout" "Hyprland Layout" \
 " SPACEBAR" "Toggle float" "single window" \
 " ALT O" "Toggle Blur" "normal or less blur" \
-" CTRL A" "Animations Menu" "Choose Animations via rofi" \
-" CTRL ALT R" "Rofi Themes Menu v2" "Choose Rofi Themes via Theme Selector (modified)" \
+" CTRL A" "Animations Menu" "Choose Animations via vicinae" \
 " G" "Gamemode, all animations, notifcation, and containers OFF or ON" "toggle" \
 " E" "Rofi Emoticons" "Emoticon" \
 " H" "Launch this Quick Cheat Sheet" "" \

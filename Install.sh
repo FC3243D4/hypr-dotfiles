@@ -38,12 +38,12 @@ echo ""
 # by a hidden .hypr-dotfiles-managed file dropped after a successful sync —
 # on later runs the presence of that marker skips the backup step.
 #
-# ASSUMPTION: hypr/, matugen/, rofi/, waybar/, swaync/ map 1:1 to
-# ~/.config/hypr, ~/.config/matugen, ~/.config/rofi, ~/.config/waybar,
+# ASSUMPTION: hypr/, matugen/, vicinae/, waybar/, swaync/ map 1:1 to
+# ~/.config/hypr, ~/.config/matugen, ~/.config/vicinae, ~/.config/waybar,
 # ~/.config/swaync. Confirm this matches what's actually inside those
 # folders before relying on it.
 
-CONFIG_DIRS=("hypr" "matugen" "rofi" "waybar" "swaync" "wlogout" "quickshell")
+CONFIG_DIRS=("hypr" "matugen" "vicinae" "waybar" "swaync" "wlogout" "quickshell")
 
 echo "=== Syncing configs ==="
 mkdir -p "$CONFIG_HOME"

@@ -46,7 +46,7 @@ coreDeps=(
     "command -v rsync|rsync"
     "matugen --version|matugen"
     "waybar --version|waybar"
-    "command -v rofi|rofi"
+    "command -v vicinae|vicinae"
 )
 _check_deps "${coreDeps[@]}"
 

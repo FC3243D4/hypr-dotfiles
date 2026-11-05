@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
-# Rofi menu for KooL Hyprland Quick Settings (SUPER SHIFT E)
+# Vicinae menu for KooL Hyprland Quick Settings (SUPER SHIFT E)
 
 defaultsLua="$HOME/.config/hypr/UserConfigs/UserDefaults.lua"
 reader="$HOME/.config/hypr/scripts/read_lua_defaults.py"
@@ -25,51 +24,82 @@ fi
 # Variables
 configs="$HOME/.config/hypr/configs"
 userConfigs="$HOME/.config/hypr/UserConfigs"
-rofiTheme="$HOME/.config/rofi/config-edit.rasi"
-msg='Click or Return to choose'
 iconsDirectory="$HOME/.config/swaync/icons"
 scriptsDir="$HOME/.config/hypr/scripts"
 wallpaperChangerDir="$HOME/.config/WallpaperChanger"
 
-# Scale window width / column count to the focused monitor's aspect ratio
-source "$scriptsDir/RofiWidthScale.sh"
-IFS=' ' read -r rofiWidth rofiColumns <<< "$(rofi_scaled_width_and_columns)"
+# ── Submenus ──────────────────────────────────────────────────────────
 
-menu() {
+main_menu() {
     cat <<MENU
---- USER CUSTOMIZATIONS ---
+USER CUSTOMIZATIONS
+SYSTEM DEFAULTS
+UTILITIES
+MENU
+}
+
+user_customizations_menu() {
+    cat <<MENU
 Edit User Defaults
-Edit User Keybinds
 Edit User ENV variables
+Edit User Keybinds
 Edit User Startup Apps (overlay)
 Edit User Window Rules (overlay)
 Edit User Settings
 Edit User Decorations
 Edit User Animations
 Edit User Laptop Settings
---- SYSTEM DEFAULTS  ---
+MENU
+}
+
+system_defaults_menu() {
+    cat <<MENU
 Edit System Default Keybinds
 Edit System Default Startup Apps
 Edit System Default Window Rules
 Edit System Default Settings
 Edit Game Mode Services/Containers
---- UTILITIES ---
+MENU
+}
+
+utilities_menu() {
+    cat <<MENU
 Configure WallpaperChanger icons override
 Choose Kitty Terminal Theme
 Configure Monitors (nwg-displays)
 Configure Workspace Rules (nwg-displays)
 Choose Hyprland Animations
-Choose Monitor Profiles
-Choose Rofi Themes
 Search for Keybinds
 Toggle Game Mode
 MENU
 }
 
-main() {
-    choice=$(menu | rofi -i -dmenu -config "$rofiTheme" -mesg "$msg" \
-        -theme-str "window { width: ${rofiWidth}%; } listview { columns: ${rofiColumns}; }")
+# ── Main Logic ────────────────────────────────────────────────────────
 
+main() {
+    # Step 1: Pick top-level category via vicinae dmenu
+    category=$(main_menu | vicinae dmenu)
+    [[ -z "$category" ]] && exit 0
+
+    # Step 2: Open corresponding submenu
+    case "$category" in
+        "--- USER CUSTOMIZATIONS ---")
+            choice=$(user_customizations_menu | vicinae dmenu)
+            ;;
+        "--- SYSTEM DEFAULTS  ---")
+            choice=$(system_defaults_menu | vicinae dmenu)
+            ;;
+        "--- UTILITIES ---")
+            choice=$(utilities_menu | vicinae dmenu)
+            ;;
+        *)
+            exit 0
+            ;;
+    esac
+
+    [[ -z "$choice" ]] && exit 0
+
+    # Step 3: Handle target option selection & execution
     case "$choice" in
         # ── User config files ─────────────────────────────────────────────────
         "Edit User Defaults")                   file="$userConfigs/UserDefaults.lua" ;;
@@ -97,8 +127,6 @@ main() {
             command -v nwg-displays &>/dev/null || { notify-send -i "$iconsDirectory/error.svg" "E-R-R-O-R" "Install nwg-displays first"; exit 1; }
             nwg-displays; return ;;
         "Choose Hyprland Animations")           "$scriptsDir/Animations.sh";       return ;;
-        "Choose Monitor Profiles")              "$scriptsDir/MonitorProfiles.sh";   return ;;
-        "Choose Rofi Themes")                   "$scriptsDir/RofiThemeSelectorModified.sh"; return ;;
         "Search for Keybinds")                  "$scriptsDir/KeyBinds.sh";          return ;;
         "Toggle Game Mode")                     "$scriptsDir/GameMode.sh";          return ;;
         *) return ;;
@@ -108,13 +136,5 @@ main() {
         $term -e $edit "$file"
     fi
 }
-
-if pidof rofi > /dev/null; then
-    pkill rofi
-fi
-
-# Don't ask for more columns than the item count can actually fill
-itemCount=$(menu | wc -l)
-rofiColumns=$(rofi_cap_columns "$rofiColumns" "$itemCount" 6)
 
 main

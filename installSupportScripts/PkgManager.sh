@@ -38,7 +38,7 @@ _resolve_pkg() {
                 rsync)                  echo "rsync" ;;
                 matugen)                echo "matugen" ;;
                 waybar)                 echo "waybar" ;;
-                rofi)                   echo "rofi" ;;
+                vicinae)                echo "vicinae" ;;
                 swaync)                 echo "swaync" ;;
                 nwg-displays)           echo "nwg-displays" ;;
                 accurse)                echo "accurse" ;;
@@ -81,7 +81,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkgconf" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop-bin" ;;
-                power-profiles-daemon)  echo "power-profiles-daemon" ;;
+                power-pvicinaeles-daemon)  echo "power-pvicinaeles-daemon" ;;
                 millennium)             echo "millennium" ;;   # AUR
                 *)                      echo "$logical" ;;
             esac ;;
@@ -90,7 +90,7 @@ _resolve_pkg() {
                 rsync)                  echo "rsync" ;;
                 matugen)                echo "matugen" ;;
                 waybar)                 echo "waybar" ;;
-                rofi)                   echo "rofi" ;;
+                vicinae)                echo "vicinae" ;;
                 swaync)                 echo "sway-notification-center" ;;
                 nwg-displays)           echo "nwg-displays" ;;
                 accurse)                echo "accurse" ;;
@@ -133,7 +133,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
-                power-profiles-daemon)  echo "power-profiles-daemon" ;;
+                power-pvicinaeles-daemon)  echo "power-pvicinaeles-daemon" ;;
                 millennium)             echo "millennium" ;;   # not packaged — falls to official installer script
                 *)                      echo "$logical" ;;
             esac ;;
@@ -142,7 +142,7 @@ _resolve_pkg() {
                 rsync)                  echo "rsync" ;;
                 matugen)                echo "matugen" ;;
                 waybar)                 echo "waybar" ;;
-                rofi)                   echo "rofi" ;;
+                vicinae)                echo "vicinae" ;;
                 swaync)                 echo "SwayNotificationCenter" ;;   # COPR — see install_pkgs
                 nwg-displays)           echo "nwg-displays" ;;
                 accurse)                echo "accurse" ;;
@@ -185,7 +185,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkgconf-pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
-                power-profiles-daemon)  echo "power-profiles-daemon" ;;
+                power-pvicinaeles-daemon)  echo "power-pvicinaeles-daemon" ;;
                 millennium)             echo "millennium" ;;   # not packaged — falls to official installer script
                 *)                      echo "$logical" ;;
             esac ;;
@@ -194,7 +194,7 @@ _resolve_pkg() {
                 rsync)                  echo "rsync" ;;
                 matugen)                echo "matugen" ;;
                 waybar)                 echo "waybar" ;;
-                rofi)                   echo "rofi" ;;
+                vicinae)                echo "vicinae" ;;
                 swaync)                 echo "SwayNotificationCenter" ;;
                 nwg-displays)           echo "nwg-displays" ;;
                 accurse)                echo "accurse" ;;
@@ -237,7 +237,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkgconf-pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
-                power-profiles-daemon)  echo "power-profiles-daemon" ;;
+                power-pvicinaeles-daemon)  echo "power-pvicinaeles-daemon" ;;
                 millennium)             echo "millennium" ;;   # not packaged — falls to official installer script
                 *)                      echo "$logical" ;;
             esac ;;
@@ -314,7 +314,7 @@ _install_kde_apps() {
 #                     native Steam install (not Flatpak/Snap) — see
 #                     https://docs.steambrew.app/users/getting-started/installation.
 
-_SOURCE_BUILDABLE=("matugen" "awww" "nwg-displays" "accurse" "cliphist" "hyprpolkitagent" "topgrade" "spicetify-cli" "vesktop" "millennium")
+_SOURCE_BUILDABLE=("matugen" "awww" "nwg-displays" "accurse" "cliphist" "hyprpolkitagent" "topgrade" "spicetify-cli" "vesktop" "millennium" "vicinae")
 
 _is_source_buildable() {
     local pkg="$1"
@@ -543,6 +543,18 @@ _install_from_source() {
                 echo "Millennium installed successfully. Launch Steam to finish setup — the"
                 echo "Millennium panel should appear automatically in the Steam window."
                 ;;
+            vicinae)
+                echo "Installing Vicinae via official installer (vicinae.com)..."
+                if ! command -v curl &>/dev/null; then
+                    echo "curl is required to install Vicinae but is not installed."
+                    return 1
+                fi
+                if ! curl -fsSL https://vicinae.com/install | bash; then
+                    echo "Failed to install Vicinae via official installer script."
+                    return 1
+                fi
+                echo "Vicinae installed successfully."
+                ;;
             *)
                 echo "No source build method available for $pkg. Please install it manually."
                 return 1
@@ -611,6 +623,16 @@ install_pkgs() {
                     echo "Failed to enable COPR repo for topgrade. Please enable it manually and re-run:"
                     echo "  sudo dnf copr enable lilay/topgrade"
                     return 1
+                }
+            fi
+        fi
+
+        # vicinae COPR for Fedora
+        if [ "$pkg" = "vicinae" ] && [ "$PKG_MANAGER" = "dnf" ]; then
+            if ! dnf copr list --enabled 2>/dev/null | grep -qi "scottames/vicinae"; then
+                echo "Enabling COPR repo for vicinae (scottames/vicinae)..."
+                sudo dnf copr enable -y scottames/vicinae || {
+                    echo "Failed to enable COPR repo for vicinae. Falling back to official installer..."
                 }
             fi
         fi

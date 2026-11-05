@@ -8,12 +8,7 @@ IFS=$'\n\t'
 waybarStyles="$HOME/.config/waybar/style"
 waybarStyle="$HOME/.config/waybar/style.css"
 scriptsDir="$HOME/.config/hypr/scripts"
-rofiConfig="$HOME/.config/rofi/config-waybar-style.rasi"
 msg='Some waybar STYLES ARE NOT fully compatible with some LAYOUTS'
-
-# Scale window width / column count to the focused monitor's aspect ratio
-source "$scriptsDir/RofiWidthScale.sh"
-IFS=' ' read -r rofiWidth rofiColumns <<< "$(rofi_scaled_width_and_columns)"
 
 # Apply selected style
 apply_style() {
@@ -45,17 +40,7 @@ main() {
         fi
     done
 
-    # Don't ask for more columns than the item count can actually fill
-    rofiColumns=$(rofi_cap_columns "$rofiColumns" "${#options[@]}" 7)
-
-    # launch rofi with the annotated list and pre‑selected row
-    choice=$(printf '%s\n' "${options[@]}" \
-        | rofi -i -dmenu \
-               -config "$rofiConfig" \
-               -mesg "$msg" \
-               -selected-row "$defaultRow" \
-               -theme-str "window { width: ${rofiWidth}%; } listview { columns: ${rofiColumns}; }"
-    )
+    choice=$(printf '%s\n' "${options[@]}" | vicinae dmenu)
 
     [[ -z "$choice" ]] && { echo "No option selected. Exiting."; exit 0; }
 
@@ -63,11 +48,5 @@ main() {
     choice=${choice#"$MARKER "}
     apply_style "$choice"
 }
-
-# Kill Rofi if already running before execution
-if pgrep -x "rofi" >/dev/null; then
-    pkill rofi
-    #exit 0
-fi
 
 main

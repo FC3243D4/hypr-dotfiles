@@ -29,15 +29,13 @@ require("UserConfigs/UserDefaults") -- Set your defaults editor through ENV in ~
 -----------------------
 ---- STANDARD APPS ----
 -----------------------
-hl.bind(mainMod .. " + D",                  hl.dsp.exec_cmd("pkill rofi || true && rofi -show drun -modi drun,filebrowser,run,window"),     { description = "app launcher" })
+hl.bind(mainMod .. " + D",                  hl.dsp.exec_cmd("vicinae toggle"),                                                              { description = "app launcher/calculator" })
 hl.bind(mainMod .. " + Return",             hl.dsp.exec_cmd(term),                                                                          { description = "open terminal" })
 hl.bind(mainMod .. " + SHIFT + Return",     hl.dsp.exec_cmd(scriptsDir .. "/Dropterminal.sh" .. term),                                      { description = "dropdown terminal" })
 hl.bind(mainMod .. " + E",                  hl.dsp.exec_cmd(files),                                                                         { description = "open file manager" })
 hl.bind(mainMod .. " + B",                  hl.dsp.exec_cmd("xdg-open https://"),                                                           { description = "open default browser" })
 hl.bind(mainMod .. " + H",                  hl.dsp.exec_cmd(scriptsDir .. "/KeyHints.sh"),                                                  { description = "show keybinds cheat sheet" })
-hl.bind(mainMod .. " + S",                  hl.dsp.exec_cmd(scriptsDir .. "/RofiSearch.sh"),                                                { description = "web search" })
 hl.bind(mainMod .. " + G",                  hl.dsp.exec_cmd(scriptsDir .. "/GameMode.sh --polkit"),                                         { description = "toggle game mode" })
-hl.bind(mainMod .. " + C",                  hl.dsp.exec_cmd(scriptsDir .. "/RofiCalc.sh"),                                                  { description = "calculator" })
 hl.bind(mainMod .. " +Q",                   hl.dsp.window.close(),                                                                          { description = "close active window" })
 hl.bind(mainMod .. " + Escape",             hl.dsp.exec_cmd(scriptsDir .. "/LockScreen.sh"),                                                { description = "lock screen" })
 hl.bind(mainMod .. " + SHIFT + Escape",     hl.dsp.exec_cmd(scriptsDir .. "/Wlogout.sh"),                                                   { description = "powermenu" })
@@ -57,16 +55,15 @@ hl.bind(mainMod .. " + SPACE",              hl.dsp.window.float({ action = "togg
 ----------------------------
 ---- TYPING / SEARCHING ----
 ----------------------------
-hl.bind(mainMod .. " + SHIFT + E",              hl.dsp.exec_cmd(scriptsDir .. "/RofiEmoji.sh"),                     { description = "emoji menu" })
-hl.bind(mainMod .. " + K",              hl.dsp.exec_cmd(scriptsDir .. "/KeyBinds.sh"),                      { description = "search keybinds" })
-hl.bind(mainMod .. " + V",              hl.dsp.exec_cmd(scriptsDir .. "/ClipManager.sh"),                   { description = "clipboard manager" })
-hl.bind(mainMod .. " + CTRL + SPACE",   hl.dsp.exec_cmd(scriptsDir .. "/SwitchKeyboardLayout.sh"),          { description = "switch keyboard layout globally" })
+hl.bind(mainMod .. " + SHIFT + E",              hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/core/search-emojis"),        { description = "emoji menu" })
+hl.bind(mainMod .. " + K",              hl.dsp.exec_cmd(scriptsDir .. "/KeyBinds.sh"),                                          { description = "search keybinds" })
+hl.bind(mainMod .. " + V",              hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"),                 { description = "clipboard manager" })
+hl.bind(mainMod .. " + CTRL + SPACE",   hl.dsp.exec_cmd(scriptsDir .. "/SwitchKeyboardLayout.sh"),                              { description = "switch keyboard layout globally" })
 
 ------------------
 ---- SETTINGS ----
 ------------------
 hl.bind(mainMod .. " + ALT + O",            hl.dsp.exec_cmd(scriptsDir .. "/ChangeBlur.sh"),                                                    { description = "toggle blur" })
-hl.bind(mainMod .. " + CTRL + ALT + R",     hl.dsp.exec_cmd("pkill rofi || true && " .. scriptsDir .. "/RofiThemeSelectorModified.sh"),        { description = "rofi theme selector " })
 hl.bind(mainMod .. " + CTRL + A",           hl.dsp.exec_cmd(scriptsDir .. "/Animations.sh"),                                                    { description = "animations menu" })
 
 ------------------------------
@@ -207,7 +204,7 @@ hl.bind(mainMod .. " + CTRL + ALT + SHIFT + Tab",       hl.dsp.group.prev(),    
 ----------------------------------
 hl.bind(mainMod .. " + O",                  hl.dsp.window.set_prop({ prop = "opaque", value = "toggle" }),              { description = "toggle active window opacity" })
 hl.bind(mainMod .. " + SHIFT + Q",          hl.dsp.exec_cmd(scriptsDir .. "/KillActiveProcess.sh"),                     { description = "terminate active process" })
-hl.bind(mainMod .. " + CTRL + Escape",      hl.dsp.exec_cmd(scriptsDir .. "/KoolQuickSettings.sh"),                   { description = "quick settings menu" })
+hl.bind(mainMod .. " + CTRL + Escape",      hl.dsp.exec_cmd(scriptsDir .. "/QuickSettings.sh"),                         { description = "quick settings menu" })
 
 -----------------
 ---- LAYOUTS ----
