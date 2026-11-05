@@ -169,52 +169,24 @@ disable_notif_inhibit() {
     fi
 }
 
-# Docker/compose helpers. Try unprivileged first (works when the user is in
-# the `docker` group, which is the normal setup). If that fails — most
-# commonly because the user *isn't* in the docker group and the daemon
-# socket is root-only — fall back to pkexec/sudo based on $1 ("polkit" or
-# "no-polkit"), same as the systemd unit handling below.
+# Docker/compose helpers. These run as the invoking user (assumes the user is
+# in the `docker` group, which is required for the `docker` CLI to work
+# without sudo in the first place) — no polkit/sudo variant needed.
 stop_docker_workloads() {
-    local mode="$1"
     if [ -n "$gameModeDockerContainers" ]; then
-        if ! docker stop $gameModeDockerContainers >/dev/null 2>&1; then
-            if [ "$mode" = "polkit" ]; then
-                pkexec docker stop $gameModeDockerContainers >/dev/null 2>&1
-            else
-                sudo docker stop $gameModeDockerContainers >/dev/null 2>&1
-            fi
-        fi
+        docker stop $gameModeDockerContainers >/dev/null 2>&1
     fi
     for i in "${!gameModeComposeFiles[@]}"; do
-        if ! docker compose -f "${gameModeComposeFiles[$i]}" stop ${gameModeComposeServices[$i]} >/dev/null 2>&1; then
-            if [ "$mode" = "polkit" ]; then
-                pkexec docker compose -f "${gameModeComposeFiles[$i]}" stop ${gameModeComposeServices[$i]} >/dev/null 2>&1
-            else
-                sudo docker compose -f "${gameModeComposeFiles[$i]}" stop ${gameModeComposeServices[$i]} >/dev/null 2>&1
-            fi
-        fi
+        docker compose -f "${gameModeComposeFiles[$i]}" stop ${gameModeComposeServices[$i]} >/dev/null 2>&1
     done
 }
 
 start_docker_workloads() {
-    local mode="$1"
     if [ -n "$gameModeDockerContainers" ]; then
-        if ! docker start $gameModeDockerContainers >/dev/null 2>&1; then
-            if [ "$mode" = "polkit" ]; then
-                pkexec docker start $gameModeDockerContainers >/dev/null 2>&1
-            else
-                sudo docker start $gameModeDockerContainers >/dev/null 2>&1
-            fi
-        fi
+        docker start $gameModeDockerContainers >/dev/null 2>&1
     fi
     for i in "${!gameModeComposeFiles[@]}"; do
-        if ! docker compose -f "${gameModeComposeFiles[$i]}" start ${gameModeComposeServices[$i]} >/dev/null 2>&1; then
-            if [ "$mode" = "polkit" ]; then
-                pkexec docker compose -f "${gameModeComposeFiles[$i]}" start ${gameModeComposeServices[$i]} >/dev/null 2>&1
-            else
-                sudo docker compose -f "${gameModeComposeFiles[$i]}" start ${gameModeComposeServices[$i]} >/dev/null 2>&1
-            fi
-        fi
+        docker compose -f "${gameModeComposeFiles[$i]}" start ${gameModeComposeServices[$i]} >/dev/null 2>&1
     done
 }
 
@@ -226,7 +198,7 @@ stop_services_polkit() {
     if [ -n "$gameModeUserUnits" ]; then
         systemctl --user stop $gameModeUserUnits >/dev/null 2>&1
     fi
-    stop_docker_workloads "polkit"
+    stop_docker_workloads
 }
 
 start_services_polkit() {
@@ -236,7 +208,7 @@ start_services_polkit() {
     if [ -n "$gameModeUserUnits" ]; then
         systemctl --user start $gameModeUserUnits >/dev/null 2>&1
     fi
-    start_docker_workloads "polkit"
+    start_docker_workloads
 }
 
 # No-polkit versions of the stop/start functions use sudo to run systemctl as root. The user must have sudo privileges for these to work.
@@ -247,7 +219,7 @@ stop_services_no_polkit() {
     if [ -n "$gameModeUserUnits" ]; then
         systemctl --user stop $gameModeUserUnits >/dev/null 2>&1
     fi
-    stop_docker_workloads "no-polkit"
+    stop_docker_workloads
 }
 
 start_services_no_polkit() {
@@ -257,7 +229,7 @@ start_services_no_polkit() {
     if [ -n "$gameModeUserUnits" ]; then
         systemctl --user start $gameModeUserUnits >/dev/null 2>&1
     fi
-    start_docker_workloads "no-polkit"
+    start_docker_workloads
 }
 
 
