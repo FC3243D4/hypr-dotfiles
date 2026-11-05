@@ -48,6 +48,11 @@ output_path = '~/.cache/matugen/vscode-colors'
 input_path = '~/.config/matugen/templates/vscode-colors-template.json'
 output_path = '~/.cache/matugen/vscode-colors.json'
 
+[templates.vicinae]
+input_path = '~/.config/matugen/templates/vicinae.toml'
+output_path = '~/.local/share/vicinae/themes/matugen.toml'
+post_hook = 'vicinae theme set matugen'
+
 [config.custom_colors]
 diff_added_bg = { color = "#143620", blend = false }
 diff_added_fg = { color = "#4CAF50", blend = false }
