@@ -237,7 +237,7 @@ hl.window_rule({ match = { title = "^(wind.*)" },       no_initial_focus = true 
 
 -- ── LAYER RULES ──────────────────────────────────────────────────────────────
 
-hl.layer_rule({ match = { namespace = "rofi" },                blur = true, ignore_alpha = 0 })
+hl.layer_rule({ match = { namespace = "vicinae" },             blur = true, ignore_alpha = 0, })
 hl.layer_rule({ match = { namespace = "notifications" },       blur = true, ignore_alpha = 0 })
 hl.layer_rule({ match = { namespace = "quickshell:overview" }, blur = true, ignore_alpha = 0.5 })
 
