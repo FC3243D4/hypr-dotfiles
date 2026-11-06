@@ -32,7 +32,10 @@
       "compact_mode": {
          "enabled": false
       },
-      "material": "blur"
+      "material": "blur",
+      "layer_shell": {
+         "enabled": false
+      }
    },
    "providers": {
       "clipboard": {

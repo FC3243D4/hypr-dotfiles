@@ -126,6 +126,10 @@ hl.window_rule({ match = { class = "^(cohesion)$" }, tag = "+notes" })
 -- Office
 hl.window_rule({ match = { class = "^(ONLYOFFICE)$" }, tag = "+office" })
 hl.window_rule({ match = { class = "^(libreoffice-calc|libreoffice-writer|libreoffice-impress)$" }, tag = "+office" })
+
+--launcher
+hl.window_rule({ match = { class = "^(vicinae)$" }, tag = "+launcher" })
+
 -- ── POSITION ─────────────────────────────────────────────────────────────────
 
 -- warning: center on floating:1 causes menus to float and center too — left disabled
@@ -171,6 +175,7 @@ hl.window_rule({ match = { tag = "wallpaper*" },                                
 hl.window_rule({ match = { tag = "settings*" },                                            float = true })
 hl.window_rule({ match = { tag = "viewer*" },                                              float = true })
 hl.window_rule({ match = { tag = "KooL-Settings*" },                                       float = true })
+hl.window_rule({ match = { tag = "launcher*" },                                            float = true })
 hl.window_rule({ match = { class = "(org.gnome.Calculator)", title = "(Calculator)" },     float = true })
 hl.window_rule({ match = { class = "^([Qq]alculate-gtk)$" },                               float = true })
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" },                             float = true })
@@ -208,6 +213,7 @@ hl.window_rule({ match = { title = "^(Picture-in-Picture)$" },                  
 hl.window_rule({ match = { tag = "music*" },                                    opacity = "0.9 override 0.7 override" })
 hl.window_rule({ match = { tag = "games*" },                                    opacity = "1 override 1 override 1 override" })
 hl.window_rule({ match = { tag = "video*" },                                    opacity = "1.0 override 1.0 override" })
+hl.window_rule({ match = { tag = "launcher*" },                                 opacity = "1.0 override 1.0 override" })
 
 
 -- ── SIZE ─────────────────────────────────────────────────────────────────────
@@ -221,6 +227,9 @@ hl.window_rule({ match = { tag = "settings*" },                                 
 
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, pin = true, keep_aspect_ratio = true })
 
+-- ── LAUNCHER ─────────────────────────────────────────────────────────────────
+
+hl.window_rule({ match = { tag = "launcher*" }, decorate = false })
 
 -- ── BLUR & FULLSCREEN ────────────────────────────────────────────────────────
 
@@ -237,7 +246,6 @@ hl.window_rule({ match = { title = "^(wind.*)" },       no_initial_focus = true 
 
 -- ── LAYER RULES ──────────────────────────────────────────────────────────────
 
-hl.layer_rule({ match = { namespace = "vicinae" },             blur = true, ignore_alpha = 0, })
 hl.layer_rule({ match = { namespace = "notifications" },       blur = true, ignore_alpha = 0 })
 hl.layer_rule({ match = { namespace = "quickshell:overview" }, blur = true, ignore_alpha = 0.5 })
 
