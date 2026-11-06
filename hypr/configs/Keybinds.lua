@@ -55,10 +55,10 @@ hl.bind(mainMod .. " + SPACE",              hl.dsp.window.float({ action = "togg
 ----------------------------
 ---- TYPING / SEARCHING ----
 ----------------------------
-hl.bind(mainMod .. " + SHIFT + E",              hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/core/search-emojis"),        { description = "emoji menu" })
-hl.bind(mainMod .. " + K",              hl.dsp.exec_cmd(scriptsDir .. "/KeyBinds.sh"),                                          { description = "search keybinds" })
-hl.bind(mainMod .. " + V",              hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"),                 { description = "clipboard manager" })
-hl.bind(mainMod .. " + CTRL + SPACE",   hl.dsp.exec_cmd(scriptsDir .. "/SwitchKeyboardLayout.sh"),                              { description = "switch keyboard layout globally" })
+hl.bind(mainMod .. " + SHIFT + E",              hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/core/search-emojis"),                        { description = "emoji menu" })
+hl.bind(mainMod .. " + K",              hl.dsp.exec_cmd("vicinae vicinae://launch/@sovereign/store.vicinae.hypr-keybinds/hyprland-keybinds"),   { description = "search keybinds" })
+hl.bind(mainMod .. " + V",              hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"),                                 { description = "clipboard manager" })
+hl.bind(mainMod .. " + CTRL + SPACE",   hl.dsp.exec_cmd(scriptsDir .. "/SwitchKeyboardLayout.sh"),                                              { description = "switch keyboard layout globally" })
 
 ------------------
 ---- SETTINGS ----

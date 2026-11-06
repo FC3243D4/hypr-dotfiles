@@ -47,6 +47,8 @@ coreDeps=(
     "matugen --version|matugen"
     "waybar --version|waybar"
     "command -v vicinae|vicinae"
+    "command -v npm|npm"
+    "command -v git|git"
 )
 _check_deps "${coreDeps[@]}"
 
