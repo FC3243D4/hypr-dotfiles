@@ -81,7 +81,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkgconf" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop-bin" ;;
-                power-pvicinaeles-daemon)  echo "power-pvicinaeles-daemon" ;;
+                power-profiles-daemon)  echo "power-profiles-daemon" ;;
                 millennium)             echo "millennium" ;;   # AUR
                 *)                      echo "$logical" ;;
             esac ;;
@@ -133,7 +133,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
-                power-pvicinaeles-daemon)  echo "power-pvicinaeles-daemon" ;;
+                power-profiles-daemon)  echo "power-profiles-daemon" ;;
                 millennium)             echo "millennium" ;;   # not packaged — falls to official installer script
                 *)                      echo "$logical" ;;
             esac ;;
@@ -185,7 +185,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkgconf-pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
-                power-pvicinaeles-daemon)  echo "power-pvicinaeles-daemon" ;;
+                power-profiles-daemon)  echo "power-profiles-daemon" ;;
                 millennium)             echo "millennium" ;;   # not packaged — falls to official installer script
                 *)                      echo "$logical" ;;
             esac ;;
@@ -237,7 +237,7 @@ _resolve_pkg() {
                 pkgconf)                echo "pkgconf-pkg-config" ;;
                 spicetify-cli)          echo "spicetify-cli" ;;
                 vesktop)                echo "vesktop" ;;
-                power-pvicinaeles-daemon)  echo "power-pvicinaeles-daemon" ;;
+                power-profiles-daemon)  echo "power-profiles-daemon" ;;
                 millennium)             echo "millennium" ;;   # not packaged — falls to official installer script
                 *)                      echo "$logical" ;;
             esac ;;
