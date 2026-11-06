@@ -29,6 +29,9 @@ hl.on("hyprland.start", function()
         -- Idle / lock
         "hypridle",
 
+        -- Vicinae
+        "vicinae server",
+
         -- Disabled extras:
         -- "scripts/PolkitNixOS.sh",    -- Gnome polkit for NixOS
         -- "scripts/PortalHyprland.sh", -- force-start xdg-desktop-portal-hyprland
