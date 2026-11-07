@@ -79,6 +79,31 @@ done
 
 echo ""
 
+# ─── Vicinae extensions ───────────────────────────────────────────────────────
+echo "=== Installing Vicinae extensions ==="
+
+VICINAE_EXT_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/vicinae/extensions"
+KEYBINDS_EXT_NAME="store.vicinae.hypr-keybinds"
+KEYBINDS_EXT_REPO="https://github.com/vicinaehq/extensions"
+KEYBINDS_EXT_SUBDIR="extensions/hypr-keybinds"
+
+if ! command -v vicinae &>/dev/null; then
+    echo "vicinae not found — skipping extension install."
+elif [ -d "$VICINAE_EXT_DIR/$KEYBINDS_EXT_NAME" ]; then
+    echo "$KEYBINDS_EXT_NAME already installed."
+else
+    tmp="$(mktemp -d)"
+    if git clone --depth 1 "$KEYBINDS_EXT_REPO" "$tmp/ext" \
+        && (cd "$tmp/ext/$KEYBINDS_EXT_SUBDIR" && npm install && npm run build); then
+        echo "Installed $KEYBINDS_EXT_NAME."
+    else
+        echo "Error: failed to build $KEYBINDS_EXT_NAME. Skipping."
+    fi
+    rm -rf "$tmp"
+fi
+
+echo ""
+
 # ─── GPU detection / NVIDIA env toggle ─────────────────────────────────────────
 # Detects whether an NVIDIA GPU is present and uncomments/comments the NVIDIA
 # block in ENVariables.lua accordingly. Only touches the four lines in the
